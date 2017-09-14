@@ -3,7 +3,7 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 
-\title{CAS 741: Problem Statement\\Analysis and Benchmarking of a Family of Non-commercial ODE Solvers}
+\title{CAS 741: Problem Statement\\Analysis and Comparison of a Family of Single ODE Solvers}
 
 \author{Paul Aoanan - 000952218}
 
@@ -28,20 +28,20 @@ September 15, 2017 & Paul Aoanan & Initial Draft\\
 \end{tabularx}
 \end{table}
 
-Known elementary techniques of solving ordinary differential equations (ODEs) use the linear
-approximation method wherein the solution is based upon assuming or ``approximating" the slope
-of the tangent line from one reference point to the next until the target point has been
-reached.
+In physical sciences, mathematical models are derived from scientific models to represent a real world phenomenon through formal mathematical constructs.
+
+Scientific models in the study of radioactivity, carbon decay, and Newton's Law of Cooling
+involve the use of ordinary differential equations (ODEs).
+
+Known elementary techniques of solving ODEs use the linear approximation method wherein the
+solution is based upon assuming or ``approximating" the slope of the tangent line from one
+reference point to the next until the target point has been reached.
 
 The goal is to find a step-size so small that the approximate tangent line coincides
 with the true curve.
 
 Since these methods only yield approximate solutions, these methods introduce an error term to
 the solution.
-
-As well, the use of a small, near infinitesimal, step-size in machine computing can lead to a
-large number of iterations and the introduction of round-off errors. Alternatively, the use of a
-large step size can miss the goal of approximating the true curve.
 
 Multiple methods in solving ODEs exist.
 Examples of which are the following:
@@ -55,6 +55,8 @@ Examples of which are the following:
 These different methods vary in accuracy due to the error terms inherent in each technique.
 
 The problem exists in finding the most accurate method (the method which produces the least error) in its scientific computing implementation.
+
+A library for a family of single ode solvers will be implemented for comparison and analysis.
 
 
 %Comment
