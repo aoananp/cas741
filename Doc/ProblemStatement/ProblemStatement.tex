@@ -37,11 +37,11 @@ Known elementary techniques of solving ODEs use the linear approximation method 
 solution is based upon assuming or ``approximating" the slope of the tangent line from one
 reference point to the next until the target point has been reached.
 
-The goal is to find a step-size so small that the approximate tangent line coincides
-with the true curve.
-
 Since these methods only yield approximate solutions, these methods introduce an error term to
 the solution.
+
+One of the sources of error in solving ODEs is the arbitrary step-size.
+The goal is not to minimize the time-step, but to solve the equation using a step-size that will yield an acceptable error.
 
 Multiple methods in solving ODEs exist.
 Examples of which are the following:
