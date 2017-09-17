@@ -72,14 +72,14 @@
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
-\newcommand{\progname}{ProgName} % PUT YOUR PROGRAM NAME HERE
+\newcommand{\progname}{SODEA} % PUT YOUR PROGRAM NAME HERE
 
 \usepackage{fullpage}
 
 \begin{document}
 
-\title{Project Title} 
-\author{Author Name}
+\title{Software Requirements Specification for a Family of Single ODE Solvers Analyzer (SODEA)} 
+\author{Paul Aoanan}
 \date{\today}
 	
 \maketitle
@@ -179,28 +179,53 @@ which heat is transferred in
 
 \section{Introduction}
 
-\wss{This SRS template is based on \citet{SmithAndLai2005, SmithEtAl2007}.  It
-  will get you started, but you will have to make changes.  Any changes to
-  section headings should be approved by the instructor, since that implies a
-  deviation from the template.  Although the bits shown below do not include
-  type information, you may need to add this information for your problem.}
+In physical sciences, mathematical models are derived from scientific models to represent a real world phenomenon through formal mathematical constructs.
 
-\wss{Feel free to change the appearance of the report by modifying the LaTeX
-  commands.}
+Scientific models in the study of radioactivity, carbon decay, and Newton's Law of Cooling
+involve the use of ordinary differential equations (ODEs).
 
-\wss{If you are documenting a family of models, you can start from this same
-  template, but you will have to add a section for variabilities.  For program
-  families you should look at \cite{Smith2006, SmithMcCutchanAndCarette2017}.
-  You should be able to do one document that captures the commonality analysis
-  and the requirements.}
+Known elementary techniques of solving ODEs in the discrete domain use the linear approximation
+method wherein the solution is based upon assuming or ``approximating" the slope of the tangent
+line from one reference point to the next until the target point has been reached.
+
+The following section provides an overview of the Software Requirements
+Specification (SRS) for a family of single ODE solvers analyzer. The developed program will be
+called Single ODE Solvers Analyzer (\progname{}). This section explains the purpose of this document, the scope of
+the system, and the characteristics of the intended readers and the organization of
+the document.
 
 \subsection{Purpose of Document}
 
+The main purpose of this document is to formally describe the known well-known methods of
+solving ODEs.
+The goals and mathematical models used in the \progname{} code are provided with an emphasis on
+explicitly identifying assumptions, constraints, and unambiguous definitions.
+
+This document contains the required functionality of the \progname{} software as well the
+non-functional requirements that the software has to meet. This document governs the subsequent
+software development activities, including writing the design specification, code, and
+the software verification and validation plan and execution.
+
 \subsection{Scope of Requirements} 
 
-\subsection{Characteristics of Intended Reader} 
+The scope of requirements is limited to the analysis of a family of single ODE solvers. Given
+the appropriate inputs, the code for the \progname{} is intended to find the solution to a
+single ODE problem through multiple methods.
+
+\subsection{Characteristics of Intended Reader}
+
+Reviewers of this document should have an elementary understanding of ordinary differential
+equations and numerical methods, as typically covered in first and second year Calculus courses.
+The users of \progname{} can have a lower level expertise, as explained in Section~\ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
+
+The organization of this document follows the template for an SRS for scientific
+computing software proposed by !!!INSERT CITATION HERE!!!. The presentation follows the standard
+pattern of presenting goals, theories, definitions, and assumptions. For readers that would
+like a more bottom up approach, they can start reading the instance models in Section
+\ref{sec_instance} and trace back to find any additional information they require.  The
+instance models provide the Ordinary Differential Equations (ODEs)
 
 \section{General System Description}
 
@@ -228,7 +253,7 @@ describes the user characteristics and lists the system constraints.
 \subsection{User Characteristics} \label{SecUserCharacteristics}
 
 The end user of \progname{} should have an understanding of undergraduate Level
-1 Calculus and Physics.
+1 Calculus.
 
 \subsection{System Constraints}
 
@@ -757,7 +782,7 @@ instance models, requirements, and data constraints on each other.
 \newpage
 
 \bibliographystyle {plainnat}
-\bibliography {../../ReferenceMaterial/References}
+\bibliography {SRS}
 
 \newpage
 
