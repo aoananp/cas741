@@ -72,13 +72,13 @@
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
-\newcommand{\progname}{SODEA} % PUT YOUR PROGRAM NAME HERE
+\newcommand{\progname}{LODES} % PUT YOUR PROGRAM NAME HERE
 
 \usepackage{fullpage}
 
 \begin{document}
 
-\title{Software Requirements Specification for a Family of Single ODE Solvers Analyzer (SODEA)} 
+\title{Software Requirements Specification for a Library of ODE Solvers (LODS)} 
 \author{Paul Aoanan}
 \date{\today}
 	
@@ -190,27 +190,26 @@ line from one reference point to the next until the target point has been reache
 
 The following section provides an overview of the Software Requirements
 Specification (SRS) for a family of single ODE solvers analyzer. The developed program will be
-called Single ODE Solvers Analyzer (\progname{}). This section explains the purpose of this document, the scope of
-the system, and the characteristics of the intended readers and the organization of
-the document.
+called Library of ODE Solevrs (\progname{}). This section explains the purpose of this
+document, the scope of the system, and the characteristics of the intended readers and the
+organization of the document.
 
 \subsection{Purpose of Document}
 
 The main purpose of this document is to formally describe the known well-known methods of
-solving ODEs.
-The goals and mathematical models used in the \progname{} code are provided with an emphasis on
-explicitly identifying assumptions, constraints, and unambiguous definitions.
+solving ODEs. The goals and mathematical models used in the \progname{} code are provided with
+an emphasis on explicitly identifying assumptions, constraints, and unambiguous definitions.
 
-This document contains the required functionality of the \progname{} software as well the
-non-functional requirements that the software has to meet. This document governs the subsequent
-software development activities, including writing the design specification, code, and
-the software verification and validation plan and execution.
+This document contains the required functionality of the \progname{} software library as well
+the non-functional requirements that the software has to meet. This document governs the
+subsequent software development activities, including writing the design specification, code,
+and the software verification and validation plan and execution.
 
 \subsection{Scope of Requirements} 
 
-The scope of requirements is limited to the analysis of a family of single ODE solvers. Given
-the appropriate inputs, the code for the \progname{} is intended to find the solution to a
-single ODE problem through multiple methods.
+The scope of requirements is limited to the analysis of the library of ODE solvers. Given
+the appropriate inputs, each module in \progname{} is intended to find the solution to an
+ODE problem.
 
 \subsection{Characteristics of Intended Reader}
 
@@ -240,13 +239,14 @@ describes the user characteristics and lists the system constraints.
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item 
+\item Provide the input details of the ODE to be solved, ensuring no errors in data entry
+\item Declaration of the ODE method to be used in solving the ODE
 \end{itemize}
 \item \progname{} Responsibilities:
 \begin{itemize}
-\item Detect data type mismatch, such as a string of characters instead of a
-  floating point number
-\item 
+\item Detect an improper input, such as invalid characters in the ODE statement and incomplete input parameters
+\item Detect a data type mismatch where applicable, such as a string of characters in a floating point value field
+\item Calculate the solution to the ODE problem
 \end{itemize}
 \end{itemize}
 
@@ -257,7 +257,7 @@ The end user of \progname{} should have an understanding of undergraduate Level
 
 \subsection{System Constraints}
 
-\wss{You may not have any system constraints}
+There are no system constraints.
 
 \section{Specific System Description}
 
@@ -310,13 +310,17 @@ includes the following elements:
 
 \subsubsection{Goal Statements}
 
-\noindent Given the \wss{inputs}, the goal statements are:
+\noindent Given the ODE and initial values, the goal statements are:
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:] \wss{One
-    sentence description of the goal.  There may be more than one.  Each Goal
-    should have a meaningful label.}
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Euler's Method.}
+
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Heun's Method.}
+
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Fourth Order Taylor Series Method.}
+
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Fourth Order Runge-Kutta Series Method.}
 
 \end{itemize}
 
