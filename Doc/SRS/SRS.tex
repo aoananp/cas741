@@ -73,12 +73,13 @@
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
 \newcommand{\progname}{LODES} % PUT YOUR PROGRAM NAME HERE
+\newcommand{\progdesc}{Library of ODE Solvers}
 
 \usepackage{fullpage}
 
 \begin{document}
 
-\title{Software Requirements Specification for a Library of ODE Solvers (LODS)} 
+\title{Software Requirements Specification for a \progdesc{} (\progname{})} 
 \author{Paul Aoanan}
 \date{\today}
 	
@@ -104,30 +105,7 @@ This section records information for easy reference.
 
 \subsection{Table of Units}
 
-Throughout this document SI (Syst\`{e}me International d'Unit\'{e}s) is employed
-as the unit system.  In addition to the basic units, several derived units are
-used as described below.  For each unit, the symbol is given followed by a
-description of the unit and the SI name.
-~\newline
-
-\renewcommand{\arraystretch}{1.2}
-%\begin{table}[ht]
-  \noindent \begin{tabular}{l l l} 
-    \toprule		
-    \textbf{symbol} & \textbf{unit} & \textbf{SI}\\
-    \midrule 
-    \si{\metre} & length & metre\\
-    \si{\kilogram} & mass	& kilogram\\
-    \si{\second} & time & second\\
-    \si{\celsius} & temperature & centigrade\\
-    \si{\joule} & energy & Joule\\
-    \si{\watt} & power & Watt (W = \si{\joule\per\second})\\
-    \bottomrule
-  \end{tabular}
-  %	\caption{Provide a caption}
-%\end{table}
-
-\wss{Only include the units that your SRS actually uses}
+There are no physical units used in this SRS.
 
 \subsection{Table of Symbols}
 
@@ -167,7 +145,7 @@ which heat is transferred in
   PS & Physical System Description\\
   R & Requirement\\
   SRS & Software Requirements Specification\\
-  \progname{} & \wss{put your program name here}\\
+  \progname{} & \progdesc{}\\
   T & Theoretical Model\\
   \bottomrule
 \end{tabular}\\
@@ -179,7 +157,8 @@ which heat is transferred in
 
 \section{Introduction}
 
-In physical sciences, mathematical models are derived from scientific models to represent a real world phenomenon through formal mathematical constructs.
+In physical sciences, mathematical models are derived from scientific models to
+represent a real world phenomenon through formal mathematical constructs.
 
 Scientific models in the study of radioactivity, carbon decay, and Newton's Law of Cooling
 involve the use of ordinary differential equations (ODEs).
@@ -189,8 +168,8 @@ method wherein the solution is based upon assuming or ``approximating" the slope
 line from one reference point to the next until the target point has been reached.
 
 The following section provides an overview of the Software Requirements
-Specification (SRS) for a family of single ODE solvers analyzer. The developed program will be
-called Library of ODE Solevrs (\progname{}). This section explains the purpose of this
+Specification (SRS) for a program family of ODE solvers. The developed program will be
+called Library of ODE Solvers (\progname{}). This section explains the purpose of this
 document, the scope of the system, and the characteristics of the intended readers and the
 organization of the document.
 
@@ -208,14 +187,15 @@ and the software verification and validation plan and execution.
 \subsection{Scope of Requirements} 
 
 The scope of requirements is limited to the analysis of the library of ODE solvers. Given
-the appropriate inputs, each module in \progname{} is intended to find the solution to an
+the appropriate inputs, each program in \progname{} is intended to find the solution to an
 ODE problem.
 
 \subsection{Characteristics of Intended Reader}
 
 Reviewers of this document should have an elementary understanding of ordinary differential
 equations and numerical methods, as typically covered in first and second year Calculus courses.
-The users of \progname{} can have a lower level expertise, as explained in Section~\ref{SecUserCharacteristics}.
+The users of \progname{} can have a lower level expertise, as explained in
+Section~\ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
 
@@ -224,7 +204,7 @@ computing software proposed by !!!INSERT CITATION HERE!!!. The presentation foll
 pattern of presenting goals, theories, definitions, and assumptions. For readers that would
 like a more bottom up approach, they can start reading the instance models in Section
 \ref{sec_instance} and trace back to find any additional information they require.  The
-instance models provide the Ordinary Differential Equations (ODEs)
+instance models provide the methods to solve Ordinary Differential Equations (ODEs).
 
 \section{General System Description}
 
@@ -233,12 +213,19 @@ describes the user characteristics and lists the system constraints.
 
 \subsection{System Context}
 
-\wss{Your system context will likely include an explicit list of user and system
-  responsibilities}
+Figure~\ref{Fig_SystemContext} shows the system context.  A circle represents an
+external entity outside the software, the user in this case.  A rectangle
+represents the software system itself (\progname{}).  Arrows are used to show the data
+flow between the system and its environment.
+
+Programs in \progname{} are used inside a wrapper program.  The external interaction is through
+program calls. The solution to the ODE is the output of the function.  The responsibilities of
+the user and the system are as follows:
 
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
+\item Provide the correct function call, while adhering to conventions of the function's prototype
 \item Provide the input details of the ODE to be solved, ensuring no errors in data entry
 \item Declaration of the ODE method to be used in solving the ODE
 \end{itemize}
@@ -264,12 +251,14 @@ There are no system constraints.
 This section first presents the problem description, which gives a high-level
 view of the problem to be solved.  This is followed by the solution characteristics
 specification, which presents the assumptions, theories, definitions and finally
-the instance models.  \wss{Add any project specific details that are relevant
-  for the section overview.}
+the instance models.
 
 \subsection{Problem Description} \label{Sec_pd}
 
-\progname{} is \wss{what problem does your program solve?}
+\progname{} is a software library developed to be provide a means to analyze and compare
+different well-known ODE solvers. It can be used to investigate and determine which of the
+solvers is the most accurate method (the method which produces the least error in their
+scientific computing implementation).
 
 \subsubsection{Terminology and  Definitions}
 
@@ -279,34 +268,19 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item 
+\item Initial condition: A "starting point" of known value that exists in the domain of the solution
+
+\item Step size: The measure of arbitrary value from the point n to n+1 of the domain
+
+\item Derivative:
+
+\item
 
 \end{itemize}
 
 \subsubsection{Physical System Description}
 
-The physical system of \progname{}, as shown in Figure~?,
-includes the following elements:
-
-\begin{itemize}
-
-\item[PS1:] 
-
-\item[PS2:] ...
-
-\end{itemize}
-
-\wss{A figure here may make sense for most SRS documents}
-
-% \begin{figure}[h!]
-% \begin{center}
-% %\rotatebox{-90}
-% {
-%  \includegraphics[width=0.5\textwidth]{<FigureName>}
-% }
-% \caption{\label{<Label>} <Caption>}
-% \end{center}
-% \end{figure}
+This section does not apply.
 
 \subsubsection{Goal Statements}
 
@@ -342,17 +316,17 @@ likely change [LC], in which the respective assumption is used.
 \begin{itemize}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  \wss{Short description of each assumption.  Each assumption
-    should have a meaningful label.  Use cross-references to identify the
-    appropriate traceability to T, GD, DD etc., using commands like dref, ddref etc.}
+  The only required  
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+  The only required  
 
 \end{itemize}
 
 \subsubsection{Theoretical Models}\label{sec_theoretical}
 
 This section focuses on the general equations and laws that \progname{} is based
-on.  \wss{Modify the examples below for your problem, and add additional models
-  as appropriate.}
+on.
 
 ~\newline
 
@@ -364,23 +338,18 @@ on.  \wss{Modify the examples below for your problem, and add additional models
   \rowcolor[gray]{0.9}
   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
   \hline
-  Label&\bf Conservation of thermal energy\\
+  Label&\bf First Order Ordinary Differential Equation\\
   \hline
-  Equation&  $-{\bf \nabla \cdot q} + g$ = $\rho C \frac{\partial T}{\partial t}$\\
+  Equation&  $y' = f(x,y); y = f(x)$\\
   \hline
   Description & 
-                The above equation gives the conservation of energy for transient heat transfer in a material
-                of specific heat capacity $C$ (\si{\joule\per\kilogram\per\celsius}) and density $\rho$ 
-                (\si{\kilogram\per\cubic\metre}), where $\bf q$ is the thermal flux vector (\si{\watt\per\square\metre}),
-                $g$ is the volumetric heat generation
-                (\si{\watt\per\cubic\metre}), $T$ is the temperature
-                (\si{\celsius}),  $t$ is time (\si{\second}), and $\nabla$ is
-                the gradient operator.  For this equation to apply, other forms
-                of energy, such as mechanical energy, are assumed to be negligible in the
-                system (\aref{A_OnlyThermalEnergy}).  In general, the material properties ($\rho$ and $C$) depend on temperature.\\
+                The above model gives the
+                A differential equation is an equation, where the unknown is a
+                function and both the function and its derivatives may appear in the
+                equation. \\
   \hline
   Source &
-           \url{http://www.efunda.com/formulae/heat_transfer/conduction/overview_cond.cfm}\\
+           \url{http://users.math.msu.edu/users/gnagy/teaching/ode.pdf}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
   Ref.\ By & \dref{ROCT}\\
