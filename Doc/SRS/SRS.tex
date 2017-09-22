@@ -211,7 +211,7 @@ instance models provide the methods to solve Ordinary Differential Equations (OD
 This section identifies the interfaces between the system and its environment,
 describes the user characteristics and lists the system constraints.
 
-\subsection{System Context}
+\subsection{Potential System Contexts}
 
 Figure~\ref{Fig_SystemContext} shows the system context.  A circle represents an
 external entity outside the software, the user in this case.  A rectangle
@@ -225,24 +225,24 @@ the user and the system are as follows:
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item Provide the correct function call, while adhering to conventions of the function's prototype
+\item Provide the correct program call, while adhering to conventions of the function's prototype
 \item Provide the input details of the ODE to be solved, ensuring no errors in data entry
 \item Declaration of the ODE method to be used in solving the ODE
 \end{itemize}
 \item \progname{} Responsibilities:
 \begin{itemize}
-\item Detect an improper input, such as invalid characters in the ODE statement and incomplete input parameters
-\item Detect a data type mismatch where applicable, such as a string of characters in a floating point value field
+\item Detect an improper input, such as invalid characters in the ODE statement and incomplete input arguments
+\item Detect a data type mismatch where applicable, such as a string of characters in a floating point argument
 \item Calculate the solution to the ODE problem
 \end{itemize}
 \end{itemize}
 
-\subsection{User Characteristics} \label{SecUserCharacteristics}
+\subsection{Potential User Characteristics} \label{SecUserCharacteristics}
 
 The end user of \progname{} should have an understanding of undergraduate Level
 1 Calculus.
 
-\subsection{System Constraints}
+\subsection{Potential System Constraints}
 
 There are no system constraints.
 
@@ -270,11 +270,14 @@ easier to correctly understand the requirements:
 
 \item Initial condition: A "starting point" of known value that exists in the domain of the solution
 
-\item Step size: The measure of arbitrary value from the point n to n+1 of the domain
+\item Step size: The measure of arbitrary positive value from the point n to n+1 of the domain
 
 \item Derivative:
 
-\item
+\item 
+
+\item Numerical Analysis: An branch of mathematics and computer science wherein the solutions
+are numerical approximatations taking into account the errors involved in the process.
 
 \end{itemize}
 
@@ -288,13 +291,7 @@ This section does not apply.
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Euler's Method.}
-
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Heun's Method.}
-
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Fourth Order Taylor Series Method.}
-
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to a First Order ODE using Fourth Order Runge-Kutta Series Method.}
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to an ordinary differential equation initial value problem.}
 
 \end{itemize}
 
@@ -308,18 +305,26 @@ models can be verified.
 \subsubsection{Assumptions}
 
 This section simplifies the original problem and helps in developing the
-theoretical model by filling in the missing information for the physical
-system. The numbers given in the square brackets refer to the theoretical model
+theoretical model by filling in the missing information for the system.
+The numbers given in the square brackets refer to the theoretical model
 [T], general definition [GD], data definition [DD], instance model [IM], or
 likely change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  The only required  
+  Higher order ODEs can be represented by a system of first order ODEs.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  The only required  
+  The only form of ODE that is relevant to the application of the program is a first order ODE.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+  The user will be responsible for deconstructing higher order ODEs into a system
+  of first order ODEs.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+  The only ODE considered is a linear ODE.
+  
 
 \end{itemize}
 
@@ -338,12 +343,12 @@ on.
   \rowcolor[gray]{0.9}
   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
   \hline
-  Label&\bf First Order Ordinary Differential Equation\\
+  Label&\bf Ordinary Differential Equation\\
   \hline
-  Equation&  $y' = f(x,y); y = f(x)$\\
+  Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)}); y(x_\text{0}) = y_\text{0}$\\
   \hline
   Description & 
-                The above model gives the
+                The above model gives the definition of an ordinary differential equation.
                 A differential equation is an equation, where the unknown is a
                 function and both the function and its derivatives may appear in the
                 equation. \\
