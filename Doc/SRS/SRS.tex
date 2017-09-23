@@ -225,7 +225,7 @@ the user and the system are as follows:
 \begin{itemize}
 \item User Responsibilities:
 \begin{itemize}
-\item Provide the correct program call, while adhering to conventions of the function's prototype
+\item Provide the correct program call, while adhering to conventions of the program's prototype
 \item Provide the input details of the ODE to be solved, ensuring no errors in data entry
 \item Declaration of the ODE method to be used in solving the ODE
 \end{itemize}
@@ -246,21 +246,21 @@ The end user of \progname{} should have an understanding of undergraduate Level
 
 There are no system constraints.
 
-\section{Specific System Description}
+\section{Commonalities}
 
 This section first presents the problem description, which gives a high-level
 view of the problem to be solved.  This is followed by the solution characteristics
 specification, which presents the assumptions, theories, definitions and finally
 the instance models.
 
-\subsection{Problem Description} \label{Sec_pd}
+\subsection{Background Overview} \label{Sec_bo}
 
-\progname{} is a software library developed to be provide a means to analyze and compare
-different well-known ODE solvers. It can be used to investigate and determine which of the
-solvers is the most accurate method (the method which produces the least error in their
+\progname{} is a software library developed to be provide a means to solve ODE problems
+using numerical methods. It can be used to solve different variations of ODEs given their initial values.
+It can be implemented to find the most accurate method (the method which produces the least error in their
 scientific computing implementation).
 
-\subsubsection{Terminology and  Definitions}
+\subsection{Terminology and Definitions}
 
 This subsection provides a list of terms that are used in the subsequent
 sections and their meaning, with the purpose of reducing ambiguity and making it
@@ -268,30 +268,31 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item Initial condition: A "starting point" of known value that exists in the domain of the solution
+\item Initial values: A "starting point" ($x_\text{0}, y_\text{0}$) of known values that exists in the domain of the solution
 
-\item Step size: The measure of arbitrary positive value from the point n to n+1 of the domain
+\item Final values: An "ending point" ($x_\text{k}, y_\text{k}$) of unknown value $y_\text{k}$ that exists in the domain of the solution
 
-\item Derivative:
+\item Step size: The measure of arbitrary positive value ($h$) from the starting point ($x_\text{0}, y_\text{0}$) of the domain to the next ($x_\text{0}+h, y_\text{1}$)
 
-\item 
+\item Derivative: The amount by which a a function changes at any given point as an instantaneous
+rate of change
 
-\item Numerical Analysis: An branch of mathematics and computer science wherein the solutions
-are numerical approximatations taking into account the errors involved in the process.
+\item Numerical Analysis: A branch of mathematics and computer science wherein the solutions
+are numerical approximations taking into account the errors involved in the process.
+
+\item Numerical Approximation: 
 
 \end{itemize}
 
-\subsubsection{Physical System Description}
-
-This section does not apply.
-
-\subsubsection{Goal Statements}
-
-\noindent Given the ODE and initial values, the goal statements are:
+\subsection{Goal Statements} \label{Sec_gs}
 
 \begin{itemize}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{Find the solution to an ordinary differential equation initial value problem.}
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{
+Given an ordinary differential equation (ODE) represented by ${dy}/{dx} = f(x,y)$, the set of initial values
+$x_\text{0}$ and $y_\text{0}$ that satisfy $y(x_\text{0}) = y_\text{0}$, and $x_\text{k}$, return $y_\text{k}$
+such that $y(x_\text{k}) = y_\text{k}$ (the final values), where $y(x)$ is a function, $f(x,y)$ is a function,
+and $x$ is an independent variable.}
 
 \end{itemize}
 
@@ -302,33 +303,36 @@ Subsection~\ref{sec_instance}.  The information to understand the meaning of the
 instance models and their derivation is also presented, so that the instance
 models can be verified.
 
-\subsubsection{Assumptions}
 
-This section simplifies the original problem and helps in developing the
-theoretical model by filling in the missing information for the system.
-The numbers given in the square brackets refer to the theoretical model
-[T], general definition [GD], data definition [DD], instance model [IM], or
-likely change [LC], in which the respective assumption is used.
+% \subsubsection{Assumptions}
 
-\begin{itemize}
+% Please see Subsection~\ref{sec_input_assumptions} for the Commonality Assumptions.
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  Higher order ODEs can be represented by a system of first order ODEs.
+% This section simplifies the original problem and helps in developing the
+% theoretical model by filling in the missing information for the system.
+% The numbers given in the square brackets refer to the theoretical model
+% [T], general definition [GD], data definition [DD], instance model [IM], or
+% likely change [LC], in which the respective assumption is used.
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  The only form of ODE that is relevant to the application of the program is a first order ODE.
+% \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  The user will be responsible for deconstructing higher order ODEs into a system
-  of first order ODEs.
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+%   Higher order ODEs can be represented by a system of first order ODEs.
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  The only ODE considered is a linear ODE.
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+%   The only form of ODE that is relevant to the application of the program is a first order ODE.
+
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+%   The user will be responsible for deconstructing higher order ODEs into a system
+%   of first order ODEs.
+
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
+%   The only ODE considered is a linear ODE.
   
 
-\end{itemize}
+% \end{itemize}
 
-\subsubsection{Theoretical Models}\label{sec_theoretical}
+\subsection{Theoretical Models}\label{sec_theoretical}
 
 This section focuses on the general equations and laws that \progname{} is based
 on.
@@ -341,133 +345,143 @@ on.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_COE}\\
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_ODE}\\
   \hline
   Label&\bf Ordinary Differential Equation\\
   \hline
-  Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)}); y(x_\text{0}) = y_\text{0}$\\
+  Equation&  ${dy}/{dx} = y' = f(x,y)$\\
+  %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
   \hline
   Description & 
                 The above model gives the definition of an ordinary differential equation.
+
                 A differential equation is an equation, where the unknown is a
-                function and both the function and its derivatives may appear in the
-                equation. \\
+                function and both the function and its derivatives (rate of change) appear in the
+                equation.
+
+                An ordinary differential equation is a differential equation involving only ordinary derivatives
+                with respect to a single independent variable.
+
+                For an arbitrary ODE, the true solution will, in general, be unknown.
+
+                Numerical methods are used to find numerical approximations to the solution of the ODE. 
+                \\
   \hline
   Source &
            \url{http://users.math.msu.edu/users/gnagy/teaching/ode.pdf}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \dref{ROCT}\\
+  Ref.\ By & \tref{}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
 ~\newline
 
-\subsubsection{General Definitions}\label{sec_gendef}
+% \subsubsection{General Definitions}\label{sec_gendef}
 
-This section collects the laws and equations that will be used in deriving the
-data definitions, which in turn are used to build the instance models.
-\wss{Some projects may not have any content for this section, but the section
-  heading should be kept.}  \wss{Modify the examples below for your problem, and
-  add additional definitions as appropriate.}
+% This section collects the laws and equations that will be used in deriving the
+% data definitions, which in turn are used to build the instance models.
+% \wss{Some projects may not have any content for this section, but the section
+%   heading should be kept.}  \wss{Modify the examples below for your problem, and
+%   add additional definitions as appropriate.}
 
-~\newline
+% ~\newline
 
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-\hline
-\rowcolor[gray]{0.9}
-Number& GD\refstepcounter{defnum}\thedefnum \label{NL}\\
-\hline
-Label &\bf Newton's law of cooling \\
-\hline
-% Units&$MLt^{-3}T^0$\\
+% \noindent
+% \begin{minipage}{\textwidth}
+% \renewcommand*{\arraystretch}{1.5}
+% \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
 % \hline
-SI Units&\si{\watt\per\square\metre}\\
-\hline
-Equation&$ q(t) = h \Delta T(t)$  \\
-\hline
-Description &
-Newton's law of cooling describes convective cooling from a surface.  The law is
-stated as: the rate of heat loss from a body is proportional to the difference
-in temperatures between the body and its surroundings.
-\\
-& $q(t)$ is the thermal flux (\si{\watt\per\square\metre}).\\
-& $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
-	(\si{\watt\per\square\metre\per\celsius}).\\
-&$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
-between the environment and the object (\si{\celsius}).
-\\
-\hline
-  Source &~\cite[p.\ 8]{Incropera2007}\\
-  \hline
-  Ref.\ By & \ddref{FluxCoil}, \ddref{FluxPCM}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-\subsubsection*{Detailed derivation of simplified rate of change of temperature}
-
-\wss{This may be necessary when the necessary information does not fit in the
-  description field.} 
-
-\subsubsection{Data Definitions}\label{sec_datadef}
-
-This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \wss{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-\hline
-\rowcolor[gray]{0.9}
-Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
-\hline
-Label& \bf Heat flux out of coil\\
-\hline
-Symbol &$q_C$\\
-\hline
-% Units& $Mt^{-3}$\\
+% \rowcolor[gray]{0.9}
+% Number& GD\refstepcounter{defnum}\thedefnum \label{NL}\\
 % \hline
-  SI Units & \si{\watt\per\square\metre}\\
-  \hline
-  Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
-  \hline
-  Description & 
-                $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
-                The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
-                assuming that Newton's Law 
-                of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-                the coil, which has area $A_C$ (\si{\square\metre}) and heat 
-                transfer coefficient $h_C$
-                (\si{\watt\per\square\metre\per\celsius}).  This equation
-                assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
-                of the coil (\aref{A_tlcoil}).
-  \\
-  \hline
-  Sources&~\cite{Lightstone2012}  \\
-  \hline
-  Ref.\ By & \iref{ewat}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
+% Label &\bf Newton's law of cooling \\
+% \hline
+% % Units&$MLt^{-3}T^0$\\
+% % \hline
+% SI Units&\si{\watt\per\square\metre}\\
+% \hline
+% Equation&$ q(t) = h \Delta T(t)$  \\
+% \hline
+% Description &
+% Newton's law of cooling describes convective cooling from a surface.  The law is
+% stated as: the rate of heat loss from a body is proportional to the difference
+% in temperatures between the body and its surroundings.
+% \\
+% & $q(t)$ is the thermal flux (\si{\watt\per\square\metre}).\\
+% & $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
+% 	(\si{\watt\per\square\metre\per\celsius}).\\
+% &$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
+% between the environment and the object (\si{\celsius}).
+% \\
+% \hline
+%   Source &~\cite[p.\ 8]{Incropera2007}\\
+%   \hline
+%   Ref.\ By & \ddref{FluxCoil}, \ddref{FluxPCM}\\
+%   \hline
+% \end{tabular}
+% \end{minipage}\\
 
-\subsubsection{Instance Models} \label{sec_instance}    
+% \subsubsection*{Detailed derivation of simplified rate of change of temperature}
 
-This section transforms the problem defined in Section~\ref{Sec_pd} into 
-one which is expressed in mathematical terms. It uses concrete symbols defined 
-in Section~\ref{sec_datadef} to replace the abstract symbols in the models 
-identified in Sections~\ref{sec_theoretical} and~\ref{sec_gendef}.
+% \wss{This may be necessary when the necessary information does not fit in the
+%   description field.} 
 
-The goals \wss{reference your goals} are solved by \wss{reference your instance
-  models}.  \wss{other details, with cross-references where appropriate.}
+% \subsubsection{Data Definitions}\label{sec_datadef}
+
+% This section collects and defines all the data needed to build the instance
+% models. The dimension of each quantity is also given.  \wss{Modify the examples
+%   below for your problem, and add additional definitions as appropriate.}
+
+% ~\newline
+
+% \noindent
+% \begin{minipage}{\textwidth}
+% \renewcommand*{\arraystretch}{1.5}
+% \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+% \hline
+% \rowcolor[gray]{0.9}
+% Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
+% \hline
+% Label& \bf Heat flux out of coil\\
+% \hline
+% Symbol &$q_C$\\
+% \hline
+% % Units& $Mt^{-3}$\\
+% % \hline
+%   SI Units & \si{\watt\per\square\metre}\\
+%   \hline
+%   Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
+%   \hline
+%   Description & 
+%                 $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
+%                 The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
+%                 assuming that Newton's Law 
+%                 of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
+%                 the coil, which has area $A_C$ (\si{\square\metre}) and heat 
+%                 transfer coefficient $h_C$
+%                 (\si{\watt\per\square\metre\per\celsius}).  This equation
+%                 assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
+%                 of the coil (\aref{A_tlcoil}).
+%   \\
+%   \hline
+%   Sources&~\cite{Lightstone2012}  \\
+%   \hline
+%   Ref.\ By & \iref{ewat}\\
+%   \hline
+% \end{tabular}
+% \end{minipage}\\
+
+\subsection{Instance Models} \label{sec_instance}    
+
+This section transforms the problem defined in Section~\ref{Sec_bo} into 
+one which is expressed in mathematical terms. It uses concrete symbols defined
+to replace the abstract symbols in the models identified in
+Section~\ref{sec_theoretical}.
+
+The goals listed in Section~\ref{Sec_gs} are solved by \wss{reference your instance models}. 
+  \wss{other details, with cross-references where appropriate.}
 \wss{Modify the examples below for your problem, and add additional models as
   appropriate.}
 
