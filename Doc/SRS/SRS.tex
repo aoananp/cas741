@@ -248,10 +248,10 @@ There are no system constraints.
 
 \section{Commonalities}
 
-This section first presents the problem description, which gives a high-level
+This section first presents the background and motivation of the program family, which gives a high-level
 view of the problem to be solved.  This is followed by the solution characteristics
-specification, which presents the assumptions, theories, definitions and finally
-the instance models.
+specification, which presents the theories, definitions, assumptions, and finally
+the instance models as variabilities.
 
 \subsection{Background Overview} \label{Sec_bo}
 
@@ -295,14 +295,6 @@ such that $y(x_\text{k}) = y_\text{k}$ (the final values), where $y(x)$ is a fun
 and $x$ is an independent variable.}
 
 \end{itemize}
-
-\subsection{Solution Characteristics Specification}
-
-The instance models that govern \progname{} are presented in
-Subsection~\ref{sec_instance}.  The information to understand the meaning of the
-instance models and their derivation is also presented, so that the instance
-models can be verified.
-
 
 % \subsubsection{Assumptions}
 
@@ -349,7 +341,7 @@ on.
   \hline
   Label&\bf Ordinary Differential Equation\\
   \hline
-  Equation&  ${dy}/{dx} = y' = f(x,y)$\\
+  Equation&  $\frac{dy}{dx} = y' = f(x,y)$\\
   %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
   \hline
   Description & 
@@ -364,11 +356,53 @@ on.
 
                 For an arbitrary ODE, the true solution will, in general, be unknown.
 
-                Numerical methods are used to find numerical approximations to the solution of the ODE. 
+                Numerical methods are used to find numerical approximations of the solution to the ODE. 
                 \\
   \hline
   Source &
            \url{http://users.math.msu.edu/users/gnagy/teaching/ode.pdf}\\
+  % The above web link should be replaced with a proper citation to a publication
+  \hline
+  Ref.\ By & \tref{T_IVP}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_IVP}\\
+  \hline
+  Label&\bf Existence and Uniqueness of the Solution\\
+  \hline
+  Equations&  $\frac{dy}{dx} = f(x,y)$ [\tref{T_ODE}]
+  ~\newline
+  $y(x_\text{0}) = y_\text{0}$
+  ~\newline
+  Assuming $f$ and $df/dy$ are continuous in $R = \{(x,y): a < x < b, c < y < d\}$, where R is a rectangle
+  and $a, b, c, d$ are its vertices
+  ~\newline
+  The initial value problem has a unique solution in some interval
+  ~\newline
+  $x_\text{0} - h < x < x_\text{0} + h$\\
+  %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
+  \hline
+  Description & 
+                The above theoretical model shows that when an equation satisfies the initial values,
+                it is assured that a solution to the initial value problem exists. It is desirable to know
+                whether or not the equation has an existing solution before effort is made to solve it.
+                As well, the theoretical model states that if a solution is found, then it is the only solution to
+                the initial value problem. 
+                \\
+  \hline
+  Source &
+           Nagle, et al, "Solutions and Initial Value Problems," in \it{Fundamentals of Differential 
+           Equations and Boundary Value Problems}, 3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
   Ref.\ By & \tref{}\\
@@ -378,251 +412,48 @@ on.
 
 ~\newline
 
-% \subsubsection{General Definitions}\label{sec_gendef}
+\section{Variabilities}
 
-% This section collects the laws and equations that will be used in deriving the
-% data definitions, which in turn are used to build the instance models.
-% \wss{Some projects may not have any content for this section, but the section
-%   heading should be kept.}  \wss{Modify the examples below for your problem, and
-%   add additional definitions as appropriate.}
+This section presents the variabilities in \progname{}. It gives the assumptions for the input,
+the variabilities in the calculations, and finally the target output.
 
-% ~\newline
+\subsection{Input Assumptions} \label{Sec_ia}
 
-% \noindent
-% \begin{minipage}{\textwidth}
-% \renewcommand*{\arraystretch}{1.5}
-% \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-% \hline
-% \rowcolor[gray]{0.9}
-% Number& GD\refstepcounter{defnum}\thedefnum \label{NL}\\
-% \hline
-% Label &\bf Newton's law of cooling \\
-% \hline
-% % Units&$MLt^{-3}T^0$\\
-% % \hline
-% SI Units&\si{\watt\per\square\metre}\\
-% \hline
-% Equation&$ q(t) = h \Delta T(t)$  \\
-% \hline
-% Description &
-% Newton's law of cooling describes convective cooling from a surface.  The law is
-% stated as: the rate of heat loss from a body is proportional to the difference
-% in temperatures between the body and its surroundings.
-% \\
-% & $q(t)$ is the thermal flux (\si{\watt\per\square\metre}).\\
-% & $h$ is the heat transfer coefficient, assumed independent of $T$ (\aref{A_hcoeff})
-% 	(\si{\watt\per\square\metre\per\celsius}).\\
-% &$\Delta T(t)$= $T(t) - T_{\text{env}}(t)$ is the time-dependent thermal gradient
-% between the environment and the object (\si{\celsius}).
-% \\
-% \hline
-%   Source &~\cite[p.\ 8]{Incropera2007}\\
-%   \hline
-%   Ref.\ By & \ddref{FluxCoil}, \ddref{FluxPCM}\\
-%   \hline
-% \end{tabular}
-% \end{minipage}\\
-
-% \subsubsection*{Detailed derivation of simplified rate of change of temperature}
-
-% \wss{This may be necessary when the necessary information does not fit in the
-%   description field.} 
-
-% \subsubsection{Data Definitions}\label{sec_datadef}
-
-% This section collects and defines all the data needed to build the instance
-% models. The dimension of each quantity is also given.  \wss{Modify the examples
-%   below for your problem, and add additional definitions as appropriate.}
-
-% ~\newline
-
-% \noindent
-% \begin{minipage}{\textwidth}
-% \renewcommand*{\arraystretch}{1.5}
-% \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-% \hline
-% \rowcolor[gray]{0.9}
-% Number& DD\refstepcounter{datadefnum}\thedatadefnum \label{FluxCoil}\\
-% \hline
-% Label& \bf Heat flux out of coil\\
-% \hline
-% Symbol &$q_C$\\
-% \hline
-% % Units& $Mt^{-3}$\\
-% % \hline
-%   SI Units & \si{\watt\per\square\metre}\\
-%   \hline
-%   Equation&$q_C(t) = h_C (T_C - T_W(t))$, over area $A_C$\\
-%   \hline
-%   Description & 
-%                 $T_C$ is the temperature of the coil (\si{\celsius}).  $T_W$ is the temperature of the water (\si{\celsius}).  
-%                 The heat flux out of the coil, $q_C$ (\si{\watt\per\square\metre}), is found by
-%                 assuming that Newton's Law 
-%                 of Cooling applies (\aref{A_Newt_coil}).  This law (\dref{NL}) is used on the surface of
-%                 the coil, which has area $A_C$ (\si{\square\metre}) and heat 
-%                 transfer coefficient $h_C$
-%                 (\si{\watt\per\square\metre\per\celsius}).  This equation
-%                 assumes that the temperature of the coil is constant over time (\aref{A_tcoil}) and that it does not vary along the length
-%                 of the coil (\aref{A_tlcoil}).
-%   \\
-%   \hline
-%   Sources&~\cite{Lightstone2012}  \\
-%   \hline
-%   Ref.\ By & \iref{ewat}\\
-%   \hline
-% \end{tabular}
-% \end{minipage}\\
-
-\subsection{Instance Models} \label{sec_instance}    
-
-This section transforms the problem defined in Section~\ref{Sec_bo} into 
-one which is expressed in mathematical terms. It uses concrete symbols defined
-to replace the abstract symbols in the models identified in
-Section~\ref{sec_theoretical}.
-
-The goals listed in Section~\ref{Sec_gs} are solved by \wss{reference your instance models}. 
-  \wss{other details, with cross-references where appropriate.}
-\wss{Modify the examples below for your problem, and add additional models as
-  appropriate.}
+This section focuses on the variabilities and assumptions in the inputs of \progname{}.
 
 ~\newline
-
-%Instance Model 1
 
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+\begin{tabular}{|p{0.30\textwidth}| p{0.60\textwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{ewat}\\
+  Input Variability& Parameter of Variation\\
   \hline
-  Label& \bf Energy balance on water to find $T_W$\\
+  Allowed program family calls& 
+  \{Euler's Method, Heun's Method, Fourth Order Taylor Series, Fourth Order Runge-Kutta\}\\
   \hline
-  Input&$m_W$, $C_W$, $h_C$, $A_C$, $h_P$, $A_P$, $t_\text{final}$, $T_C$, 
-  $T_\text{init}$, $T_P(t)$ from \iref{epcm}\\
-  & The input is constrained so that $T_\text{init} \leq T_C$ (\aref{A_charge})\\
+  Allowed order of $\frac{dy}{dx}$& \{First\} \\
   \hline
-  Output&$T_W(t)$, $0\leq t \leq t_\text{final}$, such that\\
-  &$\frac{dT_W}{dt} = \frac{1}{\tau_W}[(T_C - T_W(t)) + {\eta}(T_P(t) - T_W(t))]$,\\
-  &$T_W(0) = T_P(0) = T_\text{init}$ (\aref{A_InitTemp}) and $T_P(t)$ from \iref{epcm} \\
+  Allowed dimensions of $\frac{dy}{dx}$ & set of $\mathbb{N}$\\ 
   \hline
-  Description&$T_W$ is the water temperature (\si{\celsius}).\\
-  &$T_P$ is the PCM temperature (\si{\celsius}).\\
-  &$T_C$ is the coil temperature (\si{\celsius}).\\
-  &$\tau_W = \frac{m_W C_W}{h_C A_C}$ is a constant (\si{\second}).\\
-  &$\eta = \frac{h_P A_P}{h_C A_C}$ is a constant (dimensionless).\\
-  & The above equation applies as long as the water is in liquid form,
-  $0<T_W<100^o\text{C}$, where $0^o\text{C}$ and $100^o\text{C}$ are the melting
-  and boiling points of water, respectively (\aref{A_OpRange}, \aref{A_Pressure}).
-  \\
+  Allowed values of $h$ & set of positive $\mathbb{R}$\\
   \hline
-  Sources&~\cite{Lightstone2012} \ \\
+  Allowed values of $x_\text{0}$ & the set of $\mathbb{R}$\\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Allowed values of $x_\text{k}$ & the set of $\mathbb{R}$\\
   \hline
+  Allowed values of $y_\text{0}$ & the set of $\mathbb{R}$\\
+  \hline
+
 \end{tabular}
 \end{minipage}\\
 
-%~\newline
+~\newline
 
-\subsubsection*{Derivation of ...}
 
-\wss{May be necessary to include this subsection in some cases.}
 
-\subsubsection{Data Constraints} \label{sec_DataConstraints}    
-
-Tables~\ref{TblInputVar} and \ref{TblOutputVar} show the data constraints on the
-input and output variables, respectively.  The column for physical constraints gives
-the physical limitations on the range of values that can be taken by the
-variable.  The column for software constraints restricts the range of inputs to
-reasonable values.  The constraints are conservative, to give the user of the
-model the flexibility to experiment with unusual situations.  The column of
-typical values is intended to provide a feel for a common scenario.  The
-uncertainty column provides an estimate of the confidence with which the
-physical quantities can be measured.  This information would be part of the
-input if one were performing an uncertainty quantification exercise.
-
-The specification parameters in Table~\ref{TblInputVar} are listed in
-Table~\ref{TblSpecParams}.
-
-\begin{table}[!h]
-  \caption{Input Variables} \label{TblInputVar}
-  \renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l l l c} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} & \textbf{Software Constraints} &
-                             \textbf{Typical Value} & \textbf{Uncertainty}\\
-  \midrule 
-  $L$ & $L > 0$ & $L_{\text{min}} \leq L \leq L_{\text{max}}$ & 1.5 \si[per-mode=symbol] {\metre} & 10\%
-  \\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\noindent 
-\begin{description}
-\item[(*)] \wss{you might need to add some notes or clarifications}
-\end{description}
-
-\begin{table}[!h]
-\caption{Specification Parameter Values} \label{TblSpecParams}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Value} \\
-  \midrule 
-  $L_\text{min}$ & 0.1 \si{\metre}\\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\begin{table}[!h]
-\caption{Output Variables} \label{TblOutputVar}
-\renewcommand{\arraystretch}{1.2}
-\noindent \begin{longtable*}{l l} 
-  \toprule
-  \textbf{Var} & \textbf{Physical Constraints} \\
-  \midrule 
-  $T_W$ & $T_\text{init} \leq T_W \leq T_C$ (by~\aref{A_charge})
-  \\
-  \bottomrule
-\end{longtable*}
-\end{table}
-
-\subsubsection{Properties of a Correct Solution} \label{sec_CorrectSolution}
-
-\noindent
-A correct solution must exhibit \wss{fill in the details}
-
-\section{Requirements}
-
-This section provides the functional requirements, the business tasks that the
-software is expected to complete, and the nonfunctional requirements, the
-qualities that the software is expected to exhibit.
-
-\subsection{Functional Requirements}
-
-\noindent \begin{itemize}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Inputs}:] \wss{Requirements
-    for the inputs that are supplied by the user.  This information has to be
-    explicit.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_OutputInputs}:] \wss{It isn't
-    always required, but often echoing the inputs as part of the output is a
-    good idea.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Calculate}:] \wss{Calculation
-    related requirements.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_VerifyOutput}:]
-  \wss{Verification related requirements.}
-
-\item[R\refstepcounter{reqnum}\thereqnum \label{R_Output}:] \wss{Output related
-    requirements.}
-
-\end{itemize}
 
 \subsection{Nonfunctional Requirements}
 
