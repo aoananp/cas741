@@ -73,13 +73,13 @@
 \newcommand{\lcref}[1]{LC\ref{#1}}
 
 \newcommand{\progname}{LODES} % PUT YOUR PROGRAM NAME HERE
-\newcommand{\progdesc}{Library of ODE Solvers}
+\newcommand{\progdesc}{Family of ODE Solvers}
 
 \usepackage{fullpage}
 
 \begin{document}
 
-\title{Software Requirements Specification for a \progdesc{} (\progname{})} 
+\title{Commonality Analysis/Software Requirements Specification for a \progdesc{} (\progname{})} 
 \author{Paul Aoanan}
 \date{\today}
 	
@@ -93,8 +93,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+\today & 1.0 & First draft.\\
+%Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -110,9 +110,9 @@ There are no physical units used in this SRS.
 \subsection{Table of Symbols}
 
 The table that follows summarizes the symbols used in this document along with
-their units.  The choice of symbols was made to be consistent with the heat
-transfer literature and with existing documentation for solar water heating
-systems.  The symbols are listed in alphabetical order.
+their units.  The choice of symbols was made to be consistent with the numeral analysis
+and ordinary differential equation literature and with existing documentation
+for solving ordinary differential equations.  The symbols are listed in alphabetical order.
 
 \renewcommand{\arraystretch}{1.2}
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
@@ -167,7 +167,7 @@ Known elementary techniques of solving ODEs in the discrete domain use the linea
 method wherein the solution is based upon assuming or ``approximating" the slope of the tangent
 line from one reference point to the next until the target point has been reached.
 
-The following section provides an overview of the Software Requirements
+The following section provides an overview of the Commonality Analysis (CA)/Software Requirements
 Specification (SRS) for a program family of ODE solvers. The developed program will be
 called Library of ODE Solvers (\progname{}). This section explains the purpose of this
 document, the scope of the system, and the characteristics of the intended readers and the
@@ -272,7 +272,7 @@ easier to correctly understand the requirements:
 
 \item Final values: An "ending point" ($x_\text{k}, y_\text{k}$) of unknown value $y_\text{k}$ that exists in the domain of the solution
 
-\item Step size: The measure of arbitrary positive value ($h$) from the starting point ($x_\text{0}, y_\text{0}$) of the domain to the next ($x_\text{0}+h, y_\text{1}$)
+\item Step size: The measure of arbitrary positive value ($h$) from the starting point ($x_\text{0}, y_\text{0}$) of the domain to the next ($x_\text{1}, y_\text{1}$), where $x_\text{1} = x_\text{0} + h$
 
 \item Derivative: The amount by which a a function changes at any given point as an instantaneous
 rate of change
@@ -289,40 +289,12 @@ are numerical approximations taking into account the errors involved in the proc
 \begin{itemize}
 
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{
-Given an ordinary differential equation (ODE) represented by ${dy}/{dx} = f(x,y)$, the set of initial values
+Given an ordinary differential equation (ODE) represented by $y'= f(x,y)$, the set of initial values
 $x_\text{0}$ and $y_\text{0}$ that satisfy $y(x_\text{0}) = y_\text{0}$, and $x_\text{k}$, return $y_\text{k}$
 such that $y(x_\text{k}) = y_\text{k}$ (the final values), where $y(x)$ is a function, $f(x,y)$ is a function,
 and $x$ is an independent variable.}
 
 \end{itemize}
-
-% \subsubsection{Assumptions}
-
-% Please see Subsection~\ref{sec_input_assumptions} for the Commonality Assumptions.
-
-% This section simplifies the original problem and helps in developing the
-% theoretical model by filling in the missing information for the system.
-% The numbers given in the square brackets refer to the theoretical model
-% [T], general definition [GD], data definition [DD], instance model [IM], or
-% likely change [LC], in which the respective assumption is used.
-
-% \begin{itemize}
-
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-%   Higher order ODEs can be represented by a system of first order ODEs.
-
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-%   The only form of ODE that is relevant to the application of the program is a first order ODE.
-
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-%   The user will be responsible for deconstructing higher order ODEs into a system
-%   of first order ODEs.
-
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-%   The only ODE considered is a linear ODE.
-  
-
-% \end{itemize}
 
 \subsection{Theoretical Models}\label{sec_theoretical}
 
@@ -341,7 +313,7 @@ on.
   \hline
   Label&\bf Ordinary Differential Equation\\
   \hline
-  Equation&  $\frac{dy}{dx} = y' = f(x,y)$\\
+  Equation&  $y' = f(x,y)$\\
   %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
   \hline
   Description & 
@@ -380,11 +352,11 @@ on.
   \hline
   Label&\bf Existence and Uniqueness of the Solution\\
   \hline
-  Equations&  $\frac{dy}{dx} = f(x,y)$ [\tref{T_ODE}]
+  Equations&  $y' = f(x,y)$ [\tref{T_ODE}]
   ~\newline
   $y(x_\text{0}) = y_\text{0}$
   ~\newline
-  Assuming $f$ and $df/dy$ are continuous in $R = \{(x,y): a < x < b, c < y < d\}$, where R is a rectangle
+  Assuming $f$ and $y'$ are continuous in $R = \{(x,y): a < x < b, c < y < d\}$, where R is a rectangle
   and $a, b, c, d$ are its vertices
   ~\newline
   The initial value problem has a unique solution in some interval
@@ -410,6 +382,54 @@ on.
 \end{tabular}
 \end{minipage}\\
 
+% ~\newline
+
+% \noindent
+% \begin{minipage}{\textwidth}
+% \renewcommand*{\arraystretch}{1.5}
+% \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+%   \hline
+%   \rowcolor[gray]{0.9}
+%   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_SODE}\\
+%   \hline
+%   Label&\bf Higher Order Ordinary Differential Equation\\
+%   \hline
+%   Equations&
+%     $y^{(n)} = f(x,y,y^\text{(1)},y^\text{(2)},...,y^\text{(n-1)})$
+%     ~\newline
+%     ~\newline
+%     $f_\text{(1)} = y, f_\text{(2)} = y^\text{(1)},..., f_\text{(n)} = y^\text{(n-1)}$
+%     ~\newline
+%     ~\newline
+%     \[
+%         \left[
+%           \begin{tabular}{c}
+%            $f_\text{(n)}$\\
+%            $f_\text{(n-1)}$\\
+%            \text{.}\\
+%            \text{.}\\
+%            \text{.}\\
+%            $f_\text{(2)}$\\
+%            $f_\text{(1)}$
+%           \end{tabular}
+%         \right]
+%     \]
+%     \\
+%   %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
+%   \hline
+%   Description & 
+%                 The above model provides a 
+%                 \\
+%   \hline
+%   Source &
+%            \url{https://www.siam.org/books/ot98/sample/OT98Chapter5.pdf}\\
+%   % The above web link should be replaced with a proper citation to a publication
+%   \hline
+%   Ref.\ By & \tref{T_IVP}\\
+%   \hline
+% \end{tabular}
+% \end{minipage}\\
+
 ~\newline
 
 \section{Variabilities}
@@ -426,34 +446,62 @@ This section focuses on the variabilities and assumptions in the inputs of \prog
 \noindent
 \begin{minipage}{\textwidth}
 \renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{|p{0.30\textwidth}| p{0.60\textwidth}|}
+\begin{tabular}{|p{0.35\textwidth}| p{0.60\textwidth}|}
   \hline
   \rowcolor[gray]{0.9}
   Input Variability& Parameter of Variation\\
   \hline
-  Allowed program family calls& 
-  \{Euler's Method, Heun's Method, Fourth Order Taylor Series, Fourth Order Runge-Kutta\}\\
+  Allowed program family calls & Set of \{Euler's Method, Heun's Method, Fourth-Order Taylor Series, Fourth-Order Runge-Kutta\}\\
   \hline
-  Allowed order of $\frac{dy}{dx}$& \{First\} \\
+  Allowed order of $f(x,y)$ & Set of \{First\} \\
   \hline
-  Allowed dimensions of $\frac{dy}{dx}$ & set of $\mathbb{N}$\\ 
+  Allowed type of $f(x,y)$ & Set of \{Linear, Nonlinear, Homogeneous, Non-homogeneous\}\\
   \hline
-  Allowed values of $h$ & set of positive $\mathbb{R}$\\
+  % Allowed dimensions of $f(x,y) = f(x,y)_\text{dim}$& set of $\mathbb{N}$\\
+  Allowed dimensions of $f(x,y)$ & Set of \{Single\}\\ 
   \hline
-  Allowed values of $x_\text{0}$ & the set of $\mathbb{R}$\\
+  Possible entries of $h$ & set of positive $\mathbb{R}$\\
   \hline
-  Allowed values of $x_\text{k}$ & the set of $\mathbb{R}$\\
+  Possible entries of $x_\text{0}$ & set of $\mathbb{R}$\\
   \hline
-  Allowed values of $y_\text{0}$ & the set of $\mathbb{R}$\\
+  % Allowed dimensions of $x_\text{0} = x_\text{(0)dim}$& set of $\mathbb{N}$, where $x_\text{(0)dim} = f(x,y)_\text{dim}$\\
+  Allowed dimensions of $x_\text{0}$ & Set of \{Single\}\\
   \hline
-
+  Possible entries of $y_\text{0}$ & set of $\mathbb{R}$\\
+  \hline
+  % Allowed dimensions of $y_\text{0} = y_\text{(0)dim}$& set of $\mathbb{N}$, where $y_\text{(0)dim} = f(x,y)_\text{dim}$\\
+  Allowed dimensions of $y_\text{0}$ & Set of \{Single\}\\
+  \hline
+  Possible entries of $x_\text{k}$& set of $\mathbb{R}$\\
+  \hline
+  Allowed dimensions of $x_\text{k}$ & Set of \{Single\}\\
+  \hline
 \end{tabular}
 \end{minipage}\\
 
 ~\newline
 
+\subsection{Calculation} \label{Sec_calc}
 
+This section focuses on the variabilities and assumptions in the inputs of \progname{}.
 
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{|p{0.35\textwidth}| p{0.60\textwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Variability& Parameter of Variation\\
+  \hline
+  Check input? & boolean (false if the input is assumed to satisfy the input assumptions)\\
+
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
 
 \subsection{Nonfunctional Requirements}
 
