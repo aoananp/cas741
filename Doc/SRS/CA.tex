@@ -334,14 +334,12 @@ Symbol &$dy/dx$\\
         3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 7.
   \\
   \hline
-  Ref.\ By & \iref{ewat}\\
+  Ref.\ By & \iref{euler}, \iref{heun}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
 \subsection{Goal Statements}
-
-\noindent Given the required inputs, the goal statements are:
 
 \begin{itemize}
 
@@ -397,7 +395,7 @@ on.
            \url{http://users.math.msu.edu/users/gnagy/teaching/ode.pdf}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \tref{T_IVP}\\ %, \iref{euler}, \iref{heun}\\
+  Ref.\ By & \tref{T_IVP}, \iref{euler}, \iref{heun}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -440,7 +438,7 @@ on.
            3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \\%\iref{euler}, \iref{heun}\\
+  Ref.\ By & \iref{euler}, \iref{heun}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -451,6 +449,122 @@ on.
 This section presents the variabilities in \famname{}. It details the varying instance models,
 gives the assumptions for the input, the variabilities in the calculations, and
 finally the target output.
+
+\subsection{Instance Models} \label{sec_instance}    
+
+This section transforms the problem defined in Section~\ref{Sec_Background} into 
+one which is expressed in mathematical terms. It uses concrete symbols defined 
+in Section~\ref{sec_theoretical}.
+
+~\newline
+
+%Instance Model 1
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{euler}\\
+  \hline
+  Label& \bf Euler's Method of Finding the Solution to an ODE\\
+  \hline
+  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  \hline
+  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+  &using the recursive formulas:\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + h*f(x_\text{n}, y_\text{n}), n = 0, 1, 2,...$\\
+  \hline
+  Description&$y' = f(x, y)$ is the first order ODE.\\
+  &$h$ is the constant step size.\\
+  &$x_\text{0}$ is the initial value of $x$.\\
+  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+  &$x_\text{k}$ is the final value of $x$.\\
+  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+  &$y_\text{k}$ is the final value of $y$.\\
+  &$n$ is the reference recursion step.\\
+
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  \\
+  \hline
+  Sources&
+        Nagle, et al, "The Approximation Method of Euler," in
+        \textit{Fundamentals of Differential Equations and Boundary Value Problems},
+        3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, sec. 1.5, pp. 31-32.
+  \\
+  \hline
+  Ref.\ By & \iref{heun}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+\subsubsection*{Detailed derivation of Euler's Method}
+
+Let $y' = f(x, y),$   $y(x_0) = y_0$, $h$ as a fixed positive number
+(step-size), and consider the equally spaced points in the domain:\\
+\\
+\hspace*{2ex} $x_n = x_0 + nh,$   $n = 0, 1, 2...$\\
+\\
+The construction of values $y_n$ that approximate the solution values proceeds as follows.
+At the point $(x_0, y_0)$, the slope of the solution to $y' = f(x, y)$ is given by
+${dy}/{dx} = f(x_0, y_0)$. Hence the tangent line to the solution curve at the initial point is:\\
+\\
+\hspace*{2ex} $y = y_0 + (x - x_0)*f(x_0, y_0)$.\\
+\\
+Using this tangent line to approximate the next point in the solution set, we find that
+for the point $x_1 = x_0 + h$, we can assume the following approximation:\\
+\\
+\hspace*{2ex} $y_1 = y_0 + h*f(x_0, y_0).$\\
+\\
+Repeating the process (recursion), until we reach $y_k$ yields the derivation of Euler's Method.
+
+~\newline
+
+%Instance Model 2
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{heun}\\
+  \hline
+  Label& \bf Heun's Method of Finding the Solution to an ODE\\
+  \hline
+  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  \hline
+  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+  &using the recursive formulas:\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + \frac{h}{2}\{[f(x_n, y_n) + f(x_n + h, y_n + h*f(x_n, y_n)]\}, n = 0, 1, 2,...$\\
+  \hline
+  Description&$y' = f(x, y)$ is the first order ODE.\\
+  &$h$ is the constant step size.\\
+  &$x_\text{0}$ is the initial value of $x$.\\
+  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+  &$x_\text{k}$ is the final value of $x$.\\
+  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+  &$y_\text{k}$ is the final value of $y$.\\
+  &$n$ is the reference recursion step.\\
+
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  \\
+  \hline
+  Sources&
+        Nagle, et al, "Improved Euler's Method," in
+        \textit{Fundamentals of Differential Equations and Boundary Value Problems},
+        3rd ed. USA: Addison Wesley Longman, 2000, ch. 3, sec. 3.5, pp. 124-129.
+  \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
 
 \subsection{Assumptions}
 
