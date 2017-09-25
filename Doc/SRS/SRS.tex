@@ -79,7 +79,7 @@
 
 \begin{document}
 
-\title{Commonality Analysis/Software Requirements Specification for a \progdesc{} (\progname{})} 
+\title{Commonality Analysis / Software Requirements Specification for a \progdesc{} (\progname{})} 
 \author{Paul Aoanan}
 \date{\today}
 	
@@ -105,7 +105,7 @@ This section records information for easy reference.
 
 \subsection{Table of Units}
 
-There are no physical units used in this SRS.
+This section is not relevant to this CA/SRS.
 
 \subsection{Table of Symbols}
 
@@ -118,16 +118,21 @@ for solving ordinary differential equations.  The symbols are listed in alphabet
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
-\midrule 
-$A_C$ & \si[per-mode=symbol] {\square\metre} & coil surface area
-\\
-$A_\text{in}$ & \si[per-mode=symbol] {\square\metre} & surface area over 
-which heat is transferred in
-\\ 
+\midrule
+$dy/dx$ & \text {-} & rate of change of $y$ depending on $x$\\
+$f(x, y)$ & \text{-} & ODE function containing $(x,y)$\\
+$h$ & \text{-} & step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
+$n$ & \text{-} & reference recursion step.\\
+$x_\text{0}$ & \text{-} & Initial value $x$\\
+$x_\text{k}$ & \text{-} & Final value $x$\\
+$x_\text{n}$ & \text{-} & Intermediate $n^\text{th}$ value $x$\\
+$y_\text{0}$ & \text{-} & Initial value $y$\\ 
+$y_\text{k}$ & \text{-} & Final value $y$\\
+$y_\text{n}$ & \text{-} & Intermediate $n^\text{th}$ value $y$\\ 
+$y'$ & \text{-} & first order ODE = $f(x, y)$\\
+$y^\text{(n)}$ & \text{-} & ODE to the $n^\text{th}$ order\\
 \bottomrule
 \end{longtable*}
-\wss{Use your problems actual symbols.  The si package is a good idea to use for
-  units.}
 
 \subsection{Abbreviations and Acronyms}
 
@@ -137,11 +142,13 @@ which heat is transferred in
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   A & Assumption\\
+
   DD & Data Definition\\
   GD & General Definition\\
   GS & Goal Statement\\
   IM & Instance Model\\
   LC & Likely Change\\
+  ODE & Ordinary Differential Equation\\
   PS & Physical System Description\\
   R & Requirement\\
   SRS & Software Requirements Specification\\
@@ -167,22 +174,23 @@ Known elementary techniques of solving ODEs in the discrete domain use the linea
 method wherein the solution is based upon assuming or ``approximating" the slope of the tangent
 line from one reference point to the next until the target point has been reached.
 
-The following section provides an overview of the Commonality Analysis (CA)/Software Requirements
-Specification (SRS) for a program family of ODE solvers. The developed program will be
+The following section provides an overview of the Commonality Analysis (CA) for a program family of ODE solvers. The developed program will be
 called Library of ODE Solvers (\progname{}). This section explains the purpose of this
-document, the scope of the system, and the characteristics of the intended readers and the
-organization of the document.
+document,the scope of the system, and the characteristics of the intended readers
+and the organization of the document.
 
 \subsection{Purpose of Document}
 
-The main purpose of this document is to formally describe the known well-known methods of
-solving ODEs. The goals and mathematical models used in the \progname{} code are provided with
+The main purpose of this document is to formally describe program families of
+the known well-known methods of solving ODEs. The goals and mathematical models used
+in the \progname{} code are provided with
 an emphasis on explicitly identifying assumptions, constraints, and unambiguous definitions.
 
-This document contains the required functionality of the \progname{} software library as well
-the non-functional requirements that the software has to meet. This document governs the
-subsequent software development activities, including writing the design specification, code,
-and the software verification and validation plan and execution.
+This document contains the description of the functionalities of the \progname{} software library as well
+as the non-functional requirements that the software may have to meet. This document leads is the
+starting point for the
+subsequent software development activities, including writing the requirements specification,
+design specification, code, and the software verification and validation plan and execution.
 
 \subsection{Scope of Requirements} 
 
@@ -199,8 +207,8 @@ Section~\ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
 
-The organization of this document follows the template for an SRS for scientific
-computing software proposed by !!!INSERT CITATION HERE!!!. The presentation follows the standard
+The organization of this document follows the template for a CA for scientific
+computing software proposed by Smith (2006). The presentation follows the standard
 pattern of presenting goals, theories, definitions, and assumptions. For readers that would
 like a more bottom up approach, they can start reading the instance models in Section
 \ref{sec_instance} and trace back to find any additional information they require.  The
@@ -268,11 +276,15 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item Initial values: A "starting point" ($x_\text{0}, y_\text{0}$) of known values that exists in the domain of the solution
+\item Initial values: A "starting point" ($x_\text{0}, y_\text{0}$) of known values that
+exists in the domain of the solution
 
-\item Final values: An "ending point" ($x_\text{k}, y_\text{k}$) of unknown value $y_\text{k}$ that exists in the domain of the solution
+\item Final values: An "ending point" ($x_\text{k}, y_\text{k}$) of unknown value $y_\text{k}$
+that exists in the domain of the solution
 
-\item Step size: The measure of arbitrary positive value ($h$) from the starting point ($x_\text{0}, y_\text{0}$) of the domain to the next ($x_\text{1}, y_\text{1}$), where $x_\text{1} = x_\text{0} + h$
+\item Step size: The measure of arbitrary positive value ($h$) from the starting point
+($x_\text{0}, y_\text{0}$) of the domain to the next ($x_\text{1}, y_\text{1}$), where
+$x_\text{1} = x_\text{0} + h$
 
 \item Derivative: The amount by which a a function changes at any given point as an instantaneous
 rate of change
@@ -280,7 +292,9 @@ rate of change
 \item Numerical Analysis: A branch of mathematics and computer science wherein the solutions
 are numerical approximations taking into account the errors involved in the process.
 
-\item Numerical Approximation: 
+\item Recursion: 
+
+%\item Numerical Approximation: 
 
 \end{itemize}
 
@@ -293,6 +307,10 @@ Given an ordinary differential equation (ODE) represented by $y'= f(x,y)$, the s
 $x_\text{0}$ and $y_\text{0}$ that satisfy $y(x_\text{0}) = y_\text{0}$, and $x_\text{k}$, return $y_\text{k}$
 such that $y(x_\text{k}) = y_\text{k}$ (the final values), where $y(x)$ is a function, $f(x,y)$ is a function,
 and $x$ is an independent variable.}
+
+\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_meaningfulLabel}:]{
+Provide the user the means of providing the required inputs, calling the ODE solver program, and displaying the results.
+}
 
 \end{itemize}
 
@@ -335,7 +353,7 @@ on.
            \url{http://users.math.msu.edu/users/gnagy/teaching/ode.pdf}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \tref{T_IVP}\\
+  Ref.\ By & \tref{T_IVP}, \iref{euler}, \iref{heun}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -373,14 +391,28 @@ on.
                 \\
   \hline
   Source &
-           Nagle, et al, "Solutions and Initial Value Problems," in \it{Fundamentals of Differential 
-           Equations and Boundary Value Problems}, 3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
+           Nagle, et al, "Solutions and Initial Value Problems," in
+           \textit{Fundamentals of Differential Equations and Boundary Value Problems},
+           3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \tref{}\\
+  Ref.\ By & \iref{euler}, \iref{heun}\\
   \hline
 \end{tabular}
 \end{minipage}\\
+
+\subsection{General Definitions}\label{sec_gendef}
+
+This section collects the laws and equations that will be used in deriving the
+data definitions, which in turn are used to build the instance models.
+This section does not apply to this program family.
+
+\subsection{Data Definitions}\label{sec_datadef}
+
+This section collects and defines all the data needed to build the instance
+models. The dimension of each quantity is also given.
+This section does not apply to this program family.
+~\newline
 
 % ~\newline
 
@@ -434,8 +466,126 @@ on.
 
 \section{Variabilities}
 
-This section presents the variabilities in \progname{}. It gives the assumptions for the input,
-the variabilities in the calculations, and finally the target output.
+This section presents the variabilities in \progname{}. It details the varying instance models,
+gives the assumptions for the input, the variabilities in the calculations, and
+finally the target output.
+
+\subsection{Instance Models} \label{sec_instance}    
+
+This section transforms the problem defined in Section~\ref{Sec_bo} into 
+one which is expressed in mathematical terms. It uses concrete symbols defined 
+in Section~\ref{sec_theoretical}.
+
+~\newline
+
+%Instance Model 1
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{euler}\\
+  \hline
+  Label& \bf Euler's Method of Finding the Solution to an ODE\\
+  \hline
+  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  \hline
+  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+  &using the recursive formulas:\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + h*f(x_\text{n}, y_\text{n}), n = 0, 1, 2,...$\\
+  \hline
+  Description&$y' = f(x, y)$ is the first order ODE.\\
+  &$h$ is the constant step size.\\
+  &$x_\text{0}$ is the initial value of $x$.\\
+  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+  &$x_\text{k}$ is the final value of $x$.\\
+  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+  &$y_\text{k}$ is the final value of $y$.\\
+  &$n$ is the reference recursion step.\\
+
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  \\
+  \hline
+  Sources&
+        Nagle, et al, "The Approximation Method of Euler," in
+        \textit{Fundamentals of Differential Equations and Boundary Value Problems},
+        3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, sec. 1.5, pp. 31-32.
+  \\
+  \hline
+  Ref.\ By & \iref{heun}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+\subsubsection*{Detailed derivation of Euler's Method}
+
+Let $y' = f(x, y),$   $y(x_0) = y_0$, $h$ as a fixed positive number
+(step-size), and consider the equally spaced points in the domain:\\
+\\
+\hspace*{2ex} $x_n = x_0 + nh,$   $n = 0, 1, 2...$\\
+\\
+The construction of values $y_n$ that approximate the solution values proceeds as follows.
+At the point $(x_0, y_0)$, the slope of the solution to $y' = f(x, y)$ is given by
+${dy}/{dx} = f(x_0, y_0)$. Hence the tangent line to the solution curve at the initial point is:\\
+\\
+\hspace*{2ex} $y = y_0 + (x - x_0)*f(x_0, y_0)$.\\
+\\
+Using this tangent line to approximate the next point in the solution set, we find that
+for the point $x_1 = x_0 + h$, we can assume the following approximation:\\
+\\
+\hspace*{2ex} $y_1 = y_0 + h*f(x_0, y_0).$\\
+\\
+Repeating the process (recursion), until we reach $y_k$ yields the derivation of Euler's Method.
+
+~\newline
+
+%Instance Model 2
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{heun}\\
+  \hline
+  Label& \bf Heun's Method of Finding the Solution to an ODE\\
+  \hline
+  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  \hline
+  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+  &using the recursive formulas:\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + \frac{h}{2}\{[f(x_n, y_n) + f(x_n + h, y_n + h*f(x_n, y_n)]\}, n = 0, 1, 2,...$\\
+  \hline
+  Description&$y' = f(x, y)$ is the first order ODE.\\
+  &$h$ is the constant step size.\\
+  &$x_\text{0}$ is the initial value of $x$.\\
+  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+  &$x_\text{k}$ is the final value of $x$.\\
+  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+  &$y_\text{k}$ is the final value of $y$.\\
+  &$n$ is the reference recursion step.\\
+
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  \\
+  \hline
+  Sources&
+        Nagle, et al, "Improved Euler's Method," in
+        \textit{Fundamentals of Differential Equations and Boundary Value Problems},
+        3rd ed. USA: Addison Wesley Longman, 2000, ch. 3, sec. 3.5, pp. 124-129.
+  \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
 
 \subsection{Input Assumptions} \label{Sec_ia}
 
@@ -483,7 +633,7 @@ This section focuses on the variabilities and assumptions in the inputs of \prog
 
 \subsection{Calculation} \label{Sec_calc}
 
-This section focuses on the variabilities and assumptions in the inputs of \progname{}.
+This section focuses on the variabilities in the calculations used in \progname{}.
 
 ~\newline
 
@@ -503,131 +653,161 @@ This section focuses on the variabilities and assumptions in the inputs of \prog
 
 ~\newline
 
-\subsection{Nonfunctional Requirements}
+\subsection{Output} \label{Sec_calc}
 
-\wss{List your nonfunctional requirements.  You may consider using a fit
-  criterion to make them verifiable.}
+This section focuses on the variabilities in the output of \progname{}.
 
-\section{Likely Changes}    
+~\newline
 
-\noindent \begin{itemize}
-
-\item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \wss{Give
-    the likely changes, with a reference to the related assumption (aref), as appropriate.}
-
-\end{itemize}
-
-\section{Traceability Matrices and Graphs}
-
-The purpose of the traceability matrices is to provide easy references on what
-has to be additionally modified if a certain component is changed.  Every time a
-component is changed, the items in the column of that component that are marked
-with an ``X'' may have to be modified as well.  Table~\ref{Table:trace} shows the
-dependencies of theoretical models, general definitions, data definitions, and
-instance models with each other. Table~\ref{Table:R_trace} shows the
-dependencies of instance models, requirements, and data constraints on each
-other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, and likely changes on
-the assumptions.
-
-\wss{You will have to modify these tables for your problem.}
-
-\afterpage{
-\begin{landscape}
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
-\hline
-\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
-\hline
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{|p{0.35\textwidth}| p{0.60\textwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Variability& Parameter of Variation\\
+  \hline
+  Destination for output $y_k$ & boolean set of \{to a file, to the screen, to memory\}\\
+  \hline
+  Encoding of output $y_k$& Set of {binary, text} \\
+  \hline
+  % Output residual & boolean (true if the program returns the residual)\\
+  % \hline
+  Possible values of $y_k$ & set of $\mathbb{R}$ $\cup$ $\{-\infty, \infty,$ undefined$\}$ \\ 
+  \hline
+  Output program success & boolean (true if the program successfully
+  solves for the solution to the ODE problem)\\
+  \hline
 \end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
-\label{Table:A_trace}
-\end{table}
-\end{landscape}
-}
+\end{minipage}\\
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
-\hline        
-	& \tref{T_COE}& \tref{T_SHE}& \tref{T_LHE}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
-\hline
-\tref{T_COE}     & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}     & & & X& & & & & & & & & & \\ \hline
-\tref{T_LHE}     & & & & & & & & & & & & & \\ \hline
-\dref{NL}        & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
-\ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
-\iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
-\iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
-\iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
-\iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
-\label{Table:trace}
-\end{table}
+~\newline
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
-\hline
-	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
-\hline
-\iref{ewat}            & & X& & & & X& X \\ \hline
-\iref{epcm}            & X& & & X& & X& X \\ \hline
-\iref{I_HWAT}          & & & & & & X& X \\ \hline
-\iref{I_HPCM}          & & X& & & & X& X \\ \hline
-\rref{R_RawInputs}     & & & & & & & \\ \hline
-\rref{R_MassInputs}    & & & & & & X& \\ \hline
-\rref{R_CheckInputs}   & & & & & X& & \\ \hline
-\rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
-\rref{R_TempWater}     & X& & & & & & \\ \hline 
-\rref{R_TempPCM}       & & X& & & & & \\ \hline
-\rref{R_EnergyWater}   & & & X& & & & \\ \hline
-\rref{R_EnergyPCM}     & & & & X& & & \\ \hline
-\rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
-\rref{R_timeMeltBegin} & & X& & & & & \\ \hline
-\rref{R_timeMeltEnd}   & & X& & & & & \\ 
-\hline
-\end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
-\label{Table:R_trace}
-\end{table}
+% \subsection{Nonfunctional Requirements}
 
-The purpose of the traceability graphs is also to provide easy references on
-what has to be additionally modified if a certain component is changed.  The
-arrows in the graphs represent dependencies. The component at the tail of an
-arrow is depended on by the component at the head of that arrow. Therefore, if a
-component is changed, the components that it points to should also be
-changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
-general definitions, data definitions, instance models, likely changes, and
-assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
-instance models, requirements, and data constraints on each other.
+% \wss{List your nonfunctional requirements.  You may consider using a fit
+%   criterion to make them verifiable.}
+
+% \section{Likely Changes}    
+
+% \noindent \begin{itemize}
+
+% \item[LC\refstepcounter{lcnum}\thelcnum\label{LC_meaningfulLabel}:] \wss{Give
+%     the likely changes, with a reference to the related assumption (aref), as appropriate.}
+
+% \end{itemize}
+
+% \section{Traceability Matrices and Graphs}
+
+% The purpose of the traceability matrices is to provide easy references on what
+% has to be additionally modified if a certain component is changed.  Every time a
+% component is changed, the items in the column of that component that are marked
+% with an ``X'' may have to be modified as well.  Table~\ref{Table:trace} shows the
+% dependencies of theoretical models, general definitions, data definitions, and
+% instance models with each other. Table~\ref{Table:R_trace} shows the
+% dependencies of instance models, requirements, and data constraints on each
+% other. Table~\ref{Table:A_trace} shows the dependencies of theoretical models,
+% general definitions, data definitions, instance models, and likely changes on
+% the assumptions.
+
+% \wss{You will have to modify these tables for your problem.}
+
+% \afterpage{
+% \begin{landscape}
+% \begin{table}[h!]
+% \centering
+% \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+% \hline
+% 	& \aref{A_OnlyThermalEnergy}& \aref{A_hcoeff}& \aref{A_mixed}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
+% \hline
+% \tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
+% \tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
+% \tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
+% \dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
+% \dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
+% \ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
+% \ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
+% \ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
+% \ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
+% \iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
+% \iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
+% \iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
+% \iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
+% \lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
+% \lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
+% \lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
+% \lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
+% \lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
+% \lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
+% \hline
+% \end{tabular}
+% \caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
+% \label{Table:A_trace}
+% \end{table}
+% \end{landscape}
+% }
+
+% \begin{table}[h!]
+% \centering
+% \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+% \hline        
+% 	& \tref{T_COE}& \tref{T_SHE}& \tref{T_LHE}& \dref{NL}& \dref{ROCT} & \ddref{FluxCoil}& \ddref{FluxPCM} & \ddref{D_HOF}& \ddref{D_MF}& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM} \\
+% \hline
+% \tref{T_COE}     & & & & & & & & & & & & & \\ \hline
+% \tref{T_SHE}     & & & X& & & & & & & & & & \\ \hline
+% \tref{T_LHE}     & & & & & & & & & & & & & \\ \hline
+% \dref{NL}        & & & & & & & & & & & & & \\ \hline
+% \dref{ROCT}      & X& & & & & & & & & & & & \\ \hline
+% \ddref{FluxCoil} & & & & X& & & & & & & & & \\ \hline
+% \ddref{FluxPCM}  & & & & X& & & & & & & & & \\ \hline
+% \ddref{D_HOF}    & & & & & & & & & & & & & \\ \hline
+% \ddref{D_MF}     & & & & & & & & X& & & & & \\ \hline
+% \iref{ewat}      & & & & & X& X& X& & & & X& & \\ \hline
+% \iref{epcm}      & & & & & X& & X& & X& X& & & X \\ \hline
+% \iref{I_HWAT}    & & X& & & & & & & & & & & \\ \hline
+% \iref{I_HPCM}    & & X& X& & & & X& X& X& & X& & \\
+% \hline
+% \end{tabular}
+% \caption{Traceability Matrix Showing the Connections Between Items of Different Sections}
+% \label{Table:trace}
+% \end{table}
+
+% \begin{table}[h!]
+% \centering
+% \begin{tabular}{|c|c|c|c|c|c|c|c|}
+% \hline
+% 	& \iref{ewat}& \iref{epcm}& \iref{I_HWAT}& \iref{I_HPCM}& \ref{sec_DataConstraints}& \rref{R_RawInputs}& \rref{R_MassInputs} \\
+% \hline
+% \iref{ewat}            & & X& & & & X& X \\ \hline
+% \iref{epcm}            & X& & & X& & X& X \\ \hline
+% \iref{I_HWAT}          & & & & & & X& X \\ \hline
+% \iref{I_HPCM}          & & X& & & & X& X \\ \hline
+% \rref{R_RawInputs}     & & & & & & & \\ \hline
+% \rref{R_MassInputs}    & & & & & & X& \\ \hline
+% \rref{R_CheckInputs}   & & & & & X& & \\ \hline
+% \rref{R_OutputInputs}  & X& X& & & & X& X \\ \hline
+% \rref{R_TempWater}     & X& & & & & & \\ \hline 
+% \rref{R_TempPCM}       & & X& & & & & \\ \hline
+% \rref{R_EnergyWater}   & & & X& & & & \\ \hline
+% \rref{R_EnergyPCM}     & & & & X& & & \\ \hline
+% \rref{R_VerifyOutput}  & & & X& X& & & \\ \hline
+% \rref{R_timeMeltBegin} & & X& & & & & \\ \hline
+% \rref{R_timeMeltEnd}   & & X& & & & & \\ 
+% \hline
+% \end{tabular}
+% \caption{Traceability Matrix Showing the Connections Between Requirements and Instance Models}
+% \label{Table:R_trace}
+% \end{table}
+
+% The purpose of the traceability graphs is also to provide easy references on
+% what has to be additionally modified if a certain component is changed.  The
+% arrows in the graphs represent dependencies. The component at the tail of an
+% arrow is depended on by the component at the head of that arrow. Therefore, if a
+% component is changed, the components that it points to should also be
+% changed. Figure~\ref{Fig_ATrace} shows the dependencies of theoretical models,
+% general definitions, data definitions, instance models, likely changes, and
+% assumptions on each other. Figure~\ref{Fig_RTrace} shows the dependencies of
+% instance models, requirements, and data constraints on each other.
 
 % \begin{figure}[h!]
 % 	\begin{center}
