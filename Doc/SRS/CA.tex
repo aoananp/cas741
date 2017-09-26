@@ -71,6 +71,12 @@
 \newcounter{lcnum} %Likely change number
 \newcommand{\lthelcnum}{LC\thelcnum}
 \newcommand{\lcref}[1]{LC\ref{#1}}
+\newcounter{calcnum} %Calculation Number
+\newcommand{\cthecalcnum}{C\thecalcnum}
+\newcommand{\cref}[1]{C\ref{#1}}
+\newcounter{outputnum} %Output Number
+\newcommand{\otheoutputnum}{O\theoutputnum}
+\newcommand{\oref}[1]{O\ref{#1}}
 
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
 \newcommand{\famdesc}{Library of ODE Solvers}
@@ -121,7 +127,7 @@ for solving ordinary differential equations.  The symbols are listed in alphabet
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule
-$dy/dx$ & \text {-} & rate of change of $y$ depending on $x$\\
+$dy/dx$ & \text {-} & rate of change of $y$ with respect to $x$\\
 $f(x, y)$ & \text{-} & ODE function containing $(x,y)$\\
 $h$ & \text{-} & step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
 $n$ & \text{-} & reference recursion step.\\
@@ -228,6 +234,14 @@ external entity outside the software, the user in this case.  A rectangle
 represents the software system itself (\famname{}).  Arrows are used to show the data
 flow between the system and its environment.
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=0.6\textwidth]{SystemContextFigure}
+\caption{System Context}
+\label{Fig_SystemContext} 
+\end{center}
+\end{figure}
+
 Programs in \famname{} are used inside a wrapper program.  The external interaction is through
 program calls. The solution to the ODE is the output of the function.  The responsibilities of
 the user and the system are as follows:
@@ -238,6 +252,8 @@ the user and the system are as follows:
 \item Provide the correct program call, while adhering to conventions of the program's prototype
 \item Provide the input details of the ODE to be solved, ensuring no errors in data entry
 \item Declaration of the ODE method to be used in solving the ODE
+\item Convert the high order ODE to a system of first order ODEs
+\item Perform the intermediate matrix calculations to solve the system of first order ODEs
 \end{itemize}
 \item \famname{} Responsibilities:
 \begin{itemize}
@@ -292,17 +308,17 @@ instantaneous rate of change
 \item Numerical Analysis: A branch of mathematics and computer science wherein the solutions
 are numerical approximations taking into account the errors involved in the process.
 
-\item Numerical Approximation
+\item Numerical Approximation: An approximation of the exact solution to the problem with the
+use of known numerical techniques while minimizing error.
 
-\item Recursion:
+\item Recursion: The repeated application of a procedure or program.
 
 \end{itemize}
 
 \subsection{Data Definitions} \label{sec_datadef}
 
 This section collects and defines all the data needed to build the instance
-models. The dimension of each quantity is also given.  \wss{Modify the examples
-  below for your problem, and add additional definitions as appropriate.}
+models. The dimension of each quantity is also given.
 
 ~\newline
 
@@ -395,7 +411,7 @@ on.
            \url{http://users.math.msu.edu/users/gnagy/teaching/ode.pdf}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \tref{T_IVP}, \iref{euler}, \iref{heun}\\
+  Ref.\ By & \tref{T_IVP}, \tref{T_HODE}, \iref{euler}, \iref{heun}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -436,6 +452,52 @@ on.
            Nagle, et al, "Solutions and Initial Value Problems," in
            \textit{Fundamentals of Differential Equations and Boundary Value Problems},
            3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
+  % The above web link should be replaced with a proper citation to a publication
+  \hline
+  Ref.\ By & \iref{euler}, \iref{heun}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+~\newline
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_HODE}\\
+  \hline
+  Label&\bf Higher Order Ordinary Differential Equation\\
+  \hline
+  Equations& [\tref{T_ODE}]\\
+    &$y^{(n)} = f(x,y,y^\text{(1)},y^\text{(2)},...,y^\text{(n-1)})$\\
+    &$f_\text{(1)} = y^\text{(1)},, f_\text{(2)} = y^\text{(2)},..., f_\text{(n)} = y^\text{(n)}$\\
+    & $f = $
+    \[
+        \left[
+          \begin{tabular}{c}
+           $f_\text{(1)}$\\
+           $f_\text{(2)}$\\
+           \text{.}\\
+           \text{.}\\
+           \text{.}\\
+           $f_\text{(n-1)}$\\
+           $f_\text{(n)}$\\
+          \end{tabular}
+        \right]
+    \]\\
+  
+  \hline
+  Description & 
+                The above theoretical model shows a higher order ODE represented as a system
+                of first order ODE. This model allows for a more manageable approach to
+                finding the solution to a higher order ODE.
+                \\
+  \hline
+  Source &
+           \url{http://www.math.poly.edu/courses/ma2132/Notes/MA2132EquationsToSystems.pdf}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
   Ref.\ By & \iref{euler}, \iref{heun}\\
@@ -567,19 +629,90 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
 \end{minipage}\\
 
 \subsection{Assumptions}
+% This section simplifies the problem by stating the assumptions.
+% The numbers given in the square brackets refer to the theoretical model
+% [T], general definition [GD], data definition [DD], instance model [IM], or
+% likely change [LC], in which the respective assumption is used.
 
 \begin{itemize}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_meaningfulLabel}:]
-  \wss{Short description of each assumption.  Each assumption
-    should have a meaningful label.  Use cross-references to identify the
-    appropriate traceability to T, GD, DD etc., using commands like dref, ddref etc.}
+  % \wss{Short description of each assumption.  Each assumption
+  %   should have a meaningful label.  Use cross-references to identify the
+  %   appropriate traceability to T, GD, DD etc., using commands like dref, ddref etc.}
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_programcalls}:]
+It is assumed that the user will declare which of the four methods (Euler's Method, Heun's
+Method, Fourth-Order Taylor Series, Fourth-Order Runge Kutta) will be used in solving
+the ODE.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_typeoff}:]
+The types of $f(x,y)$ are linear, nonlinear, homogeneous, and non-homogeneous
+equations.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
+It is assumed that user will convert the input $f(x,y)$ to be of the first order,
+since higher order ODEs can be represented as a system of first order ODEs.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+$f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
+matrix calculations in solving the system of first order ODEs.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+$f(x, y)$ will have constant coefficients.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofh}:]
+The entry for $h$ is from the set of positive $\mathbb{R}$.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofx0}:]
+The entry for $x_0$ is from the set of $\mathbb{R}$.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofx0}:]
+The entry $x_0$ is of a single dimension.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofy0}:]
+The entry for $y_0$ is from the set of $\mathbb{R}$.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofy0}:]
+The entry $y_0$ is of a single dimension.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofxk}:]
+The entry for $x_k$ is from the set of $\mathbb{R}$.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofxk}:]
+The entry $x_k$ is of a single dimension.
 
 \end{itemize}
 
 \subsection{Calculation} \label{sec_Calculation}
 
-\subsection{Output} \label{sec_Output}    
+\begin{itemize}
+\item[C\refstepcounter{calcnum}\thecalcnum \label{C_inputs}:]
+Check the inputs if they satisfy the input assumptions.
+
+\item[C\refstepcounter{calcnum}\thecalcnum \label{C_progname}:]
+Perform the ODE solver model according to the user program call.
+
+\end{itemize}
+
+\subsection{Output} \label{sec_Output}
+
+\begin{itemize}
+\item[O\refstepcounter{outputnum}\theoutputnum \label{O_outputyk}:]
+The output destination for $y_k$ can be to a file, on the command line, or to memory for use by
+another program.
+
+\item[O\refstepcounter{outputnum}\theoutputnum \label{O_encodingyk}:]
+The encoding of $y_k$ can be a binary or text as shown to the user.
+
+\item[O\refstepcounter{outputnum}\theoutputnum \label{O_valuesyk}:]
+The possible values of $y_k$ are the set of $\mathbb{R}$
+$\cup$ $\{-\infty, \infty,$ undefined$\}$
+
+\item[O\refstepcounter{outputnum}\theoutputnum \label{O_success}:]
+The program returns TRUE if it does not encounter exceptions in generating the solution
+to the ODE problem.
+
+\end{itemize}    
 
 \section{Traceability Matrices and Graphs}
 
