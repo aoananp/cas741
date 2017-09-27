@@ -128,7 +128,7 @@ for solving ordinary differential equations.  The symbols are listed in alphabet
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule
 $dy/dx$ & \text {-} & rate of change of $y$ with respect to $x$\\
-$f(x, y)$ & \text{-} & ODE function containing $(x,y)$\\
+$f(x, y)$ & \text{-} & Explicit form of the ODE function containing $(x,y)$\\
 $h$ & \text{-} & step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
 $n$ & \text{-} & reference recursion step.\\
 $x_\text{0}$ & \text{-} & Initial value $x$\\
@@ -154,6 +154,7 @@ $y^\text{(n)}$ & \text{-} & ODE to the $n^\text{th}$ order\\
   GD & General Definition\\
   GS & Goal Statement\\
   IM & Instance Model\\
+  IVP & Initial Value Problem\\
   LC & Likely Change\\
   ODE & Ordinary Differential Equation\\
   PS & Physical System Description\\
@@ -203,9 +204,9 @@ activities, including writing the requirements specification, design specificati
 the software verification and validation plan and execution.
 
 \subsection{Scope of the Family}
-The scope of the yamilu is limited to the the library of ODE solvers. Given
+The scope of the family is limited to the the library of ODE solvers. Given
 the appropriate inputs, each program in \famname{} is intended to find the solution to an
-ODE problem.
+Initial Value ODE problem.
 
 \subsection{Characteristics of Intended Reader}
 Reviewers of this document should have an elementary understanding of ordinary differential
@@ -219,7 +220,7 @@ computing software proposed by Smith (2006). The presentation follows the standa
 pattern of presenting goals, theories, definitions, and assumptions. For readers that would
 like a more bottom up approach, they can start reading the instance models in Section
 \ref{sec_instance} and trace back to find any additional information they require.  The
-instance models provide the methods to solve Ordinary Differential Equations (ODEs).
+instance models provide the methods to solve Initial Value Problems (IVP) of Ordinary Differential Equations (ODEs).
 
 \section{General System Description}
 
@@ -230,9 +231,10 @@ constraints.
 \subsection{Potential System Contexts}
 
 Figure~\ref{Fig_SystemContext} shows the system context.  A circle represents an
-external entity outside the software, the user in this case.  A rectangle
-represents the software system itself (\famname{}).  Arrows are used to show the data
-flow between the system and its environment.
+external entity outside the software, the user/programmer in this case. The programmer
+shall use \famname{} in solving ODE Initial Value Problems (IVPs).
+A rectangle represents the software system itself (\famname{}). 
+Arrows are used to show the data flow between the system and its environment.
 
 \begin{figure}[h!]
 \begin{center}
@@ -243,8 +245,8 @@ flow between the system and its environment.
 \end{figure}
 
 Programs in \famname{} are used inside a wrapper program.  The external interaction is through
-program calls. The solution to the ODE is the output of the function.  The responsibilities of
-the user and the system are as follows:
+program calls. The solution to the ODE IVP is the output of the function. 
+The responsibilities of the user and the system are as follows:
 
 \begin{itemize}
 \item User Responsibilities:
@@ -252,12 +254,11 @@ the user and the system are as follows:
 \item Provide the correct program call, while adhering to conventions of the program's prototype
 \item Provide the input details of the ODE to be solved, ensuring no errors in data entry
 \item Declaration of the ODE method to be used in solving the ODE
-\item Convert the high order ODE to a system of first order ODEs
-\item Perform the intermediate matrix calculations to solve the system of first order ODEs
 \end{itemize}
 \item \famname{} Responsibilities:
 \begin{itemize}
 \item Detect an improper input, such as invalid characters in the ODE statement and incomplete input arguments
+\item Parse the input ODE string into a meaningful ODE equation that can be manipulated by the machine
 \item Detect a data type mismatch where applicable, such as a string of characters in a floating point argument
 \item Calculate the solution to the ODE problem
 \end{itemize}
@@ -274,15 +275,17 @@ There are no system constraints applicable.
 
 \section{Commonalities}
 This section first presents the background and motivation of the program family, which gives a
-high-level view of the problem to be solved.  This is followed by the solution characteristics
-specification, which presents the theories, definitions, assumptions, and finally
-the instance models as variabilities.
+high-level view of the problem to be solved.  This is followed by the terminologies used, data
+definitions, goals of the software, and the theoretical models used. 
+% solution characteristics
+% specification, which presents the theories, definitions, assumptions, and finally
+% the instance models as variabilities.
 
 \subsection{Background Overview} \label{Sec_Background}
-\famname{} is a software library developed to be provide a means to solve ODE problems
-using numerical methods. It can be used to solve different variations of ODEs given their
-initial values. It can be implemented to find the most accurate method (the method which
-produces the least error in their scientific computing implementation).
+\famname{} is a software library developed to be provide a means to solve Initial Value
+Problems for ODEs using numerical methods. It can be used to solve different variations of ODEs
+given their initial values. It can be implemented to find the most accurate method (the method
+which produces the least error in their scientific computing implementation).
 
 \subsection{Terminology and  Definitions}
 
@@ -313,6 +316,9 @@ use of known numerical techniques while minimizing error.
 
 \item Recursion: The repeated application of a procedure or program.
 
+\item Initial Value Problem: A type of ODE problem where the initial conditions are stated and
+used to find the solution to the ODE.
+
 \end{itemize}
 
 \subsection{Data Definitions} \label{sec_datadef}
@@ -341,8 +347,8 @@ Symbol &$dy/dx$\\
   \hline
   Description 
         &$dy/dx$ is the slope of the tangent line to $y(x)$.\\
+        &$dy/dx$ can be denoted as $y'(x)$ or $f(x, y$). [\tref{T_ODE}]\\
         &$h$ is the step size.\\
-        &$n$ is the reference recursion step.\\
   \hline
   Source&
         Nagle, et al, "Solutions and Initial Value Problems," in
@@ -360,7 +366,8 @@ Symbol &$dy/dx$\\
 \begin{itemize}
 
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_SolveForY}:]{
-Given an ordinary differential equation (ODE) represented by $y'= f(x,y)$, the set of initial
+Given an explicit first order continuous ordinary differential equation (ODE) problem
+represented by $y'= f(x,y)$, the set of initial
 values $x_\text{0}$ and $y_\text{0}$ that satisfy $y(x_\text{0}) = y_\text{0}$,
 and $x_\text{k}$, return $y_\text{k}$ such that $y(x_\text{k}) = y_\text{k}$ (the final
 values), where $y(x)$ is a function, $f(x,y)$ is a function, and $x$
@@ -387,31 +394,38 @@ on.
   \rowcolor[gray]{0.9}
   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_ODE}\\
   \hline
-  Label&\bf Ordinary Differential Equation\\
+  Label&\bf Initial Value Problem (IVP) of an Ordinary Differential Equation (ODE)\\
   \hline
-  Equation&  $y' = f(x,y)$\\
+  Equation& Implicit form of the $n^{th}$ order ODE:\\
+  &$f(x, y, y',...y^\text{(n)}) = o$\\
+  &Explicit form of the $n^{th}$ order ODE:\\ 
+  &$y^\text{(n)} = f(x, y, y',..., y^\text{(n-1)})$\\
+  &Given the initial values:\\
+  &$(x_0, y_0)$ such that $y(x_0) = y_0$\\
+  &Find $y_k$ such that $y(x_k) = y_k$.\\
   %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
   \hline
   Description & 
-                The above model gives the definition of an ordinary differential equation.
+                The above model gives the definition of an ordinary differential equation initial
+                value problem.
 
                 A differential equation is an equation, where the unknown is a
                 function and both the function and its derivatives (rate of change) appear in the
                 equation.
 
-                An ordinary differential equation is a differential equation involving only ordinary derivatives
-                with respect to a single independent variable.
+                An ordinary differential equation is a differential equation involving only ordinary derivatives with respect to a single independent variable.
 
                 For an arbitrary ODE, the true solution will, in general, be unknown.
 
-                Numerical methods are used to find numerical approximations of the solution to the ODE. 
+                Using the given initial values, numerical methods are used to find numerical approximations of the solution to the ODE. 
                 \\
   \hline
   Source &
-           \url{http://users.math.msu.edu/users/gnagy/teaching/ode.pdf}\\
+           M. Heath, "Ordinary Differential Equations," in \textit{Scientific Computing an
+           Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.1, pp. 383 - 384. \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \tref{T_IVP}, \tref{T_HODE}, \iref{euler}, \iref{heun}\\
+  Ref.\ By & \ddref{D_SLOPE}, \tref{T_uniqsoln}, \iref{euler}, \iref{heun}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -424,7 +438,7 @@ on.
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_IVP}\\
+  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_uniqsoln}\\
   \hline
   Label&\bf Existence and Uniqueness of the Solution\\
   \hline
@@ -452,52 +466,6 @@ on.
            Nagle, et al, "Solutions and Initial Value Problems," in
            \textit{Fundamentals of Differential Equations and Boundary Value Problems},
            3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
-  % The above web link should be replaced with a proper citation to a publication
-  \hline
-  Ref.\ By & \iref{euler}, \iref{heun}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
-
-~\newline
-
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& T\refstepcounter{theorynum}\thetheorynum \label{T_HODE}\\
-  \hline
-  Label&\bf Higher Order Ordinary Differential Equation\\
-  \hline
-  Equations& [\tref{T_ODE}]\\
-    &$y^{(n)} = f(x,y,y^\text{(1)},y^\text{(2)},...,y^\text{(n-1)})$\\
-    &$f_\text{(1)} = y^\text{(1)},, f_\text{(2)} = y^\text{(2)},..., f_\text{(n)} = y^\text{(n)}$\\
-    & $f = $
-    \[
-        \left[
-          \begin{tabular}{c}
-           $f_\text{(1)}$\\
-           $f_\text{(2)}$\\
-           \text{.}\\
-           \text{.}\\
-           \text{.}\\
-           $f_\text{(n-1)}$\\
-           $f_\text{(n)}$\\
-          \end{tabular}
-        \right]
-    \]\\
-  
-  \hline
-  Description & 
-                The above theoretical model shows a higher order ODE represented as a system
-                of first order ODE. This model allows for a more manageable approach to
-                finding the solution to a higher order ODE.
-                \\
-  \hline
-  Source &
-           \url{http://www.math.poly.edu/courses/ma2132/Notes/MA2132EquationsToSystems.pdf}\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
   Ref.\ By & \iref{euler}, \iref{heun}\\
