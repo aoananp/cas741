@@ -132,15 +132,17 @@ $f(x, y)$ & \text{-} & Explicit form of the ODE function containing $(x,y)$\\
 $f_{x}(x, y)$ & \text{-} & Explicit form of the derivative of $f(x, y)$ with respect to x\\
 $f_{y}(x, y)$ & \text{-} & Explicit form of the derivative of $f(x, y)$ with respect to y\\
 $h$ & \text{-} & step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
-$n$ & \text{-} & reference recursion step.\\
+$K_1, K_2, K_3, K_4$ & \text{-} & Intermediary variables used in the Runge-Kutta method\\
+$n$ & \text{-} & reference recursion step\\
+$o$ & \text{-} & solution variable\\
 $x_\text{0}$ & \text{-} & Initial value $x$\\
 $x_\text{k}$ & \text{-} & Final value $x$\\
 $x_\text{n}$ & \text{-} & Intermediate $n^\text{th}$ value $x$\\
 $y_\text{0}$ & \text{-} & Initial value $y$\\ 
 $y_\text{k}$ & \text{-} & Final value $y$\\
 $y_\text{n}$ & \text{-} & Intermediate $n^\text{th}$ value $y$\\ 
-$y'$ & \text{-} & first order ODE = $f(x, y)$\\
-$y^\text{(n)}$ & \text{-} & ODE to the $n^\text{th}$ order\\
+$y'$ & \text{-} & Implicit form of the first order ODE = $f(x, y)$\\
+$y^\text{(n)}$ & \text{-} & Implicit form of the ODE to the $n^\text{th}$ order\\
 \bottomrule
 \end{longtable*}
 
@@ -360,7 +362,7 @@ Symbol &$dy/dx$\\
         3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 7.
   \\
   \hline
-  Ref.\ By & \iref{euler}, \iref{heun}\\
+  Ref.\ By & \iref{euler}, \iref{trapezoid}, \iref{heun}, \iref{runge}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -430,7 +432,8 @@ on.
            Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.1, pp. 383 - 384. \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \ddref{D_SLOPE}, \tref{T_uniqsoln}, \iref{euler}, \iref{heun}\\
+  Ref.\ By & \ddref{D_SLOPE}, \tref{T_uniqsoln}, \iref{euler}, \iref{trapezoid}, \iref{heun},
+  \iref{runge}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -473,7 +476,7 @@ on.
            3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \iref{euler}, \iref{heun}\\
+  Ref.\ By & \iref{euler}, \iref{trapezoid}, \iref{heun}, \iref{runge}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -505,7 +508,7 @@ in Section~\ref{sec_theoretical}.
   \hline
   Label& \bf Euler's Method of Finding the Solution to an ODE IVP\\
   \hline
-  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  Input& $f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
   \hline
   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
   &using the recursive formulas:\\
@@ -527,11 +530,11 @@ in Section~\ref{sec_theoretical}.
   \hline
   Sources&
         Nagle, et al, "The Approximation Method of Euler," in
-        \textit{Fundamentals of Differential Equations and Boundary Value Problems},
-        3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, sec. 1.5, pp. 31-32.
+        \textit{Fundamentals of Differential Equations and Boundary Value Problems,
+        3}rd ed. USA: Addison Wesley Longman, 2000, ch. 1, sec. 1.5, pp. 31-32.
   \\
   \hline
-  Ref.\ By & \iref{heun}\\
+  Ref.\ By & \iref{heun}, \iref{trapezoid}, \aref{A_programcalls}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -566,11 +569,78 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
 \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
   \hline
   \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{trapezoid}\\
+  \hline
+  Label& \bf Trapezoid Method of Finding the Solution to an ODE IVP\\
+  \hline
+  Input& $f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  \hline
+  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+  &using the recursive formulas:\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + h*[f(x_\text{n}, y_\text{n})+f(x_\text{n+1}, y_\text{n+1})] / 2,
+  n = 0, 1, 2,...$\\
+  \hline
+  Description&$y' = f(x, y)$ is the first order ODE.\\
+  &$h$ is the constant step size.\\
+  &$x_\text{0}$ is the initial value of $x$.\\
+  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+  &$x_\text{k}$ is the final value of $x$.\\
+  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+  &$y_\text{k}$ is the final value of $y$.\\
+  &$n$ is the reference recursion step.\\
+
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  \\
+  \hline
+  Sources&
+        M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
+        Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 399 - 400.
+  \\
+  \hline
+  Ref.\ By & \aref{A_programcalls}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+\subsubsection*{Detailed derivation of the Trapezoid Method}
+
+Using [\iref{euler}] as a starting point:\\
+\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*f(x_\text{n}, y_\text{n}), n = 0, 1, 2,...$\\
+\\
+The Reverse Euler's Method can be derived by taking the values at the next iteration point
+while working backwards:\\
+\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*f(x_\text{n+1}, y_\text{n+1}), n = 0, 1, 2,...$\\
+\\
+Using a trapezoid formed by the two approximations, the average can be combined into the
+trapezoid method:\\
+\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*[f(x_\text{n}, y_\text{n})+f(x_\text{n+1},
+y_\text{n+1})] / 2, n = 0, 1, 2,...$\\
+\\
+Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Method.\\
+
+~\newline
+
+%Instance Model 3
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
   Number& IM\refstepcounter{instnum}\theinstnum \label{heun}\\
   \hline
   Label& \bf Heun's Method of Finding the Solution to an ODE IVP\\
   \hline
-  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  Input& $f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
   \hline
   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
   &using the recursive formulas:\\
@@ -596,56 +666,59 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
         3rd ed. USA: Addison Wesley Longman, 2000, ch. 3, sec. 3.5, pp. 124-129.
   \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By & \aref{A_programcalls}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
-%Instance Model 3
+~\newline
 
-\noindent
-\begin{minipage}{\textwidth}
-\renewcommand*{\arraystretch}{1.5}
-\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
-  \hline
-  \rowcolor[gray]{0.9}
-  Number& IM\refstepcounter{instnum}\theinstnum \label{taylor}\\
-  \hline
-  Label& \bf Second Order Taylor Series Method of Finding the Solution to an ODE IVP\\
-  \hline
-  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
-  \hline
-  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
-  &by first differentiating $f(x, y)$ to obtain:\\
-  &$y'' = f_{x}(x, y) + f_{y}(x, y)*f(x, y)$.\\
-  &using the recursive formulas:\\
-  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-  &$y_\text{n+1} = y_\text{n} + h * f(x,y) + \frac{h^2}{2}*(f_{x}(x, y) + f_{y}(x, y)*f(x, y)), n = 0, 1, 2,...$\\
-  \hline
-  Description&$y' = f(x, y)$ is the first order ODE.\\
-  &$h$ is the constant step size.\\
-  &$x_\text{0}$ is the initial value of $x$.\\
-  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
-  &$x_\text{k}$ is the final value of $x$.\\
-  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
-  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
-  &$y_\text{k}$ is the final value of $y$.\\
-  &$f_{x}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to x\\
-  &$f_{y}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to y\\
-  &$n$ is the reference recursion step.\\
+% %Instance Model 3
 
-  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
-  \\
-  \hline
-  Sources&
-        M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
-        Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 404.
-  \\
-  \hline
-  Ref.\ By & \iref{epcm}\\
-  \hline
-\end{tabular}
-\end{minipage}\\
+% \noindent
+% \begin{minipage}{\textwidth}
+% \renewcommand*{\arraystretch}{1.5}
+% \begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+%   \hline
+%   \rowcolor[gray]{0.9}
+%   Number& IM\refstepcounter{instnum}\theinstnum \label{taylor}\\
+%   \hline
+%   Label& \bf Second Order Taylor Series Method of Finding the Solution to an ODE IVP\\
+%   \hline
+%   Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+%   \hline
+%   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+%   &by first differentiating $f(x, y)$ to obtain:\\
+%   &$y'' = f_{x}(x, y) + f_{y}(x, y)*f(x, y)$.\\
+%   &using the recursive formulas:\\
+%   &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+%   &$y_\text{n+1} = y_\text{n} + h * f(x,y) + \frac{h^2}{2}*(f_{x}(x, y) + f_{y}(x, y)*f(x, y)), n = 0, 1, 2,...$\\
+%   \hline
+%   Description&$y' = f(x, y)$ is the first order ODE.\\
+%   &$h$ is the constant step size.\\
+%   &$x_\text{0}$ is the initial value of $x$.\\
+%   &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+%   &$x_\text{k}$ is the final value of $x$.\\
+%   &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+%   &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+%   &$y_\text{k}$ is the final value of $y$.\\
+%   &$f_{x}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to x\\
+%   &$f_{y}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to y\\
+%   &$n$ is the reference recursion step.\\
+
+%   & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+%   \\
+%   \hline
+%   Sources&
+%         M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
+%         Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 404.
+%   \\
+%   \hline
+%   Ref.\ By & \iref{epcm}\\
+%   \hline
+% \end{tabular}
+% \end{minipage}\\
+
 
 %Instance Model 4
 
@@ -659,17 +732,21 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
   \hline
   Label& \bf Fourth Order Runge Kutta Method of Finding the Solution to an ODE IVP\\
   \hline
-  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  Input& $f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
   \hline
   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
-  &by first differentiating $f(x, y)$ to obtain:\\
-  &$y'' = f_{x}(x, y) + f_{y}(x, y)*f(x, y)$.\\
   &using the recursive formulas:\\
   &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-  &$y_\text{n+1} = y_\text{n} + h * f(x,y) + \frac{h^2}{2}*(f_{x}(x, y) + f_{y}(x, y)*f(x, y)), n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + \frac{h}{6}(K_1 + 2K_2 + 2K_3 + K_4), n = 0, 1, 2,...$\\
+  &where:\\
+  &$K_1 = f(x_n, y_n)$,\\
+  &$K_2 = f(x_n + h/2, y_n + h*K_{1}/2)$\\
+  &$K_3 = f(x_n + h/2, y_n + h*K_{2}/2)$\\
+  &$K_4 = f(x_n + h, y_n + h*K_{3})$\\
   \hline
   Description&$y' = f(x, y)$ is the first order ODE.\\
   &$h$ is the constant step size.\\
+  &$K_1, K_2, K_3,$ and $K_4$ are the intermediate variables.\\
   &$x_\text{0}$ is the initial value of $x$.\\
   &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
   &$x_\text{k}$ is the final value of $x$.\\
@@ -680,15 +757,16 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
   &$f_{y}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to y\\
   &$n$ is the reference recursion step.\\
 
-  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} =
+  y_\text{k}$.
   \\
   \hline
   Sources&
         M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
-        Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 404.
+        Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 405-406.
   \\
   \hline
-  Ref.\ By & \iref{epcm}\\
+  Ref.\ By & \aref{A_programcalls}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -707,12 +785,12 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_programcalls}:]
 It is assumed that the user will declare which of the four methods (Euler's Method, Heun's
-Method, Second-Order Taylor Series, Fourth-Order Runge Kutta) will be used in solving
-the ODE IVP.
+Method, Trapezoid Method, Fourth-Order Runge Kutta Method) will be used in solving
+the ODE IVP. [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \textit{[Rationale: The choice of which variability is decided upon by the user/programmer
 on compile time as the intent is to keep the library lightweight and functional - only four
-most popular models were considered.]}
+classical models were considered.]}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_typeoff}:]
 The ODE will be of the first order, given by $y' = f(x, y)$.
@@ -731,22 +809,22 @@ The entry $f(x, y)$ can be linear or non-linear.
 The entry $f(x, y)$ will be a continuous function.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_roots}:]
-The entry $f(x, y)$ will not have complex roots.
+The entry $f(x, y)$ will not have complex roots and solutions.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_boundary}:]
 The entry ODE problem is strictly an initial value problem; boundary value problems will
 not be handled.
 
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
-% It is assumed that user will convert the input $f(x,y)$ to be of the first order,
-% since higher order ODEs can be represented as a system of first order ODEs.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
+It is assumed that user will convert the input $f(x,y)$ to be of the first order,
+since higher order ODEs can be represented as a system of first order ODEs.
 
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-% $f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
-% matrix calculations in solving the system of first order ODEs.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+$f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
+matrix calculations in solving the system of first order ODEs.
 
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-% $f(x, y)$ will have constant coefficients.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+$f(x, y)$ will have constant coefficients.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofh}:]
 The entry for $h$ is from the set of positive $\mathbb{R}$.
