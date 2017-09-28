@@ -129,6 +129,8 @@ for solving ordinary differential equations.  The symbols are listed in alphabet
 \midrule
 $dy/dx$ & \text {-} & rate of change of $y$ with respect to $x$\\
 $f(x, y)$ & \text{-} & Explicit form of the ODE function containing $(x,y)$\\
+$f_{x}(x, y)$ & \text{-} & Explicit form of the derivative of $f(x, y)$ with respect to x\\
+$f_{y}(x, y)$ & \text{-} & Explicit form of the derivative of $f(x, y)$ with respect to y\\
 $h$ & \text{-} & step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
 $n$ & \text{-} & reference recursion step.\\
 $x_\text{0}$ & \text{-} & Initial value $x$\\
@@ -187,15 +189,15 @@ Known elementary techniques of solving ODEs in the discrete domain use the linea
 method wherein the solution is based upon assuming or ``approximating" the slope of the tangent
 line from one reference point to the next until the target point has been reached.
 
-The following section provides an overview of the Commonality Analysis (CA) for a program family of ODE solvers. The developed program will be
+The following section provides an overview of the Commonality Analysis (CA) for a program family of ODE solvers for Initial Value Problems (IVP). The developed program will be
 called \famdesc{} (\famname{}). This section explains the purpose of this
 document,the scope of the family, and the characteristics of the intended readers
 and the organization of the document.
 
 \subsection{Purpose of Document}
 The main purpose of this document is to formally describe program families of
-the known well-known methods of solving ODEs. The goals and mathematical models used
-in the \famname{} code are provided with
+the known well-known methods of solving Initial Value Problems of ODEs.
+The goals and mathematical models used in the \famname{} code are provided with
 an emphasis on explicitly identifying assumptions, constraints, and unambiguous definitions.
 
 This document contains the description of the functionalities of the \famname{} software
@@ -204,7 +206,7 @@ activities, including writing the requirements specification, design specificati
 the software verification and validation plan and execution.
 
 \subsection{Scope of the Family}
-The scope of the family is limited to the the library of ODE solvers. Given
+The scope of the family is limited to the library of IVP ODE solvers. Given
 the appropriate inputs, each program in \famname{} is intended to find the solution to an
 Initial Value ODE problem.
 
@@ -232,13 +234,13 @@ constraints.
 
 Figure~\ref{Fig_SystemContext} shows the system context.  A circle represents an
 external entity outside the software, the user/programmer in this case. The programmer
-shall use \famname{} in solving ODE Initial Value Problems (IVPs).
+shall use \famname{} in solving the ODE Initial Value Problems (IVPs).
 A rectangle represents the software system itself (\famname{}). 
 Arrows are used to show the data flow between the system and its environment.
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=0.6\textwidth]{SystemContextFigure}
+ \includegraphics[width=0.9\textwidth, height=0.20\textheight]{SystemContextFigure}
 \caption{System Context}
 \label{Fig_SystemContext} 
 \end{center}
@@ -254,6 +256,7 @@ The responsibilities of the user and the system are as follows:
 \item Provide the correct program call, while adhering to conventions of the program's prototype
 \item Provide the input details of the ODE to be solved, ensuring no errors in data entry
 \item Declaration of the ODE method to be used in solving the ODE
+\item Provide a valid ODE function which assumes a first order continuous ODE
 \end{itemize}
 \item \famname{} Responsibilities:
 \begin{itemize}
@@ -261,13 +264,14 @@ The responsibilities of the user and the system are as follows:
 \item Parse the input ODE string into a meaningful ODE equation that can be manipulated by the machine
 \item Detect a data type mismatch where applicable, such as a string of characters in a floating point argument
 \item Calculate the solution to the ODE problem
+\item Provide the user access to the outputs of the program
 \end{itemize}
 \end{itemize}
 
 \subsection{Potential User Characteristics} \label{SecUserCharacteristics}
 
-The end user of \famname{} should have an understanding of undergraduate Level
-1 Calculus.
+The end user of \famname{} should have at least some basic programming experience and
+an understanding of undergraduate Level 1 Calculus.
 
 \subsection{Potential System Constraints}
 
@@ -295,10 +299,10 @@ easier to correctly understand the requirements:
 
 \begin{itemize}
 
-\item Initial values: A "starting point" ($x_\text{0}, y_\text{0}$) of known values that
+\item Initial values: ``starting point" ($x_\text{0}, y_\text{0}$) of known values that
 exists in the domain of the solution
 
-\item Final values: An "ending point" ($x_\text{k}, y_\text{k}$) of unknown value $y_\text{k}$
+\item Final values: An ``ending point" ($x_\text{k}, y_\text{k}$) of unknown value $y_\text{k}$
 that exists in the domain of the solution
 
 \item Step size: The measure of arbitrary positive value ($h$) from the starting point
@@ -375,7 +379,7 @@ is an independent variable.}
 
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_InputOutput}:]{
 Provide the user the means of providing the required inputs, calling the ODE solver
-program, and displaying the results.}
+program, and returning the results.}
 
 \end{itemize}
 
@@ -394,14 +398,15 @@ on.
   \rowcolor[gray]{0.9}
   Number& T\refstepcounter{theorynum}\thetheorynum \label{T_ODE}\\
   \hline
-  Label&\bf Initial Value Problem (IVP) of an Ordinary Differential Equation (ODE)\\
+  Label&\bf Initial Value Problem (IVP) of First Order Ordinary Differential Equation (ODE)\\
   \hline
-  Equation& Implicit form of the $n^{th}$ order ODE:\\
-  &$f(x, y, y',...y^\text{(n)}) = o$\\
-  &Explicit form of the $n^{th}$ order ODE:\\ 
-  &$y^\text{(n)} = f(x, y, y',..., y^\text{(n-1)})$\\
+  Equation& Implicit form of the first order ODE:\\%$n^{th}$ order ODE:\\
+  &$f(x, y, y') = o$\\ %, y',...y^\text{(n)}) = o$\\
+  &Explicit form of the first order ODE:\\ %$n^{th}$ order ODE:\\ 
+  &$y' = f(x, y)$\\
+  %&$y^\text{(n)} = f(x, y, y',..., y^\text{(n-1)})$\\
   &Given the initial values:\\
-  &$(x_0, y_0)$ such that $y(x_0) = y_0$\\
+  &$(x_0, y_0)$ such that $y(x_0) = y_0$,\\
   &Find $y_k$ such that $y(x_k) = y_k$.\\
   %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
   \hline
@@ -498,7 +503,7 @@ in Section~\ref{sec_theoretical}.
   \rowcolor[gray]{0.9}
   Number& IM\refstepcounter{instnum}\theinstnum \label{euler}\\
   \hline
-  Label& \bf Euler's Method of Finding the Solution to an ODE\\
+  Label& \bf Euler's Method of Finding the Solution to an ODE IVP\\
   \hline
   Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
   \hline
@@ -563,7 +568,7 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
   \rowcolor[gray]{0.9}
   Number& IM\refstepcounter{instnum}\theinstnum \label{heun}\\
   \hline
-  Label& \bf Heun's Method of Finding the Solution to an ODE\\
+  Label& \bf Heun's Method of Finding the Solution to an ODE IVP\\
   \hline
   Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
   \hline
@@ -596,6 +601,98 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
 \end{tabular}
 \end{minipage}\\
 
+%Instance Model 3
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{taylor}\\
+  \hline
+  Label& \bf Second Order Taylor Series Method of Finding the Solution to an ODE IVP\\
+  \hline
+  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  \hline
+  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+  &by first differentiating $f(x, y)$ to obtain:\\
+  &$y'' = f_{x}(x, y) + f_{y}(x, y)*f(x, y)$.\\
+  &using the recursive formulas:\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + h * f(x,y) + \frac{h^2}{2}*(f_{x}(x, y) + f_{y}(x, y)*f(x, y)), n = 0, 1, 2,...$\\
+  \hline
+  Description&$y' = f(x, y)$ is the first order ODE.\\
+  &$h$ is the constant step size.\\
+  &$x_\text{0}$ is the initial value of $x$.\\
+  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+  &$x_\text{k}$ is the final value of $x$.\\
+  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+  &$y_\text{k}$ is the final value of $y$.\\
+  &$f_{x}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to x\\
+  &$f_{y}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to y\\
+  &$n$ is the reference recursion step.\\
+
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  \\
+  \hline
+  Sources&
+        M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
+        Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 404.
+  \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
+%Instance Model 4
+
+\noindent
+\begin{minipage}{\textwidth}
+\renewcommand*{\arraystretch}{1.5}
+\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+  \hline
+  \rowcolor[gray]{0.9}
+  Number& IM\refstepcounter{instnum}\theinstnum \label{runge}\\
+  \hline
+  Label& \bf Fourth Order Runge Kutta Method of Finding the Solution to an ODE IVP\\
+  \hline
+  Input& $y' = f(x,y), h, x_\text{0}, y_\text{0}, x_\text{k}$\\
+  \hline
+  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+  &by first differentiating $f(x, y)$ to obtain:\\
+  &$y'' = f_{x}(x, y) + f_{y}(x, y)*f(x, y)$.\\
+  &using the recursive formulas:\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$y_\text{n+1} = y_\text{n} + h * f(x,y) + \frac{h^2}{2}*(f_{x}(x, y) + f_{y}(x, y)*f(x, y)), n = 0, 1, 2,...$\\
+  \hline
+  Description&$y' = f(x, y)$ is the first order ODE.\\
+  &$h$ is the constant step size.\\
+  &$x_\text{0}$ is the initial value of $x$.\\
+  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+  &$x_\text{k}$ is the final value of $x$.\\
+  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+  &$y_\text{k}$ is the final value of $y$.\\
+  &$f_{x}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to x\\
+  &$f_{y}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to y\\
+  &$n$ is the reference recursion step.\\
+
+  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} = y_\text{k}$.
+  \\
+  \hline
+  Sources&
+        M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
+        Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 404.
+  \\
+  \hline
+  Ref.\ By & \iref{epcm}\\
+  \hline
+\end{tabular}
+\end{minipage}\\
+
 \subsection{Assumptions}
 % This section simplifies the problem by stating the assumptions.
 % The numbers given in the square brackets refer to the theoretical model
@@ -610,23 +707,46 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_programcalls}:]
 It is assumed that the user will declare which of the four methods (Euler's Method, Heun's
-Method, Fourth-Order Taylor Series, Fourth-Order Runge Kutta) will be used in solving
-the ODE.
+Method, Second-Order Taylor Series, Fourth-Order Runge Kutta) will be used in solving
+the ODE IVP.
+
+\textit{[Rationale: The choice of which variability is decided upon by the user/programmer
+on compile time as the intent is to keep the library lightweight and functional - only four
+most popular models were considered.]}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_typeoff}:]
-The types of $f(x,y)$ are linear, nonlinear, homogeneous, and non-homogeneous
-equations.
+The ODE will be of the first order, given by $y' = f(x, y)$.
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
-It is assumed that user will convert the input $f(x,y)$ to be of the first order,
-since higher order ODEs can be represented as a system of first order ODEs.
+\textit{[Rationale: First order ODEs are chosen for the purposes of having a portable
+library that can be used and implemented in a variety of popular non-math oriented programming
+languages.]}
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-$f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
-matrix calculations in solving the system of first order ODEs.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_explicit}:]
+The entry of $f(x, y)$ will be of the explicit form such that $y' = f(x, y)$.
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-$f(x, y)$ will have constant coefficients.
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_linearity}:]
+The entry $f(x, y)$ can be linear or non-linear.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_continuous}:]
+The entry $f(x, y)$ will be a continuous function.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_roots}:]
+The entry $f(x, y)$ will not have complex roots.
+
+\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_boundary}:]
+The entry ODE problem is strictly an initial value problem; boundary value problems will
+not be handled.
+
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
+% It is assumed that user will convert the input $f(x,y)$ to be of the first order,
+% since higher order ODEs can be represented as a system of first order ODEs.
+
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+% $f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
+% matrix calculations in solving the system of first order ODEs.
+
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+% $f(x, y)$ will have constant coefficients.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofh}:]
 The entry for $h$ is from the set of positive $\mathbb{R}$.
@@ -657,6 +777,9 @@ The entry $x_k$ is of a single dimension.
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_inputs}:]
 Check the inputs if they satisfy the input assumptions.
 
+\item[C\refstepcounter{calcnum}\thecalcnum \label{C_odeparse}:]
+Parse the input ODE string and check if it adheres to the input assumptions.
+
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_progname}:]
 Perform the ODE solver model according to the user program call.
 
@@ -679,6 +802,10 @@ $\cup$ $\{-\infty, \infty,$ undefined$\}$
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_success}:]
 The program returns TRUE if it does not encounter exceptions in generating the solution
 to the ODE problem.
+
+\item[O\refstepcounter{outputnum}\theoutputnum \label{O_fail}:]
+The program returns FALSE if it encounters exceptions in inputs or in its calculations
+or errors in generating the solution to the ODE problem.
 
 \end{itemize}    
 
