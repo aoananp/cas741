@@ -77,6 +77,10 @@
 \newcounter{outputnum} %Output Number
 \newcommand{\otheoutputnum}{O\theoutputnum}
 \newcommand{\oref}[1]{O\ref{#1}}
+\newcounter{bibnum} %Output Number
+\newcommand{\bthebibnum}{\thebibnum}
+\newcommand{\bref}[1]{\ref{#1}}
+
 
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
 \newcommand{\famdesc}{Library of ODE Solvers}
@@ -154,18 +158,20 @@ $y^\text{(n)}$ & \text{-} & Implicit form of the ODE to the $n^\text{th}$ order\
   \textbf{symbol} & \textbf{description}\\
   \midrule 
   A & Assumption\\
+  C & Calculation\\
   DD & Data Definition\\
-  GD & General Definition\\
+  %GD & General Definition\\
   GS & Goal Statement\\
   IM & Instance Model\\
   IVP & Initial Value Problem\\
-  LC & Likely Change\\
+  %LC & Likely Change\\
   ODE & Ordinary Differential Equation\\
   PS & Physical System Description\\
-  R & Requirement\\
+  %R & Requirement\\
   SRS & Software Requirements Specification\\
   \famname{} & \famdesc{}\\
   T & Theoretical Model\\
+  O & Output\\
   \bottomrule
 \end{tabular}\\
 
@@ -220,7 +226,7 @@ Section~\ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
 The organization of this document follows the template for a CA for scientific
-computing software proposed by Smith (2006). The presentation follows the standard
+computing software proposed by Smith (2006)~\cite{Smith2006}. The presentation follows the standard
 pattern of presenting goals, theories, definitions, and assumptions. For readers that would
 like a more bottom up approach, they can start reading the instance models in Section
 \ref{sec_instance} and trace back to find any additional information they require.  The
@@ -235,7 +241,7 @@ constraints.
 \subsection{Potential System Contexts}
 
 Figure~\ref{Fig_SystemContext} shows the system context.  A circle represents an
-external entity outside the software, the user/programmer in this case. The programmer
+external entity outside the software, the driver program in this case. The driver program
 shall use \famname{} in solving the ODE Initial Value Problems (IVPs).
 A rectangle represents the software system itself (\famname{}). 
 Arrows are used to show the data flow between the system and its environment.
@@ -248,7 +254,7 @@ Arrows are used to show the data flow between the system and its environment.
 \end{center}
 \end{figure}
 
-Programs in \famname{} are used inside a wrapper program.  The external interaction is through
+Programs in \famname{} are used inside a driver program.  The external interaction is through
 program calls. The solution to the ODE IVP is the output of the function. 
 The responsibilities of the user and the system are as follows:
 
@@ -270,7 +276,7 @@ The responsibilities of the user and the system are as follows:
 \end{itemize}
 \end{itemize}
 
-\subsection{Potential User Characteristics} c
+\subsection{Potential User Characteristics}
 
 The end user of \famname{} should have at least some basic programming experience and
 an understanding of undergraduate Level 1 Calculus.
@@ -325,6 +331,10 @@ use of known numerical techniques while minimizing error.
 \item Initial Value Problem: A type of ODE problem where the initial conditions are stated and
 used to find the solution to the ODE.
 
+\item Linear Function: A function which graph is a straight line.
+
+\item Continuous Function: A function which does not have any breaks in its graph across its domain.
+
 \end{itemize}
 
 \subsection{Data Definitions} \label{sec_datadef}
@@ -359,7 +369,7 @@ Symbol &$dy/dx$\\
   Source&
         Nagle, et al, "Solutions and Initial Value Problems," in
         \textit{Fundamentals of Differential Equations and Boundary Value Problems},
-        3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 7.
+        3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 7. ~\cite{Nagle2000}
   \\
   \hline
   Ref.\ By & \iref{euler}, \iref{trapezoid}, \iref{heun}, \iref{runge}\\
@@ -379,9 +389,9 @@ and $x_\text{k}$, return $y_\text{k}$ such that $y(x_\text{k}) = y_\text{k}$ (th
 values), where $y(x)$ is a function, $f(x,y)$ is a function, and $x$
 is an independent variable.}
 
-\item[GS\refstepcounter{goalnum}\thegoalnum \label{G_InputOutput}:]{
-Provide the user the means of providing the required inputs, calling the ODE solver
-program, and returning the results.}
+% \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_InputOutput}:]{
+% Provide the user the means of providing the required inputs, calling the ODE solver
+% program, and returning the results.}
 
 \end{itemize}
 
@@ -429,11 +439,16 @@ on.
   \hline
   Source &
            M. Heath, "Ordinary Differential Equations," in \textit{Scientific Computing an
-           Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.1, pp. 383 - 384. \\
+           Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.1, pp. 383 - 384.
+           ~\cite{Heath2002} 
+           \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
   Ref.\ By & \ddref{D_SLOPE}, \tref{T_uniqsoln}, \iref{euler}, \iref{trapezoid}, \iref{heun},
-  \iref{runge}, \aref{A_typeoff}\\
+  \iref{runge}, \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
+  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
+  \aref{A_entriesofxk}, \aref{A_dimofxk}, \oref{O_valuesyk}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -473,10 +488,14 @@ on.
   Source &
            Nagle, et al, "Solutions and Initial Value Problems," in
            \textit{Fundamentals of Differential Equations and Boundary Value Problems},
-           3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12.\\
+           3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 12. ~\cite{Nagle2000}
+           \\
   % The above web link should be replaced with a proper citation to a publication
   \hline
-  Ref.\ By & \iref{euler}, \iref{trapezoid}, \iref{heun}, \iref{runge}\\
+  Ref.\ By & \iref{euler}, \iref{trapezoid}, \iref{heun}, \iref{runge},
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
+  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
+  \aref{A_entriesofxk}, \aref{A_dimofxk}, \oref{O_valuesyk}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -531,10 +550,16 @@ in Section~\ref{sec_theoretical}.
   Sources&
         Nagle, et al, "The Approximation Method of Euler," in
         \textit{Fundamentals of Differential Equations and Boundary Value Problems,
-        3}rd ed. USA: Addison Wesley Longman, 2000, ch. 1, sec. 1.5, pp. 31-32.
+        3}rd ed. USA: Addison Wesley Longman, 2000, ch. 1, sec. 1.5, pp. 31-32. ~\cite{Nagle2000}
   \\
   \hline
-  Ref.\ By & \iref{heun}, \iref{trapezoid}, \aref{A_programcalls}\\
+  Ref.\ By & \iref{heun}, \iref{trapezoid}, \aref{A_programcalls},
+  \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
+  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
+  \aref{A_entriesofxk}, \aref{A_dimofxk}
+
+  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -597,9 +622,15 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
   Sources&
         M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
         Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 399 - 400.
+        ~\cite{Heath2002} 
   \\
   \hline
-  Ref.\ By & \aref{A_programcalls}\\
+  Ref.\ By & \aref{A_programcalls},
+  \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
+  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
+  \aref{A_entriesofxk}, \aref{A_dimofxk}
+  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -663,10 +694,16 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
   Sources&
         Nagle, et al, "Improved Euler's Method," in
         \textit{Fundamentals of Differential Equations and Boundary Value Problems},
-        3rd ed. USA: Addison Wesley Longman, 2000, ch. 3, sec. 3.5, pp. 124-129.
+        3rd ed. USA: Addison Wesley Longman, 2000, ch. 3, sec. 3.5, pp. 124-129. ~\cite{Nagle2000}
   \\
   \hline
-  Ref.\ By & \aref{A_programcalls}\\
+  Ref.\ By & \aref{A_programcalls},
+  \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
+  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
+  \aref{A_entriesofxk}, \aref{A_dimofxk}
+
+  \\
   \hline
 \end{tabular}
 \end{minipage}
@@ -781,9 +818,16 @@ Repeating the process (recursion) until we reach $y_k$ yields Heun's Method.\\
   Sources&
         M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
         Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 405-406.
+        ~\cite{Heath2002} 
   \\
   \hline
-  Ref.\ By & \aref{A_programcalls}\\
+  Ref.\ By & \aref{A_programcalls},
+  \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
+  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
+  \aref{A_entriesofxk}, \aref{A_dimofxk}
+
+  \\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -935,13 +979,10 @@ Perform the ODE solver model according to the user program call.
 The output destination for $y_k$ can be to a file, on the command line, or to memory for use by
 another program.
 ~\newline
-[\gsref{G_SolveForY}], [\gsref{G_InputOutput}]
-
+[\gsref{G_SolveForY}]
 
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_encodingyk}:]
 The encoding of $y_k$ can be a binary or text as shown to the user.
-~\newline
-[\gsref{G_InputOutput}]
 
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_valuesyk}:]
 The possible values of $y_k$ are the set of $\mathbb{R}$
@@ -952,48 +993,50 @@ $\cup$ $\{-\infty, \infty,$ undefined$\}$
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_success}:]
 The program returns TRUE if it does not encounter exceptions in generating the solution
 to the ODE problem.
-~\newline
-[\gsref{G_SolveForY}], [\gsref{G_InputOutput}]
 
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_fail}:]
 The program returns FALSE if it encounters exceptions in inputs or in its calculations
 or errors in generating the solution to the ODE problem.
 ~\newline
-[\gsref{G_SolveForY}], [\gsref{G_InputOutput}]
+[\gsref{G_SolveForY}]
 
 \end{itemize}
 
 \newpage
-
+\begin{landscape}
 \section{Traceability Matrices and Graphs}
 
 The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed.  Every time a 
-component is changed, the items in the column of that component that are 
-marked with an ``X'' should be modified as well.  Table~\ref{Table:trace}
+component is changed, the items in the column or row of that component that are 
+marked with an ``X'' should be modified as well.  Table~\ref{Table:A_trace}
 shows the dependencies of goals, theoretical models, data
-definitions, and instance models with the assumptions, calculations, and outputs.
+definitions, instance models, and calculations with the assumptions, calculations, and outputs.
 
-\begin{landscape}
+
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
   & \aref{A_programcalls}& \aref{A_typeoff}& \aref{A_explicit}& \aref{A_linearity}&
   \aref{A_continuous}& \aref{A_roots}& \aref{A_boundary}& \aref{A_entriesofh}& 
   \aref{A_entriesofx0}& \aref{A_dimofx0}& \aref{A_entriesofy0}& \aref{A_dimofy0}&
-  \aref{A_entriesofxk}& \cref{C_inputs}& \cref{C_odeparse}& \cref{C_progname}& 
+  \aref{A_entriesofxk}& \aref{A_dimofxk}& 
+  %\cref{C_inputs}& \cref{C_odeparse}& \cref{C_progname}& 
   \oref{O_outputyk}& \oref{O_encodingyk}& \oref{O_valuesyk}& \oref{O_success}&
   \oref{O_fail} \\
 \hline
-\ddref{D_SLOPE}             & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\gsref{G_SolveForY}         & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\gsref{G_InputOutput}       & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\tref{T_ODE}                & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\tref{T_uniqsoln}           & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\iref{euler}                & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\iref{trapezoid}            & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\iref{heun}                 & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\iref{runge}                & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\gsref{G_SolveForY}         & & & & & & & & & & & & & & & X& & X& X&X\\ \hline
+%\gsref{G_InputOutput}       & & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\tref{T_ODE}                & & X& X& X& X& X& X& X& X& X& X& X& X& X& & & X& &\\ \hline
+\tref{T_uniqsoln}           & & & & & X& X& X& X& X& X& X& X& X& X& & & X& &\\ \hline
+\iref{euler}                & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
+\iref{trapezoid}            & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
+\iref{heun}                 & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
+\iref{runge}                & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
+\cref{C_inputs}             & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
+\cref{C_odeparse}           & & & X& X& X& X& X& & & & & & & & & & & &\\ \hline
+\cref{C_progname}           & & X& & & & & & & & & & & & & & & & &\\ \hline
+
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Assumptions, Calculations, and Outputs with Other Items}
 \label{Table:A_trace}
@@ -1004,18 +1047,18 @@ definitions, and instance models with the assumptions, calculations, and outputs
 \newpage
 
 \bibliographystyle {plainnat}
-\bibliography {../../ReferenceMaterial/References}
+\bibliography {CAref}
 
 \newpage
 
-\section{Appendix}
+% \section{Appendix}
 
-\wss{Your report may require an appendix.  For instance, this is a good point to
-show the values of the symbolic parameters introduced in the report.}
+% \wss{Your report may require an appendix.  For instance, this is a good point to
+% show the values of the symbolic parameters introduced in the report.}
 
-\subsection{Symbolic Parameters}
+% \subsection{Symbolic Parameters}
 
-\wss{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
-Their values are defined in this section for easy maintenance.}
+% \wss{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
+% Their values are defined in this section for easy maintenance.}
 
 \end{document}
