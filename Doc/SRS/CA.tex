@@ -971,37 +971,31 @@ The purpose of the traceability matrices is to provide easy references on what h
 component is changed, the items in the column of that component that are 
 marked with an ``X'' should be modified as well.  Table~\ref{Table:trace}
 shows the dependencies of goals, theoretical models, data
-definitions, instance models, assumptions, calculations, and outputs with each other.
+definitions, and instance models with the assumptions, calculations, and outputs.
 
 \begin{landscape}
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
-  & \ddref{D_SLOPE}& \gsref{G_SolveForY}& \gsref{G_InputOutput}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
+  & \aref{A_programcalls}& \aref{A_typeoff}& \aref{A_explicit}& \aref{A_linearity}&
+  \aref{A_continuous}& \aref{A_roots}& \aref{A_boundary}& \aref{A_entriesofh}& 
+  \aref{A_entriesofx0}& \aref{A_dimofx0}& \aref{A_entriesofy0}& \aref{A_dimofy0}&
+  \aref{A_entriesofxk}& \cref{C_inputs}& \cref{C_odeparse}& \cref{C_progname}& 
+  \oref{O_outputyk}& \oref{O_encodingyk}& \oref{O_valuesyk}& \oref{O_success}&
+  \oref{O_fail} \\
 \hline
-\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
-\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
-\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
-\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
-\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
-\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
-\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
-\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
-\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
-\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
-\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
-\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
-\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
-\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
-\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
-\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
-\hline
+\ddref{D_SLOPE}             & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\gsref{G_SolveForY}         & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\gsref{G_InputOutput}       & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\tref{T_ODE}                & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\tref{T_uniqsoln}           & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\iref{euler}                & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\iref{trapezoid}            & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\iref{heun}                 & & & & & & & & & & & & & & & & & & & & &\\ \hline
+\iref{runge}                & & & & & & & & & & & & & & & & & & & & &\\ \hline
 \end{tabular}
-\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
+\caption{Traceability Matrix Showing the Connections Between Assumptions, Calculations, and Outputs with Other Items}
 \label{Table:A_trace}
 \end{table}
 \end{landscape}
