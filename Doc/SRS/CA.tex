@@ -270,7 +270,7 @@ The responsibilities of the user and the system are as follows:
 \end{itemize}
 \end{itemize}
 
-\subsection{Potential User Characteristics} \label{SecUserCharacteristics}
+\subsection{Potential User Characteristics} c
 
 The end user of \famname{} should have at least some basic programming experience and
 an understanding of undergraduate Level 1 Calculus.
@@ -433,7 +433,7 @@ on.
   % The above web link should be replaced with a proper citation to a publication
   \hline
   Ref.\ By & \ddref{D_SLOPE}, \tref{T_uniqsoln}, \iref{euler}, \iref{trapezoid}, \iref{heun},
-  \iref{runge}\\
+  \iref{runge}, \aref{A_typeoff}\\
   \hline
 \end{tabular}
 \end{minipage}\\
@@ -669,7 +669,24 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
   Ref.\ By & \aref{A_programcalls}\\
   \hline
 \end{tabular}
-\end{minipage}\\
+\end{minipage}
+
+\newpage
+
+\subsubsection*{Detailed Derivation of Heun's Method}
+
+By modifying the trapezoid scheme [\iref{trapezoid}]:\\
+\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*[f(x_\text{n}, y_\text{n})+f(x_\text{n+1},
+y_\text{n+1})] / 2, n = 0, 1, 2,...$\\
+\\
+by using a predicted approximation for $y_{n+1} = y_n + h * f(x_n, y_n)$, we can derive:\\
+\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + \frac{h}{2}\{[f(x_n, y_n) + f(x_n + h, y_n + h*f(x_n, y_n)]\}, n = 0, 1, 2,...$\\
+\\
+Repeating the process (recursion) until we reach $y_k$ yields Heun's Method.\\
 
 ~\newline
 
@@ -771,7 +788,7 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
 \end{tabular}
 \end{minipage}\\
 
-\subsection{Assumptions}
+\subsection{Assumptions} \label{sec_Assumptions}
 % This section simplifies the problem by stating the assumptions.
 % The numbers given in the square brackets refer to the theoretical model
 % [T], general definition [GD], data definition [DD], instance model [IM], or
@@ -786,7 +803,9 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_programcalls}:]
 It is assumed that the user will declare which of the four methods (Euler's Method, Heun's
 Method, Trapezoid Method, Fourth-Order Runge Kutta Method) will be used in solving
-the ODE IVP. [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+the ODE IVP.
+~\newline
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \textit{[Rationale: The choice of which variability is decided upon by the user/programmer
 on compile time as the intent is to keep the library lightweight and functional - only four
@@ -794,6 +813,8 @@ classical models were considered.]}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_typeoff}:]
 The ODE will be of the first order, given by $y' = f(x, y)$.
+~\newline
+[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \textit{[Rationale: First order ODEs are chosen for the purposes of having a portable
 library that can be used and implemented in a variety of popular non-math oriented programming
@@ -801,51 +822,85 @@ languages.]}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_explicit}:]
 The entry of $f(x, y)$ will be of the explicit form such that $y' = f(x, y)$.
+~\newline
+[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_linearity}:]
 The entry $f(x, y)$ can be linear or non-linear.
+~\newline
+[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_continuous}:]
 The entry $f(x, y)$ will be a continuous function.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_roots}:]
 The entry $f(x, y)$ will not have complex roots and solutions.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_boundary}:]
 The entry ODE problem is strictly an initial value problem; boundary value problems will
 not be handled.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
-It is assumed that user will convert the input $f(x,y)$ to be of the first order,
-since higher order ODEs can be represented as a system of first order ODEs.
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
+% It is assumed that user will convert the input $f(x,y)$ to be of the first order,
+% since higher order ODEs can be represented as a system of first order ODEs.
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-$f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
-matrix calculations in solving the system of first order ODEs.
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+% $f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
+% matrix calculations in solving the system of first order ODEs.
 
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-$f(x, y)$ will have constant coefficients.
+% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
+% $f(x, y)$ will have constant coefficients.
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofh}:]
 The entry for $h$ is from the set of positive $\mathbb{R}$.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofx0}:]
 The entry for $x_0$ is from the set of $\mathbb{R}$.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofx0}:]
 The entry $x_0$ is of a single dimension.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofy0}:]
 The entry for $y_0$ is from the set of $\mathbb{R}$.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofy0}:]
 The entry $y_0$ is of a single dimension.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofxk}:]
 The entry for $x_k$ is from the set of $\mathbb{R}$.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofxk}:]
 The entry $x_k$ is of a single dimension.
+~\newline
+[\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \end{itemize}
 
@@ -854,12 +909,22 @@ The entry $x_k$ is of a single dimension.
 \begin{itemize}
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_inputs}:]
 Check the inputs if they satisfy the input assumptions.
+~\newline
+[All items in Section~\ref{sec_Assumptions}]
+
 
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_odeparse}:]
-Parse the input ODE string and check if it adheres to the input assumptions.
+Parse the input ODE string.
+~\newline
+[\aref{A_explicit}], [\aref{A_linearity}], [\aref{A_continuous}], [\aref{A_roots}],
+[\aref{A_boundary}]
 
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_progname}:]
 Perform the ODE solver model according to the user program call.
+~\newline
+[\aref{A_typeoff}], [\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}],
+[\iref{heun}], [\iref{runge}]
+
 
 \end{itemize}
 
@@ -869,27 +934,78 @@ Perform the ODE solver model according to the user program call.
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_outputyk}:]
 The output destination for $y_k$ can be to a file, on the command line, or to memory for use by
 another program.
+~\newline
+[\gsref{G_SolveForY}], [\gsref{G_InputOutput}]
+
 
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_encodingyk}:]
 The encoding of $y_k$ can be a binary or text as shown to the user.
+~\newline
+[\gsref{G_InputOutput}]
 
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_valuesyk}:]
 The possible values of $y_k$ are the set of $\mathbb{R}$
 $\cup$ $\{-\infty, \infty,$ undefined$\}$
+~\newline
+[\gsref{G_SolveForY}], [\tref{T_ODE}], [\tref{T_uniqsoln}]
 
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_success}:]
 The program returns TRUE if it does not encounter exceptions in generating the solution
 to the ODE problem.
+~\newline
+[\gsref{G_SolveForY}], [\gsref{G_InputOutput}]
 
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_fail}:]
 The program returns FALSE if it encounters exceptions in inputs or in its calculations
 or errors in generating the solution to the ODE problem.
+~\newline
+[\gsref{G_SolveForY}], [\gsref{G_InputOutput}]
 
-\end{itemize}    
+\end{itemize}
+
+\newpage
 
 \section{Traceability Matrices and Graphs}
 
-\wss{You will have to add tables.}
+The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed.  Every time a 
+component is changed, the items in the column of that component that are 
+marked with an ``X'' should be modified as well.  Table~\ref{Table:trace}
+shows the dependencies of goals, theoretical models, data
+definitions, instance models, assumptions, calculations, and outputs with each other.
+
+\begin{landscape}
+\begin{table}[h!]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+  & \ddref{D_SLOPE}& \gsref{G_SolveForY}& \gsref{G_InputOutput}& \aref{A_tpcm}& \aref{A_const_density}& \aref{A_const_C}& \aref{A_Newt_coil}& \aref{A_tcoil}& \aref{A_tlcoil}& \aref{A_Newt_pcm}& \aref{A_charge}& \aref{A_InitTemp}& \aref{A_OpRangePCM}& \aref{A_OpRange}& \aref{A_htank}& \aref{A_int_heat}& \aref{A_vpcm}& \aref{A_PCM_state}& \aref{A_Pressure} \\
+\hline
+\tref{T_COE}        & X& & & & & & & & & & & & & & & & & & \\ \hline
+\tref{T_SHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\tref{T_LHE}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\dref{NL}           & & X& & & & & & & & & & & & & & & & & \\ \hline
+\dref{ROCT}         & & & X& X& X& X& & & & & & & & & & & & & \\ \hline
+\ddref{FluxCoil}    & & & & & & & X& X& X& & & & & & & & & & \\ \hline
+\ddref{FluxPCM}     & & & X& X& & & & & & X& & & & & & & & & \\ \hline
+\ddref{D_HOF}       & & & & & & & & & & & & & & & & & & & \\ \hline
+\ddref{D_MF}        & & & & & & & & & & & & & & & & & & & \\ \hline
+\iref{ewat}         & & & & & & & & & & & X& X& & X& X& X& & & X \\ \hline
+\iref{epcm}         & & & & & & & & & & & & X& X& & & X& X& X& \\ \hline
+\iref{I_HWAT}       & & & & & & & & & & & & & & X& & & & & X \\ \hline
+\iref{I_HPCM}       & & & & & & & & & & & & & X& & & & & X & \\ \hline
+\lcref{LC_tpcm}     & & & & X& & & & & & & & & & & & & & & \\ \hline
+\lcref{LC_tcoil}    & & & & & & & & X& & & & & & & & & & & \\ \hline
+\lcref{LC_tlcoil}   & & & & & & & & & X& & & & & & & & & & \\ \hline
+\lcref{LC_charge}   & & & & & & & & & & & X& & & & & & & & \\ \hline
+\lcref{LC_InitTemp} & & & & & & & & & & & & X& & & & & & & \\ \hline
+\lcref{LC_htank}    & & & & & & & & & & & & & & & X& & & & \\
+\hline
+\end{tabular}
+\caption{Traceability Matrix Showing the Connections Between Assumptions and Other Items}
+\label{Table:A_trace}
+\end{table}
+\end{landscape}
+
 
 \newpage
 
