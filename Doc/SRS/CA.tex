@@ -229,10 +229,8 @@ Section~\ref{SecUserCharacteristics}.
 The organization of this document follows the template for a CA for scientific
 computing software proposed by~\cite{Smith2006}. The presentation follows the standard
 pattern of presenting goals, theories, definitions, and assumptions.
-
 For a bottom-up approach, readers can begin reviewing the instance models in
-Section \ref{sec_instance} and trace back to review additional information require.
-
+Section \ref{sec_instance} and trace back to review additional information required.
 The instance models provide the methods to solve Initial Value Problems (IVP)
 of Ordinary Differential Equations (ODEs).
 
@@ -851,51 +849,61 @@ Repeating the process (recursion) until we reach $y_k$ yields Heun's Method.\\
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_programcalls}:]
 It is assumed that the user will declare which of the four methods (Euler's Method, Heun's
 Method, Trapezoid Method, Fourth-Order Runge Kutta Method) will be used in solving
-the ODE IVP.
-~\newline
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+the ODE IVP as shown in [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
+%~\newline
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \textit{[Rationale: The choice of which variability is decided upon by the user/programmer
 on compile time as the intent is to keep the library lightweight and functional - only four
 classical models were considered.]}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_typeoff}:]
-The ODE will be of the first order, given by $y' = f(x, y)$.
-~\newline
-[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+The ODE will be of the first order, given by $y' = f(x, y)$ as described in [\tref{T_ODE}] and taken as an input in
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
+%~\newline
+%[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \textit{[Rationale: First order ODEs are chosen for the purposes of having a portable
 library that can be used and implemented in a variety of popular non-math oriented programming
 languages.]}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_explicit}:]
-The entry of $f(x, y)$ will be of the explicit form such that $y' = f(x, y)$.
-~\newline
-[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+The entry of $f(x, y)$ will be of the explicit form such that $y' = f(x, y)$
+as described in [\tref{T_ODE}] and taken as an input in
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
+%~\newline
+%[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_linearity}:]
-The entry $f(x, y)$ can be linear or non-linear.
-~\newline
-[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+The entry $f(x, y)$ can be linear or non-linear
+as described in [\tref{T_ODE}] and taken as an input in
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
+%~\newline
+%[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_continuous}:]
-The entry $f(x, y)$ will be a continuous function.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+The entry $f(x, y)$ will be a continuous function
+as described in [\tref{T_ODE}] and [\tref{T_uniqsoln}] and taken as an input in
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
+%~\newline
+% [\tref{T_ODE}], [\tref{T_uniqsoln}],
+% [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_roots}:]
-The entry $f(x, y)$ will not have complex roots and solutions.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+The entry $f(x, y)$ will not have complex roots and solutions
+as described in [\tref{T_ODE}] and [\tref{T_uniqsoln}] and taken as an input in
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
+%~\newline
+% [\tref{T_ODE}], [\tref{T_uniqsoln}],
+% [\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_boundary}:]
 The entry ODE problem is strictly an initial value problem; boundary value problems will
-not be handled.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+not be handled in the following [\tref{T_ODE}], [\tref{T_uniqsoln}],
+[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
+% ~\newline
+% [\tref{T_ODE}], [\tref{T_uniqsoln}],
+% [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 % \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
 % It is assumed that user will convert the input $f(x,y)$ to be of the first order,
@@ -962,16 +970,20 @@ Check the inputs if they satisfy the input assumptions.
 
 
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_odeparse}:]
-Parse the input ODE string.
-~\newline
-[\aref{A_explicit}], [\aref{A_linearity}], [\aref{A_continuous}], [\aref{A_roots}],
-[\aref{A_boundary}]
+Parse the input ODE string which which exhibits the characteristics laid out by
+[\aref{A_explicit}], [\aref{A_linearity}], [\aref{A_continuous}], [\aref{A_roots}], and
+[\aref{A_boundary}].
+% ~\newline
+% [\aref{A_explicit}], [\aref{A_linearity}], [\aref{A_continuous}], [\aref{A_roots}],
+% [\aref{A_boundary}]
 
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_progname}:]
-Perform the ODE solver model according to the user program call.
-~\newline
-[\aref{A_typeoff}], [\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}],
-[\iref{heun}], [\iref{runge}]
+Perform the ODE solver model according to the user program call among the options listed by
+in [\aref{A_typeoff}] and [\tref{T_ODE}] using [\iref{euler}], [\iref{trapezoid}],
+[\iref{heun}], and [\iref{runge}].
+% ~\newline
+% [\aref{A_typeoff}], [\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}],
+% [\iref{heun}], [\iref{runge}]
 
 
 \end{itemize}
