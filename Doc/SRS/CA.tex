@@ -197,9 +197,10 @@ Known elementary techniques of solving ODEs in the discrete domain use the linea
 method wherein the solution is based upon assuming or ``approximating" the slope of the tangent
 line from one reference point to the next until the target point has been reached.
 
-The following section provides an overview of the Commonality Analysis (CA) for a program family of ODE solvers for Initial Value Problems (IVP). The developed program will be
+The following section provides an overview of the Commonality Analysis (CA) for a
+program family of ODE solvers for Initial Value Problems (IVP). The developed program will be
 called \famdesc{} (\famname{}). This section explains the purpose of this
-document,the scope of the family, and the characteristics of the intended readers
+document, the scope of the family, the characteristics of the intended readers,
 and the organization of the document.
 
 \subsection{Purpose of Document}
@@ -209,9 +210,9 @@ The goals and mathematical models used in the \famname{} code are provided with
 an emphasis on explicitly identifying assumptions, constraints, and unambiguous definitions.
 
 This document contains the description of the functionalities of the \famname{} software
-library. This document leads is the starting point for the subsequent software development
-activities, including writing the requirements specification, design specification, code, and
-the software verification and validation plan and execution.
+library. This document is the starting point for the subsequent software development
+activities, including writing the requirements specification, design specification, code,
+software verification, validation plan, and execution.
 
 \subsection{Scope of the Family}
 The scope of the family is limited to the library of IVP ODE solvers. Given
@@ -226,11 +227,14 @@ Section~\ref{SecUserCharacteristics}.
 
 \subsection{Organization of Document}
 The organization of this document follows the template for a CA for scientific
-computing software proposed by Smith (2006)~\cite{Smith2006}. The presentation follows the standard
-pattern of presenting goals, theories, definitions, and assumptions. For readers that would
-like a more bottom up approach, they can start reading the instance models in Section
-\ref{sec_instance} and trace back to find any additional information they require.  The
-instance models provide the methods to solve Initial Value Problems (IVP) of Ordinary Differential Equations (ODEs).
+computing software proposed by~\cite{Smith2006}. The presentation follows the standard
+pattern of presenting goals, theories, definitions, and assumptions.
+
+For a bottom-up approach, readers can begin reviewing the instance models in
+Section \ref{sec_instance} and trace back to review additional information require.
+
+The instance models provide the methods to solve Initial Value Problems (IVP)
+of Ordinary Differential Equations (ODEs).
 
 \section{General System Description}
 
@@ -276,7 +280,7 @@ The responsibilities of the user and the system are as follows:
 \end{itemize}
 \end{itemize}
 
-\subsection{Potential User Characteristics}
+\subsection{Potential User Characteristics} \label{SecUserCharacteristics}
 
 The end user of \famname{} should have at least some basic programming experience and
 an understanding of undergraduate Level 1 Calculus.
@@ -286,7 +290,7 @@ an understanding of undergraduate Level 1 Calculus.
 There are no system constraints applicable.
 
 \section{Commonalities}
-This section first presents the background and motivation of the program family, which gives a
+This section primarily presents the background and motivation of the program family, which gives a
 high-level view of the problem to be solved.  This is followed by the terminologies used, data
 definitions, goals of the software, and the theoretical models used. 
 % solution characteristics
@@ -302,7 +306,7 @@ which produces the least error in their scientific computing implementation).
 \subsection{Terminology and  Definitions}
 
 This subsection provides a list of terms that are used in the subsequent
-sections and their meaning, with the purpose of reducing ambiguity and making it
+sections and their meanings, with the purpose of reducing ambiguity and making it
 easier to correctly understand the requirements:
 
 \begin{itemize}
