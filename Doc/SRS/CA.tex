@@ -80,6 +80,9 @@
 \newcounter{bibnum} %Output Number
 \newcommand{\bthebibnum}{\thebibnum}
 \newcommand{\bref}[1]{\ref{#1}}
+\newcounter{nfrnum} %NFR Number
+\newcommand{\nfrthenfrnum}{\thenfrnum}
+\newcommand{\nfrrref}[1]{NFR\ref{#1}}
 
 
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
@@ -1018,11 +1021,22 @@ or errors in generating the solution to the ODE problem.
 
 \end{itemize}
 
+\subsection{Non-Functional Requirements} \label{NFR}
+\begin{itemize}
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_sigma}:]
+Given the same inputs, the execution time of each program in LODES, $\sigma_\text{LODES}$,
+shall not be greater than $4 * \sigma_\text{MatLab}$,
+where $\sigma_\text{MatLab}$ is the execution time of each equivalent program/function in MatLab.
+
+\textit{[Rationale: The program should have a reasonable/comparable execution time compared to that of one of the industry standard's.]}
+\end{itemize}
+
 \newpage
 \begin{landscape}
 \section{Traceability Matrices and Graphs}
 
-The purpose of the traceability matrices is to provide easy references on what has to be additionally modified if a certain component is changed.  Every time a 
+The purpose of the traceability matrices is to provide easy references on what has to be additionally
+modified if a certain component is changed.  Every time a 
 component is changed, the items in the column or row of that component that are 
 marked with an ``X'' should be modified as well.  Table~\ref{Table:A_trace}
 shows the dependencies of goals, theoretical models, data
@@ -1067,12 +1081,23 @@ definitions, instance models, and calculations with the assumptions, calculation
 
 \newpage
 
-% \section{Appendix}
+\section{Appendix}
+This section shows additional information pertinent to this Commonality Analysis.
 
 % \wss{Your report may require an appendix.  For instance, this is a good point to
 % show the values of the symbolic parameters introduced in the report.}
 
-% \subsection{Symbolic Parameters}
+\subsection{Symbolic Parameters}
+
+\renewcommand{\arraystretch}{1.2}
+%\noindent \begin{tabularx}{1.0\textwidth}{l l X}
+\noindent \begin{longtable*}{l l p{12cm}} \toprule
+\textbf{symbol} & \textbf{unit} & \textbf{description}\\
+\midrule
+$\sigma$ & seconds & The measure of execution time of a program.\\
+
+\bottomrule
+\end{longtable*}
 
 % \wss{The definition of the requirements will likely call for SYMBOLIC\_CONSTANTS.
 % Their values are defined in this section for easy maintenance.}
