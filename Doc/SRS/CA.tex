@@ -837,6 +837,20 @@ Repeating the process (recursion) until we reach $y_k$ yields Heun's Method.\\
 \end{tabular}
 \end{minipage}\\
 
+\subsubsection*{Derivation of the Fourth Order Runge Kutta's Method}
+
+Runge Kutta Methods can be derived by approximating the solution to the integral using quadrature rules:\\
+\\
+\hspace*{2ex}$$y_{n+1} - y_n = \int_{x_n}^{x_{n+1}} f(x, y(x)) dx$$\\
+\\
+Starting from the Taylor series representation of an ODE:
+\\
+\hspace*{2ex}$$y_{n+1} = y_n + h*F(x_n, y_n; h)$$
+where the choice of F depends on the order of method.
+\\
+The exhaustive derivation of the the Runge Kutta method can be analyzed in~\cite{Nagle2000}.
+\\
+
 \subsection{Assumptions} \label{sec_Assumptions}
 % This section simplifies the problem by stating the assumptions.
 % The numbers given in the square brackets refer to the theoretical model
