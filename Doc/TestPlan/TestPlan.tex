@@ -1,8 +1,22 @@
 \documentclass[12pt, titlepage]{article}
 
-\usepackage{booktabs}
-\usepackage{tabularx}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
 \usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+\usepackage{booktabs}
+\usepackage{caption}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -12,12 +26,30 @@
 }
 \usepackage[round]{natbib}
 
+% For easy change of table widths
+\newcommand{\colZwidth}{1.0\textwidth}
+\newcommand{\colAwidth}{0.13\textwidth}
+\newcommand{\colBwidth}{0.82\textwidth}
+\newcommand{\colCwidth}{0.1\textwidth}
+\newcommand{\colDwidth}{0.05\textwidth}
+\newcommand{\colEwidth}{0.8\textwidth}
+\newcommand{\colFwidth}{0.17\textwidth}
+\newcommand{\colGwidth}{0.5\textwidth}
+\newcommand{\colHwidth}{0.28\textwidth}
+
+\newcounter{ftnum} %Functional Test
+\newcommand{\ftthefttestnum}{\theftnum}
+\newcommand{\ftref}[1]{FT\ref{#1}}
+
 \input{../Comments}
+\newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
+\newcommand{\famdesc}{Library of ODE Solvers}
+\newcommand{\famurl}{https://github.com/aoananp/cas741/}
 
 \begin{document}
 
-\title{Project Title} 
-\author{Author Name}
+\title{Test Plan for the Library of ODE Solvers (LODES)} 
+\author{Paul Aoanan}
 \date{\today}
 	
 \maketitle
@@ -25,31 +57,40 @@
 \pagenumbering{roman}
 
 \section{Revision History}
-
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+\today & 1.0 & Initial draft.\\
+%Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 
 ~\newpage
 
 \section{Symbols, Abbreviations and Acronyms}
-
+The following table lists the symbols, abbreviations and acronyms used in the Test Plan.
+The software library's Commonality Analysis (CA) tables provide supplementary items in addition to the ones listed below.\\
+\begin{table} [h]
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
+\begin{tabular}{l l l l |} 
   \toprule		
   \textbf{symbol} & \textbf{description}\\
   \midrule 
+  CA & Commonality Analysis\\
+  IDE & Integrated Development Environment\\ 
+  IVP & Initial Value Problem\\
+  ODE & Ordinary Differential Equation\\
+  \famname{} & \famdesc{}\\
+  SRS & Software Requirements Specification\\
   T & Test\\
+  O & Output\\
   \bottomrule
 \end{tabular}\\
+  \caption{Symbols, Abbreviations, and Acronyms used in the Test Plan}
+  \label{Table:Table_Symbols}
+\end{table}
 
-\wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
-
-\newpage
+~\newpage
 
 \tableofcontents
 
@@ -61,27 +102,69 @@ Date 2 & 1.1 & Notes\\
 
 \pagenumbering{arabic}
 
-This document ...
+%This document ...
 
 \section{General Information}
+The following section provides an overview of the Test Plan for the Library of Ordinary Differential Equation (ODE) Solvers.\\
+This section explains the purpose of this document, the scope of the system, and an overview of the following sections.
 
 \subsection{Purpose}
+The main purpose of this document (the Test Plan) is to describe the verification and validation process that will be used to test the
+functionality of \famname{}.  This document closely follows the requirements and governs the subsequent testing activities.
+This document is intended to be used as a reference for all testing and will be used to increase confidence in the software implementation.\\
+\\
+This document will be used as a guide and starting point for the Test Report. The test cases
+listed in this document will be executed and the output will be analyzed to uncover errors, increase confidence and correctness in the software.
 
 \subsection{Scope}
+The scope of the testing is limited to the \famdesc{}. Given the appropriate inputs, each program in \famname{} is intended to find
+the solution to an Initial Value Problem (IVP).\\
 
 \subsection{Overview of Document}
+The following sections provide more detail about the testing of \famname{}.
+Information about the testing process is provided and the software specifications
+that were discussed in the Commonality Analysis are stated.
+The evaluation process that will be followed during testing is outlined and test cases
+for both the system testing and unit testing are provided.
 
 \section{Plan}
+This section provides a description of the software that is being tested, the team that will
+perform the testing, the approach to automated testing, the tools to be used for verification, and the non-testing based verification. 
 	
 \subsection{Software Description}
+The software being tested is the \famdesc{}. Given the ODE, initial values of $x$ and $y$, and the final value of $x$,
+the programs calculate the final value of $y$ through the use of numerical methods.
 
 \subsection{Test Team}
 
-\wss{Probably just you.  :-)}
+The test team that will execute the test cases, write and review the Test Report consists of:
+\begin{itemize}
+ \item Paul Aoanan
+\end{itemize} 
 
 \subsection{Automated Testing Approach}
 
+
+
 \subsection{Verification Tools}
+The verification tools to be used will be the following:
+
+\begin{enumerate}
+\item{Unit Testing Framework\\}
+A Unit Testing Framework designed in MATLAB that will compare MATLAB's own functional programs
+with
+\famname{}' running the same inputs will be implemented.
+
+\item{Static Analyer\\}
+The program's IDE (MATLAB) will be used as a Static Analyzer tool for program debugging and
+for checking syntax errors.
+
+\item{Continuous Integration\\}
+The source code and the project repository is located in GitHub at: \url{\famurl}.
+It provides the Build Server functionality to fully maintain and document the software through its lifecycle.
+As well, it provides the compare functionality for future regression testing and analysis of code updates.
+
+\end{enumerate}
 
 \wss{Thoughts on what tools to use, such as the following: unit testing
   framework, valgrind, static analyzer, make, continuous integration, test
@@ -92,6 +175,10 @@ This document ...
 % See Gantt Chart at the following url ...
 
 \subsection{Non-Testing Based Verification}
+The \famname{} will undergo 
+
+\paragraph{Code Inspection}
+The \famname{} will initiallyh 
 
 \wss{List any approaches like code inspection, code walkthrough, symbolic
   execution etc.  Enter not applicable if that is the case.}
@@ -100,27 +187,51 @@ This document ...
 	
 \subsection{Tests for Functional Requirements}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Initialization}
 		
-\paragraph{Title for Test}
+\paragraph{Paragraph}
 
 \begin{enumerate}
+%
+%\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-syntax}}
+%
+%Type: Static %Functional, Dynamic, Manual, Static etc.
+%					
+%Initial State: The source code "as-is"
+%					
+%Input: The source code as the input to this test
+%					
+%Output: The code's adherence to the language syntax rules
+%					
+%How test will be performed: The code will undergo desk review to check for missing and incorrect syntax
+%
+%\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-walkthrough}}
+%
+%Type: Static %Functional, Dynamic, Manual, Static etc.
+%					
+%Initial State: The source code "as-is"
+%					
+%Input: The source code as the input to this test
+%					
+%Output: The code's adherence to the goals of the program.
+%					
+%How test will be performed: The code will undergo desk review to determine, in closed bounds and within reason, if the code satisfies the machine implementation of the mathematical formulas listed in the Commonality Analysis.
+%
+%\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-walkthrough}}
+%
+%Type: Static %Functional, Dynamic, Manual, Static etc.
+%					
+%Initial State: The source code "as-is"
+%					
+%Input: The source code as the input to this test
+%					
+%Output: The code's adherence to the goals of the program.
+%					
+%How test will be performed: The code will undergo desk review to determine, in closed bounds and within reason, if the code satisfies the machine implementation of the mathematical formulas listed in the Commonality Analysis.
+					
+\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-}}
 
-\item{test-id1\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
+Type: Functional, Dynamic, Manual, Static etc. %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: 
 					
