@@ -140,11 +140,11 @@ the programs calculate the final value of $y$ through the use of numerical metho
 The test team that will execute the test cases, write and review the Test Report consists of:
 \begin{itemize}
  \item Paul Aoanan
+ \item To be determined (A separate test report will be reviewed by an independent individual)
 \end{itemize} 
 
 \subsection{Automated Testing Approach}
-
-
+Automated testing will be implemented for \famname{}. It will consist of developing test cases that target the boundary conditions in the code 
 
 \subsection{Verification Tools}
 The verification tools to be used will be the following:
@@ -155,6 +155,9 @@ A Unit Testing Framework designed in MATLAB that will compare MATLAB's own funct
 with
 \famname{}' running the same inputs will be implemented.
 
+The following algorithm will be implemented to compare the results:
+$$\Delta_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}_\text{MATLAB}} $$
+
 \item{Static Analyer\\}
 The program's IDE (MATLAB) will be used as a Static Analyzer tool for program debugging and
 for checking syntax errors.
@@ -164,51 +167,98 @@ The source code and the project repository is located in GitHub at: \url{\famurl
 It provides the Build Server functionality to fully maintain and document the software through its lifecycle.
 As well, it provides the compare functionality for future regression testing and analysis of code updates.
 
+\item{Code Coverage Tool\\}
+Due to the commercial nature of MATLAB, only commercial code coverage tools are viable for use due to the maturity, increased confidence, and detailed documentation that they offer. Other coverage tools may be considered, but no code coverage tool will be considered in the scope of this test plan due to budget constraints.
+
 \end{enumerate}
 
-\wss{Thoughts on what tools to use, such as the following: unit testing
-  framework, valgrind, static analyzer, make, continuous integration, test
-  coverage tool, etc.}
+%\wss{Thoughts on what tools to use, such as the following: unit testing
+%  framework, valgrind, static analyzer, make, continuous integration, test
+%  coverage tool, etc.}
 
 % \subsection{Testing Schedule}
 		
 % See Gantt Chart at the following url ...
 
 \subsection{Non-Testing Based Verification}
-The \famname{} will undergo 
+\famname{} will undergo the following non-testing based verification activities:
 
-\paragraph{Code Inspection}
-The \famname{} will initiallyh 
+\paragraph{Code Inspection\\}
+\famname{} will undergo an initial desk review by the developer. Whilst it is preferred to have an independent body conducting this verification activity, the developer himself will peruse his own code for syntax errors and correct program calls. This code inspection activity provides the initial sanity check for the developer and the software.
 
-\wss{List any approaches like code inspection, code walkthrough, symbolic
-  execution etc.  Enter not applicable if that is the case.}
+\paragraph{Code Walkthrough\\}
+\famname{} will undergo code walkthrough by the developer. Again, whilst it is preferred to have an independent body conducting this verification activity, the developer himself will peruse his code and reference the Commonality Analysis for algorithm adherence. This activity will also involve logic analysis, loop and recursion boundary tracing (using by-hand test cases), passing of variables and references, and if the code is programmatically correct.
+
+\paragraph{Symbolic Execution\\}
+Generally, symbolic execution will be performed using the boundary input conditions. Test conditions will be analyzed and executed by-hand. Generally, inputs in, on, and around the boundary conditions are chosen.
+
+%\wss{List any approaches like code inspection, code walkthrough, symbolic
+%execution etc.  Enter not applicable if that is the case.}
 
 \section{System Test Description}
-	
+System testing will be executed to provide increased confidence that \famname{} will achieve the goals defined in the Commonality Analysis. It uses a "black box" approach wherein it tests the system as a whole through the use of input and output analysis.
+
+\subsection{Tests for Faulty Input}
+
+\subsubsection{Input}
+		
+The input will be based on the Assumptions table in the Commonality Analysis. Each test will correspond to an entry from the assumptions item whilst altering a specific input variable to a non-permissible value. The list of inputs is in order with the entries in the table.
+
+\begin{table} [H]
+  \caption{Fauly Input Test Cases}
+  \label{Table:Table_FaultyInputs}  
+\begin{tabular}{|r|p{8cm}|p{6cm}|}
+  \hline	
+  \textbf{Number} & \textbf{Input} &\textbf{Expected Outcome}\\
+  \hline 
+  01 & ODE Function Call $\mathbb{\notin}$ \{euler741, trap741, heun741, rk4741\} $\mathbb{\cup}$ 
+  MATLAB functions & error: undefined function call\\ \hline
+  
+  02& $f(x, y) = y'' + y' + x + 2$ & error: input out of bounds\\
+  
+  
+  \hline
+\end{tabular}\\
+
+\end{table}
+
+
 \subsection{Tests for Functional Requirements}
 
-\subsubsection{Initialization}
+\subsubsection{Faulty Input Exception}
 		
-\paragraph{Paragraph}
+\paragraph{Input Assumption Tests}
 
 \begin{enumerate}
-%
-%\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-syntax}}
-%
-%Type: Static %Functional, Dynamic, Manual, Static etc.
-%					
-%Initial State: The source code "as-is"
-%					
-%Input: The source code as the input to this test
-%					
-%Output: The code's adherence to the language syntax rules
-%					
-%How test will be performed: The code will undergo desk review to check for missing and incorrect syntax
-%
-%\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-walkthrough}}
-%
-%Type: Static %Functional, Dynamic, Manual, Static etc.
-%					
+
+\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-inputdesk}}
+
+Type: Static %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: The code "as-is"
+					
+Input: The source code as the input to this test
+					
+Output: Error / exception prompts 
+					
+How test will be performed: The code will undergo desk review to check for the presence of error exception handling prompts if the inputs do not adhere to the boundaries defined in the input assumptions
+
+\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-in}}
+
+Type:  Functional, Dynamic, Manual, Static etc.
+					
+Initial State: The code "as-is"
+					
+Input: The source code as the input to this test
+					
+Output: Error / exception prompts
+					
+How test will be performed: The code will undergo desk review to check for the presence of error exception handling prompts if the inputs do not adhere to the boundaries defined in the input assumptions
+
+\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-walkthrough}}
+
+Type: Static %Functional, Dynamic, Manual, Static etc.
+					
 %Initial State: The source code "as-is"
 %					
 %Input: The source code as the input to this test
