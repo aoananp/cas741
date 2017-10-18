@@ -37,9 +37,9 @@
 \newcommand{\colGwidth}{0.5\textwidth}
 \newcommand{\colHwidth}{0.28\textwidth}
 
-\newcounter{ftnum} %Functional Test
-\newcommand{\ftthefttestnum}{\theftnum}
-\newcommand{\ftref}[1]{FT\ref{#1}}
+\newcounter{tnum} %Functional Test
+\newcommand{\tthetestnum}{\thetnum}
+\newcommand{\tref}[1]{T\ref{#1}}
 
 \input{../Comments}
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
@@ -119,6 +119,10 @@ listed in this document will be executed and the output will be analyzed to unco
 \subsection{Scope}
 The scope of the testing is limited to the \famdesc{}. Given the appropriate inputs, each program in \famname{} is intended to find
 the solution to an Initial Value Problem (IVP).\\
+\\
+Due to time and cost constraints, the scope of testing is limited to automated unit and manual system verification and validation activities.\\
+\\
+Static testing will be briefly described and will be left to the developer and verifier to perform with due diligence.
 
 \subsection{Overview of Document}
 The following sections provide more detail about the testing of \famname{}.
@@ -129,7 +133,8 @@ for both the system testing and unit testing are provided.
 
 \section{Plan}
 This section provides a description of the software that is being tested, the team that will
-perform the testing, the approach to automated testing, the tools to be used for verification, and the non-testing based verification. 
+perform the testing, the approach to automated testing, the tools to be used for verification, and the non-testing
+based verification. 
 	
 \subsection{Software Description}
 The software being tested is the \famdesc{}. Given the ODE, initial values of $x$ and $y$, and the final value of $x$,
@@ -144,9 +149,11 @@ The test team that will execute the test cases, write and review the Test Report
 \end{itemize} 
 
 \subsection{Automated Testing Approach}
-Automated testing will be implemented for \famname{}. It will consist of developing test cases that target the boundary conditions in the code 
+Automated unit testing will be implemented for \famname{} as described in Section \ref{sec_verificationtools}.
+Since MATLAB only offers commercially available testing libraries, the scope of automated testing in this Test
+Plan is limited to unit testing.
 
-\subsection{Verification Tools}
+\subsection{Verification Tools} \label{sec_verificationtools}
 The verification tools to be used will be the following:
 
 \begin{enumerate}
@@ -205,93 +212,67 @@ System testing will be executed to provide increased confidence that \famname{} 
 The input will be based on the Assumptions table in the Commonality Analysis. Each test will correspond to an entry from the assumptions item whilst altering a specific input variable to a non-permissible value. The list of inputs is in order with the entries in the table.
 
 \begin{table} [H]
-  \caption{Fauly Input Test Cases}
+  \caption{Faulty Input Test Cases}
   \label{Table:Table_FaultyInputs}  
-\begin{tabular}{|r|p{8cm}|p{6cm}|}
+\begin{tabular}{|c|p{8cm}|p{6cm}|}
   \hline	
   \textbf{Number} & \textbf{Input} &\textbf{Expected Outcome}\\
   \hline 
   01 & ODE Function Call $\mathbb{\notin}$ \{euler741, trap741, heun741, rk4741\} $\mathbb{\cup}$ 
   MATLAB functions & error: undefined function call\\ \hline
-  
-  02& $f(x, y) = y'' + y' + x + 2$ & error: input out of bounds\\
-  
-  
-  \hline
+  02& $f(x, y) = y'' + y' + x + 2$ & error: invalid input\\ \hline
+  03& $f(x, y) = y' + 1$ & error: invalid input\\ \hline
+  04& $f(x, y) = (dx/dy) + 1$ & error: invalid input\\ \hline
+  05& $f(x, y) = (y + 1) / x$ & error: invalid input\\ \hline
+  06& $f(x, y) = y^2 + x$ & error: invalid input\\ \hline
+  07& Boundary Value Problem & error: invalid input\\ \hline
+  08& $h = -1$ & error: invalid input\\ \hline
+  09& $h = 0$ & error: invalid input\\ \hline
+  10& $x_0 = i$ & error: invalid input\\ \hline 
+  11& $x_0 = [0, 1]$ & error: invalid input\\ \hline 
+  12& $y_0 = i$ & error: invalid input\\ \hline 
+  13& $y_0 = [0, 1]$ & error: invalid input\\ \hline
+  14& $x_k = i$ & error: invalid input\\ \hline 
+  15& $x_k = [0, 1]$ & error: invalid input\\ \hline
+
 \end{tabular}\\
-
 \end{table}
-
 
 \subsection{Tests for Functional Requirements}
 
-\subsubsection{Faulty Input Exception}
+\subsubsection{Calculation Tests}
 		
-\paragraph{Input Assumption Tests}
+\paragraph{Euler's Method}
 
 \begin{enumerate}
 
-\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-inputdesk}}
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_simple}: Simple Case}}
 
-Type: Static %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
 					
-Initial State: The code "as-is"
+Initial State: Not applicable
 					
-Input: The source code as the input to this test
+Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 0.5$
 					
-Output: Error / exception prompts 
+Output: $y_k = 1.5$
 					
-How test will be performed: The code will undergo desk review to check for the presence of error exception handling prompts if the inputs do not adhere to the boundaries defined in the input assumptions
+How test will be performed: Manual system test
 
-\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-in}}
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_simpleiterative}: Simple-Iterative Case}}
 
-Type:  Functional, Dynamic, Manual, Static etc.
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
 					
-Initial State: The code "as-is"
+Initial State: Not applicable
 					
-Input: The source code as the input to this test
+Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: Error / exception prompts
+Output: $y_k = 5.0625$
 					
-How test will be performed: The code will undergo desk review to check for the presence of error exception handling prompts if the inputs do not adhere to the boundaries defined in the input assumptions
-
-\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-walkthrough}}
-
-Type: Static %Functional, Dynamic, Manual, Static etc.
-					
-%Initial State: The source code "as-is"
-%					
-%Input: The source code as the input to this test
-%					
-%Output: The code's adherence to the goals of the program.
-%					
-%How test will be performed: The code will undergo desk review to determine, in closed bounds and within reason, if the code satisfies the machine implementation of the mathematical formulas listed in the Commonality Analysis.
-%
-%\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-walkthrough}}
-%
-%Type: Static %Functional, Dynamic, Manual, Static etc.
-%					
-%Initial State: The source code "as-is"
-%					
-%Input: The source code as the input to this test
-%					
-%Output: The code's adherence to the goals of the program.
-%					
-%How test will be performed: The code will undergo desk review to determine, in closed bounds and within reason, if the code satisfies the machine implementation of the mathematical formulas listed in the Commonality Analysis.
-					
-\item{FT-\refstepcounter{ftnum}\theftnum \label{ft-}}
-
-Type: Functional, Dynamic, Manual, Static etc. %Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+How test will be performed: Manual system test
 
 \end{enumerate}
+
+
 
 \subsubsection{Area of Testing2}
 
