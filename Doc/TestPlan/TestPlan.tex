@@ -220,20 +220,20 @@ The input will be based on the Assumptions table in the Commonality Analysis. Ea
   \hline 
   01 & ODE Function Call $\mathbb{\notin}$ \{euler741, trap741, heun741, rk4741\} $\mathbb{\cup}$ 
   MATLAB functions & error: undefined function call\\ \hline
-  02& $f(x, y) = y'' + y' + x + 2$ & error: invalid input\\ \hline
-  03& $f(x, y) = y' + 1$ & error: invalid input\\ \hline
-  04& $f(x, y) = (dx/dy) + 1$ & error: invalid input\\ \hline
-  05& $f(x, y) = (y + 1) / x$ & error: invalid input\\ \hline
-  06& $f(x, y) = y^2 + x$ & error: invalid input\\ \hline
-  07& Boundary Value Problem & error: invalid input\\ \hline
-  08& $h = -1$ & error: invalid input\\ \hline
-  09& $h = 0$ & error: invalid input\\ \hline
-  10& $x_0 = i$ & error: invalid input\\ \hline 
-  11& $x_0 = [0, 1]$ & error: invalid input\\ \hline 
-  12& $y_0 = i$ & error: invalid input\\ \hline 
-  13& $y_0 = [0, 1]$ & error: invalid input\\ \hline
-  14& $x_k = i$ & error: invalid input\\ \hline 
-  15& $x_k = [0, 1]$ & error: invalid input\\ \hline
+  02& $f(x, y) = y'' + y' + x + 2$ & success: false\\ \hline
+  03& $f(x, y) = y' + 1$ & success: false\\ \hline
+  04& $f(x, y) = (dx/dy) + 1$ & success: false\\ \hline
+  05& $f(x, y) = (y + 1) / x$ & success: false\\ \hline
+  06& $f(x, y) = y^2 + x$ & success: false\\ \hline
+  07& Boundary Value Problem & success: false\\ \hline
+  08& $h = -1$ & success: false\\ \hline
+  09& $h = 0$ & success: false\\ \hline
+  10& $x_0 = i$ & success: false\\ \hline 
+  11& $x_0 = [0, 1]$ & success: false\\ \hline 
+  12& $y_0 = i$ & success: false\\ \hline 
+  13& $y_0 = [0, 1]$ & success: false\\ \hline
+  14& $x_k = i$ & success: false\\ \hline 
+  15& $x_k = [0, 1]$ & success: false\\ \hline
 
 \end{tabular}\\
 \end{table}
@@ -252,9 +252,9 @@ Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
-Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 0.5$
+Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 1.5$
+Output: $y_k = 3$, success = true
 					
 How test will be performed: Manual system test
 
@@ -266,13 +266,122 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 5.0625$
+Output: $y_k = 5.0625$, success = true
+					
+How test will be performed: Manual system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_nonlinear}: Non-linear Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = xy^2 - xy, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 0.5$, success = true
+					
+How test will be performed: Manual system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_nonlineariterative}: Non-linear Iterative Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = xy^2 - xy, h = 0.25, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 0.152774$, success = true
 					
 How test will be performed: Manual system test
 
 \end{enumerate}
 
+\paragraph{Trapezoid Method}
+\begin{enumerate}
 
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-trap_simple}: Simple Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = $, success = true
+					
+How test will be performed: Manual system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-trap_simpleiterative}: Simple-Iterative Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = $, success = true
+					
+How test will be performed: Manual system test
+
+\end{enumerate}
+
+\paragraph{Heun's Method}
+\begin{enumerate}
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_simple}: Simple Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 5$, success = true
+					
+How test will be performed: Manual system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_simpleiterative}: Simple-Iterative Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 6.9729$, success = true
+					
+How test will be performed: Manual system test
+
+\end{enumerate}
+
+\paragraph{Runge-Kutta Method}
+\begin{enumerate}
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-rk_simple}: Simple Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 7$, success = true
+					
+How test will be performed: Manual system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-rk_simpleiterative}: Simple-Iterative Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 7.383970$, success = true
+					
+How test will be performed: Manual system test
+
+\end{enumerate}
 
 \subsubsection{Area of Testing2}
 
