@@ -276,9 +276,9 @@ Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
-Input: $f(x, y) = xy^2 - xy, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+Input: $f(x, y) = sin(x) + y^2, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 0.5$, success = true
+Output: $y_k = 3$, success = true
 					
 How test will be performed: Manual system test
 
@@ -288,9 +288,9 @@ Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
-Input: $f(x, y) = xy^2 - xy, h = 0.25, x_0 = 0, y_0 = 1, x_k = 2$
+Input: $f(x, y) = sin(x) + y^2, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 0.152774$, success = true
+Output: $y_k = 35.184209$, success = true
 					
 How test will be performed: Manual system test
 
@@ -352,6 +352,30 @@ Output: $y_k = 6.9729$, success = true
 					
 How test will be performed: Manual system test
 
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heunnonlinear}: Non-linear Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = sin(x) + y^2, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 11.909297$, success = true
+					
+How test will be performed: Manual system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_nonlineariterative}: Non-linear Iterative Case}}
+
+Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = sin(x) + y^2, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
+					
+Output: $y_k = 35.184209$, success = true
+					
+How test will be performed: Manual system test
+
 \end{enumerate}
 
 \paragraph{Runge-Kutta Method}
@@ -383,29 +407,29 @@ How test will be performed: Manual system test
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
-
-...
+%\subsubsection{Area of Testing2}
+%
+%...
 
 \subsection{Tests for Nonfunctional Requirements}
 
-\subsubsection{Area of Testing1}
+\subsubsection{Performance Requirements}
 		
-\paragraph{Title for Test}
+\paragraph{Speed}
 
 \begin{enumerate}
 
-\item{test-id1\\}
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-speed}: Speed Benchmark}}
 
-Type: 
+Type: Manual, Performance 
 					
-Initial State: 
+Initial State: Not Applicable
 					
-Input/Condition: 
+Input/Condition: $f(x, y) = y^2 - x, h = 1e-05, x_0 = 0, y_0 = 1, x_k = 1$
 					
-Output/Result: 
+Output/Result: MATLAB and \famname{} runtime are analyzed
 					
-How test will be performed: 
+How test will be performed: Using the matlab.perftest.TimeExperiment() function, the execution time of a program can be measured and compared.
 					
 \item{test-id2\\}
 
