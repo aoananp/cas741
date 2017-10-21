@@ -133,8 +133,8 @@ for both the system testing and unit testing are provided.
 
 \section{Plan}
 This section provides a description of the software that is being tested, the team that will
-perform the testing, the approach to automated testing, the tools to be used for verification, and the non-testing
-based verification. 
+perform the testing, the approach to automated testing, the tools to be used for verification,
+and the non-testing based verification. 
 	
 \subsection{Software Description}
 The software being tested is the \famdesc{}. Given the ODE, initial values of $x$ and $y$, and the final value of $x$,
@@ -145,13 +145,13 @@ the programs calculate the final value of $y$ through the use of numerical metho
 The test team that will execute the test cases, write and review the Test Report consists of:
 \begin{itemize}
  \item Paul Aoanan
- \item To be determined (A separate test report will be reviewed by an independent individual)
+ \item To be determined (The test report will be reviewed by an independent individual)
 \end{itemize} 
 
 \subsection{Automated Testing Approach}
 Automated unit testing will be implemented for \famname{} as described in Section \ref{sec_verificationtools}.
-Since MATLAB only offers commercially available testing libraries, the scope of automated testing in this Test
-Plan is limited to unit testing.
+%Since MATLAB only offers commercially available testing libraries, the scope of automated testing in this Test
+%Plan is limited to unit testing.
 
 \subsection{Verification Tools} \label{sec_verificationtools}
 The verification tools to be used will be the following:
@@ -163,7 +163,7 @@ with
 \famname{}' running the same inputs will be implemented.
 
 The following algorithm will be implemented to compare the results:
-$$\Delta_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}_\text{MATLAB}} $$
+$$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}_\text{MATLAB}} $$
 
 \item{Static Analyer\\}
 The program's IDE (MATLAB) will be used as a Static Analyzer tool for program debugging and
@@ -191,13 +191,19 @@ Due to the commercial nature of MATLAB, only commercial code coverage tools are 
 \famname{} will undergo the following non-testing based verification activities:
 
 \paragraph{Code Inspection\\}
-\famname{} will undergo an initial desk review by the developer. Whilst it is preferred to have an independent body conducting this verification activity, the developer himself will peruse his own code for syntax errors and correct program calls. This code inspection activity provides the initial sanity check for the developer and the software.
+\famname{} will undergo an initial desk review by an independent body.
+The code will be perused for syntax errors and correct program calls.
+This code inspection activity provides the initial sanity check for the developer and the software.
 
 \paragraph{Code Walkthrough\\}
-\famname{} will undergo code walkthrough by the developer. Again, whilst it is preferred to have an independent body conducting this verification activity, the developer himself will peruse his code and reference the Commonality Analysis for algorithm adherence. This activity will also involve logic analysis, loop and recursion boundary tracing (using by-hand test cases), passing of variables and references, and if the code is programmatically correct.
+\famname{} will undergo code walkthrough by the developer and an independent body.
+They will jointly review the code and reference the Commonality Analysis for algorithm adherence. This activity
+will also involve logic analysis, loop and recursion boundary tracing (using by-hand test cases), passing of
+variables and references, and if the code is programmatically correct.
 
 \paragraph{Symbolic Execution\\}
-Generally, symbolic execution will be performed using the boundary input conditions. Test conditions will be analyzed and executed by-hand. Generally, inputs in, on, and around the boundary conditions are chosen.
+Generally, symbolic execution will be performed using the boundary input conditions. Test conditions will be
+analyzed and executed by-hand. Generally, inputs in, on, and around the boundary conditions are chosen.
 
 %\wss{List any approaches like code inspection, code walkthrough, symbolic
 %execution etc.  Enter not applicable if that is the case.}
@@ -224,7 +230,7 @@ The input will be based on the Assumptions table in the Commonality Analysis. Ea
   03& $f(x, y) = y' + 1$ & success: false\\ \hline
   04& $f(x, y) = (dx/dy) + 1$ & success: false\\ \hline
   05& $f(x, y) = (y + 1) / x$ & success: false\\ \hline
-  06& $f(x, y) = y^2 + x$ & success: false\\ \hline
+  06& $f(x, y) = y/(x-3)$ & success: false\\ \hline
   07& Boundary Value Problem & success: false\\ \hline
   08& $h = -1$ & success: false\\ \hline
   09& $h = 0$ & success: false\\ \hline
@@ -248,7 +254,7 @@ The input will be based on the Assumptions table in the Commonality Analysis. Ea
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_simple}: Simple Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
@@ -256,11 +262,11 @@ Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
 Output: $y_k = 3$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_simpleiterative}: Simple-Iterative Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
@@ -268,31 +274,31 @@ Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
 Output: $y_k = 5.0625$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_nonlinear}: Non-linear Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
-Input: $f(x, y) = sin(x) + y^2, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+Input: $f(x, y) = sin(x) - y^2, h = 5, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = 3$, success = true
+Output: $y_k = -4$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_nonlineariterative}: Non-linear Iterative Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
-Input: $f(x, y) = sin(x) + y^2, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
+Input: $f(x, y) = sin(x) - y^2, h = 1, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = 35.184209$, success = true
+Output: $y_k = -0.6695$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \end{enumerate}
 
@@ -301,27 +307,51 @@ How test will be performed: Manual system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-trap_simple}: Simple Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = $, success = true
+Output: $y_k = 3$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-trap_simpleiterative}: Simple-Iterative Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = $, success = true
+Output: $y_k = 5.0625$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-trap_nonlinear}: Non-linear Case}}
+
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = sin(x) - y^2, h = 5, x_0 = 0, y_0 = 1, x_k = 5$
+					
+Output: $y_k = -4$, success = true
+					
+How test will be performed: Automated system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-trap_nonlineariterative}: Non-linear Iterative Case}}
+
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = sin(x) - y^2, h = 1, x_0 = 0, y_0 = 1, x_k = 5$
+					
+Output: $y_k = -0.6695$, success = true
+					
+How test will be performed: Automated system test
 
 \end{enumerate}
 
@@ -330,51 +360,51 @@ How test will be performed: Manual system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_simple}: Simple Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 5$, success = true
+Output: $y_k = 3$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_simpleiterative}: Simple-Iterative Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 6.9729$, success = true
+Output: $y_k = 5.0625$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
-\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heunnonlinear}: Non-linear Case}}
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_nonlinear}: Non-linear Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
-Input: $f(x, y) = sin(x) + y^2, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
+Input: $f(x, y) = sin(x) - y^2, h = 5, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = 11.909297$, success = true
+Output: $y_k = -4$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_nonlineariterative}: Non-linear Iterative Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
-Input: $f(x, y) = sin(x) + y^2, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
+Input: $f(x, y) = sin(x) - y^2, h = 1, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = 35.184209$, success = true
+Output: $y_k = -0.6695$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \end{enumerate}
 
@@ -383,27 +413,51 @@ How test will be performed: Manual system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-rk_simple}: Simple Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 7$, success = true
+Output: $y_k = 3$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-rk_simpleiterative}: Simple-Iterative Case}}
 
-Type: Functional, Manual, System %Functional, Dynamic, Manual, Static etc.
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
 					
 Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 7.383970$, success = true
+Output: $y_k = 5.0625$, success = true
 					
-How test will be performed: Manual system test
+How test will be performed: Automated system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-rk_nonlinear}: Non-linear Case}}
+
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = sin(x) - y^2, h = 5, x_0 = 0, y_0 = 1, x_k = 5$
+					
+Output: $y_k = -4$, success = true
+					
+How test will be performed: Automated system test
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-rk_nonlineariterative}: Non-linear Iterative Case}}
+
+Type: Functional, Automated, System %Functional, Dynamic, Manual, Static etc.
+					
+Initial State: Not applicable
+					
+Input: $f(x, y) = sin(x) - y^2, h = 1, x_0 = 0, y_0 = 1, x_k = 5$
+					
+Output: $y_k = -0.6695$, success = true
+					
+How test will be performed: Automated system test
 
 \end{enumerate}
 
@@ -421,78 +475,131 @@ How test will be performed: Manual system test
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-speed}: Speed Benchmark}}
 
-Type: Manual, Performance 
+Type: Non-Functional, Automated, Performance 
 					
 Initial State: Not Applicable
 					
-Input/Condition: $f(x, y) = y^2 - x, h = 1e-05, x_0 = 0, y_0 = 1, x_k = 1$
+Input/Condition: $f(x, y) = sin(x) - y^2, h = 1E-5, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output/Result: MATLAB and \famname{} runtime are analyzed
+Output/Result: $\sigma_\text{\famname{}} \leq 4*\sigma_\text{MATLAB}$ (\famname{}' runtimes shall be no more than four (4) times that of MATLAB's.)
 					
-How test will be performed: Using the matlab.perftest.TimeExperiment() function, the execution time of a program can be measured and compared.
-					
-\item{test-id2\\}
-
-Type: Functional, Dynamic, Manual, Static etc.
-					
-Initial State: 
-					
-Input: 
-					
-Output: 
-					
-How test will be performed: 
+How test will be performed: Using MATLAB's Run and Time functionality, the execution time of a program will be measured and compared through program calls to the respective MATLAB and \famname{} functions.\
 
 \end{enumerate}
 
-\subsubsection{Area of Testing2}
+\subsubsection{Results Analysis}
 
-...
+\paragraph{Benchmark Results}
+
+\begin{enumerate}
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-benchmark}: MATLAB Benchmark}}
+
+Type: Non-Functional, Automated, Precision 
+					
+Initial State: Not Applicable
+					
+Input/Condition: $f(x, y) = sin(x) - y^2, h = \text{(VARIABLE)}, x_0 = 0, y_0 = 1, x_k = 5$
+					
+Output/Result: The $\epsilon_{\text{relative}}$ vs. $h$ plot.
+The $y_k$ values will be compared according to the following formula -
+$$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}_\text{MATLAB}} $$
+					
+How test will be performed: The $h$ (step-size) values will be varied across the range (0, 1000]. 
+$\epsilon_{\text{relative}}$ will be plotted against $h$.
+
+\end{enumerate}
+
+%\item{test-id2\\}
+%
+%Type: Functional, Dynamic, Manual, Static etc.
+%					
+%Initial State: 
+%					
+%Input: 
+%					
+%Output: 
+%					
+%How test will be performed: 
+
+%\subsubsection{Area of Testing2}
+%
+%...
 
 \subsection{Traceability Between Test Cases and Requirements}
+The following table shows the traceability mapping for the test cases laid out in this Test Plan to the requirements described in the Commonality Analysis.
 
-% \section{Tests for Proof of Concept}
+\begin{table} [H]
+  \caption{Requirements Traceability Matrix}
+  \label{Table:Table_Traceability}  
+\begin{tabular}{|c|p{12cm}|}
+  \hline	
+  \textbf{Test Number} & \textbf{CA Requirement}\\
+  \hline 
+   T1& ODE F\\ \hline
+   T2& ODE F\\ \hline
+   T3& ODE F\\ \hline
+   T4& ODE F\\ \hline
+   T5& ODE F\\ \hline
+   T6& ODE F\\ \hline
+   T7& ODE F\\ \hline
+   T8& ODE F\\ \hline
+   T9& ODE F\\ \hline
+   T10& ODE F\\ \hline
+   T11& ODE F\\ \hline
+   T12& ODE F\\ \hline
+   T13& ODE F\\ \hline
+   T14& ODE F\\ \hline
+   T15& ODE F\\ \hline
+   T16& ODE F\\ \hline
+   T17& ODE F\\ \hline
+   T18& ODE F\\ \hline
 
-% \subsection{Area of Testing1}
-		
-% \paragraph{Title for Test}
-
-% \begin{enumerate}
-
-% \item{test-id1\\}
-
-% Type: Functional, Dynamic, Manual, Static etc.
-					
-% Initial State: 
-					
-% Input: 
-					
-% Output: 
-					
-% How test will be performed: 
-					
-% \item{test-id2\\}
-
-% Type: Functional, Dynamic, Manual, Static etc.
-					
-% Initial State: 
-					
-% Input: 
-					
-% Output: 
-					
-% How test will be performed: 
-
-% \end{enumerate}
-
-% \subsection{Area of Testing2}
-
-% ...
+\end{tabular}\\
+\end{table}
 				
 \section{Unit Testing Plan}
 		
-\wss{Unit testing plans for internal functions and, if appropriate, output
-  files}
+%\wss{Unit testing plans for internal functions and, if appropriate, output
+% files}
+
+\subsubsection{ODE String Parser}
+
+\paragraph{Parser Functionality}
+
+\begin{enumerate}
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-parser1}: Simple}}
+
+Type: Functional, Manual, Unit 
+					
+Initial State: Not Applicable
+					
+Input/Condition: $f(x, y) = x^2 + y^2 + 1$
+					
+Output/Result: Machine-interpreted $f(x, y)$
+					
+How test will be performed: The parser will be prov
+
+\end{enumerate}
+		
+\paragraph{Error Analysis Through Comparison}
+
+\begin{enumerate}
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-difference}: Error Analysis}}
+
+Type: Manual, Comparison 
+					
+Initial State: Not Applicable
+					
+Input/Condition: $f(x, y) = y^2 - x, h = 1E-7, x_0 = 0, y_0 = 1, x_k = 1$
+					
+Output/Result: Plot of $\Delta_{\text{relative}}$ vs. $h$
+
+How test will be performed: Using the matlab.perftest.TimeExperiment() function, the execution time of a program will be measured and compared through program calls to the respective MATLAB and \famname{} functions.
+
+\end{enumerate}
 
 \bibliographystyle{plainnat}
 
