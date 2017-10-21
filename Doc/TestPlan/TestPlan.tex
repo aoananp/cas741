@@ -532,28 +532,28 @@ The following table shows the traceability mapping for the test cases laid out i
 \begin{table} [H]
   \caption{Requirements Traceability Matrix}
   \label{Table:Table_Traceability}  
-\begin{tabular}{|c|p{12cm}|}
+\begin{tabular}{|c|p{8cm}|}
   \hline	
-  \textbf{Test Number} & \textbf{CA Requirement}\\
+  \textbf{Test Number} & \textbf{CA Requirements}\\
   \hline 
-   T1& ODE F\\ \hline
-   T2& ODE F\\ \hline
-   T3& ODE F\\ \hline
-   T4& ODE F\\ \hline
-   T5& ODE F\\ \hline
-   T6& ODE F\\ \hline
-   T7& ODE F\\ \hline
-   T8& ODE F\\ \hline
-   T9& ODE F\\ \hline
-   T10& ODE F\\ \hline
-   T11& ODE F\\ \hline
-   T12& ODE F\\ \hline
-   T13& ODE F\\ \hline
-   T14& ODE F\\ \hline
-   T15& ODE F\\ \hline
-   T16& ODE F\\ \hline
-   T17& ODE F\\ \hline
-   T18& ODE F\\ \hline
+   T1& IM1, O1, O2, O3, O4, O5\\ \hline
+   T2& IM1, O1, O2, O3, O4, O5\\ \hline
+   T3& IM1, O1, O2, O3, O4, O5\\ \hline
+   T4& IM1, O1, O2, O3, O4, O5\\ \hline
+   T5& IM2, O1, O2, O3, O4, O5\\ \hline
+   T6& IM2, O1, O2, O3, O4, O5\\ \hline
+   T7& IM2, O1, O2, O3, O4, O5\\ \hline
+   T8& IM2, O1, O2, O3, O4, O5\\ \hline
+   T9& IM3, O1, O2, O3, O4, O5\\ \hline
+   T10& IM3, O1, O2, O3, O4, O5\\ \hline
+   T11& IM3, O1, O2, O3, O4, O5\\ \hline
+   T12& IM3, O1, O2, O3, O4, O5\\ \hline
+   T13& IM4, O1, O2, O3, O4, O5\\ \hline
+   T14& IM4, O1, O2, O3, O4, O5\\ \hline
+   T15& IM4, O1, O2, O3, O4, O5\\ \hline
+   T16& IM4, O1, O2, O3, O4, O5\\ \hline
+   T17& NFR1\\ \hline
+   T18& Future NFR2\\ \hline
 
 \end{tabular}\\
 \end{table}
@@ -575,29 +575,44 @@ Type: Functional, Manual, Unit
 					
 Initial State: Not Applicable
 					
-Input/Condition: $f(x, y) = x^2 + y^2 + 1$
+Input/Condition: $f(x, y) = ax^2 + by^2 - cx - dy - 1$
 					
 Output/Result: Machine-interpreted $f(x, y)$
 					
-How test will be performed: The parser will be prov
+How test will be performed: $f(x, y)$ will be passed into the parser function and the output shall be a
+machine-interpreted function.
 
-\end{enumerate}
-		
-\paragraph{Error Analysis Through Comparison}
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-parser1}: Trigonometric}}
 
-\begin{enumerate}
-
-\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-difference}: Error Analysis}}
-
-Type: Manual, Comparison 
+Type: Functional, Manual, Unit 
 					
 Initial State: Not Applicable
 					
-Input/Condition: $f(x, y) = y^2 - x, h = 1E-7, x_0 = 0, y_0 = 1, x_k = 1$
+Input/Condition: $f(x, y) = sin^2(x) - y^3$
 					
-Output/Result: Plot of $\Delta_{\text{relative}}$ vs. $h$
+Output/Result: Machine-interpreted $f(x, y)$
+					
+How test will be performed: $f(x, y)$ will be passed into the parser function and the output shall be a
+machine-interpreted function.
 
-How test will be performed: Using the matlab.perftest.TimeExperiment() function, the execution time of a program will be measured and compared through program calls to the respective MATLAB and \famname{} functions.
+\end{enumerate}
+		
+\paragraph{Function Iteration}
+
+\begin{enumerate}
+
+\item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-difference}: Program Iteration}}
+
+Type: Functional, Manual, Unit 
+					
+Initial State: Not Applicable
+					
+Input/Condition: $f(x, y) = y, h = .1, x_0 = 0, y_0 = 1, x_k = 1$
+					
+Output/Result: $y_k$ through each time step
+
+How test will be performed: Each iteration of the loops or recursions in the code will be observed in run-time.
+Each variable will be monitored prior to loop or function re-entry. This will be done through all four methods (Euler, Trapezoid, Heun, and Runge-Kutta).
 
 \end{enumerate}
 
@@ -609,12 +624,26 @@ How test will be performed: Using the matlab.perftest.TimeExperiment() function,
 
 \section{Appendix}
 
-This is where you can place additional information.
+Not applicable.
+
+%This is where you can place additional information.
 
 \subsection{Symbolic Parameters}
 
 The definition of the test cases will call for SYMBOLIC\_CONSTANTS.
 Their values are defined in this section for easy maintenance.
+
+\renewcommand{\arraystretch}{1.2}
+%\noindent \begin{tabularx}{1.0\textwidth}{l l X}
+\noindent \begin{longtable*}{l l p{12cm}} \toprule
+\textbf{symbol} & \textbf{unit} & \textbf{description}\\
+\midrule
+$\epsilon$ & none & The measure of the difference/error between results obtained with \famname{}
+and MATLAB.\\
+$\sigma$ & seconds & The measure of time a program executes.\\
+
+\bottomrule
+\end{longtable*}
 
 \subsection{Usability Survey Questions?}
 
