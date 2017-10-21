@@ -154,6 +154,8 @@ $y^\text{(n)}$ & \text{-} & Implicit form of the ODE to the $n^\text{th}$ order\
 \bottomrule
 \end{longtable*}
 
+\wss{Usually $n$ and $k$ are used in the opposite way.  That is, the total
+  number of steps is $n$ and the intermediate step is $k$.}
 \subsection{Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
@@ -228,6 +230,9 @@ Reviewers of this document should have an elementary understanding of ordinary d
 equations and numerical methods, as typically covered in first and second year Calculus courses.
 The users of \famname{} can have a lower level expertise, as explained in
 Section~\ref{SecUserCharacteristics}.
+
+\wss{For the characteristics of intended reader try to be more specific about
+  the education.  What degree?  What course areas?  What level?}
 
 \subsection{Organization of Document}
 The organization of this document follows the template for a CA for scientific
@@ -321,10 +326,14 @@ that exists in the domain of the solution
 
 \item Step size: The measure of arbitrary positive value ($h$) from the starting point
 ($x_\text{0}, y_\text{0}$) of the domain to the next ($x_\text{1}, y_\text{1}$), where
-$x_\text{1} = x_\text{0} + h$
+$x_\text{1} = x_\text{0} + h$ \wss{It appears that you have the same step size
+  throughout your computation.  You should add this fact as an assumption.
+  Also, when you are presenting the step size, it would be better to use a
+  generic step, rather than the first step.  It is a more general way to convey
+  the information.}
 
 \item Derivative: The amount by which a a function changes at any given point as an
-instantaneous rate of change
+instantaneous rate of change \wss{missing a period.}
 
 \item Numerical Analysis: A branch of mathematics and computer science wherein the solutions
 are numerical approximations taking into account the errors involved in the process.
@@ -332,12 +341,15 @@ are numerical approximations taking into account the errors involved in the proc
 \item Numerical Approximation: An approximation of the exact solution to the problem with the
 use of known numerical techniques while minimizing error.
 
-\item Recursion: The repeated application of a procedure or program.
+\item Recursion: The repeated application of a procedure or program. \wss{I
+    think you can find a better definition of recursion.  With this definition a
+    for loop is recursion.  :-)}
 
 \item Initial Value Problem: A type of ODE problem where the initial conditions are stated and
 used to find the solution to the ODE.
 
-\item Linear Function: A function which graph is a straight line.
+\item Linear Function: A function which graph is a straight line. \wss{A
+    definition for linear ODEs would be more appropriate.}
 
 \item Continuous Function: A function which does not have any breaks in its graph across its domain.
 
@@ -373,7 +385,8 @@ Symbol &$dy/dx$\\
         &$h$ is the step size.\\
   \hline
   Source&
-        Nagle, et al, "Solutions and Initial Value Problems," in
+        Nagle, et al, "Solutions and Initial Value Problems," \wss{Use ``quote''
+          to get correct quotation marks} in
         \textit{Fundamentals of Differential Equations and Boundary Value Problems},
         3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 7. ~\cite{Nagle2000}
   \\
@@ -393,7 +406,9 @@ represented by $y'= f(x,y)$, the set of initial
 values $x_\text{0}$ and $y_\text{0}$ that satisfy $y(x_\text{0}) = y_\text{0}$,
 and $x_\text{k}$, return $y_\text{k}$ such that $y(x_\text{k}) = y_\text{k}$ (the final
 values), where $y(x)$ is a function, $f(x,y)$ is a function, and $x$
-is an independent variable.}
+is an independent variable.} \wss{What about the step size $h$?  Do you want to
+just solve for the final value, or do you want the intermediate values?  Most of
+the time the scientist or engineer will be interested in the intermediate values.}
 
 % \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_InputOutput}:]{
 % Provide the user the means of providing the required inputs, calling the ODE solver
@@ -429,7 +444,9 @@ on.
   %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
   \hline
   Description & 
-                The above model gives the definition of an ordinary differential equation initial
+                \wss{I've had a quick look for it, but I cannot find an
+                assumption that you are only accepting the explicit form.  Does
+                that mean that you are also considering the implicit form?}  The above model gives the definition of an ordinary differential equation initial
                 value problem.
 
                 A differential equation is an equation, where the unknown is a
@@ -458,6 +475,9 @@ on.
   \hline
 \end{tabular}
 \end{minipage}\\
+
+\wss{If you have a reference by entry, then the referenced by chunk (or its
+  derivation) should actually reference the chunk that has it as an entry.}
 
 ~\newline
 
@@ -716,6 +736,14 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
 
 \newpage
 
+\wss{To make it clear that you have a family of methods, I would introduce an
+  instance model for one-step initial value problem solvers.  The equation would
+  be $${y}_{k+1} = {y}_k + h \phi(t_k, {x}_k, h_k)$$ The only difference for
+  your family members is how $\phi$ is defined.  This approach would let you
+  easily add new family members in the specification, simply by giving new
+  values for $\phi$.  You have also (implicitly as far as I can tell) assumed
+  that all $h_k$ are equal to $h$.}
+
 \subsubsection*{Detailed Derivation of Heun's Method}
 
 By modifying the trapezoid scheme [\iref{trapezoid}]:\\
@@ -871,9 +899,13 @@ the ODE IVP as shown in [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [
 %~\newline
 %[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
+\wss{This isn't an assumption, but an input.}
+
 \textit{[Rationale: The choice of which variability is decided upon by the user/programmer
 on compile time as the intent is to keep the library lightweight and functional - only four
 classical models were considered.]}
+
+\wss{The idea of rationales here is nice.} 
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_typeoff}:]
 The ODE will be of the first order, given by $y' = f(x, y)$ as described in [\tref{T_ODE}] and taken as an input in
@@ -885,6 +917,11 @@ The ODE will be of the first order, given by $y' = f(x, y)$ as described in [\tr
 library that can be used and implemented in a variety of popular non-math oriented programming
 languages.]}
 
+\wss{This rationale doesn't really hold up to scrutiny.  A system of first order
+  ODEs, which is a more general version of your scope, can be implemented in a
+  variety of popular languages too.  I believe you made this decision for
+  practical, scope related, reasons; it is okay to say that.  :-)}
+
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_explicit}:]
 The entry of $f(x, y)$ will be of the explicit form such that $y' = f(x, y)$
 as described in [\tref{T_ODE}] and taken as an input in
@@ -892,12 +929,19 @@ as described in [\tref{T_ODE}] and taken as an input in
 %~\newline
 %[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
+\wss{Okay, I thought I would have seen this sooner.  An explicit reference to
+  this assumption from T1 would be helpful.}
+ 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_linearity}:]
 The entry $f(x, y)$ can be linear or non-linear
 as described in [\tref{T_ODE}] and taken as an input in
 [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
 %~\newline
 %[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+
+\wss{You weren't really clear on the difference between linear and non-linear
+  ODEs.  If you google it, you should be able to find a clear explanation.  If
+  not, please let me know.}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_continuous}:]
 The entry $f(x, y)$ will be a continuous function
@@ -978,6 +1022,11 @@ The entry $x_k$ is of a single dimension.
 
 \end{itemize}
 
+\wss{Your last assumptions aren't really assumptions; they are just type
+  information on the inputs.  A better way to capture this would be to include
+  the type information in your document.  Including it in the list of symbols
+  would be an easy place to start.}
+
 \subsection{Calculation} \label{sec_Calculation}
 
 \begin{itemize}
@@ -1003,8 +1052,10 @@ in [\aref{A_typeoff}] and [\tref{T_ODE}] using [\iref{euler}], [\iref{trapezoid}
 % [\aref{A_typeoff}], [\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}],
 % [\iref{heun}], [\iref{runge}]
 
-
 \end{itemize}
+
+\wss{Some of your calculations don't seem to be variabilities.  In that case,
+  they are commonalities and should be labelled as such.}
 
 \subsection{Output} \label{sec_Output}
 
@@ -1036,6 +1087,9 @@ or errors in generating the solution to the ODE problem.
 
 \end{itemize}
 
+\wss{The outputs that are not variabilities should be identified as
+  commonalities.}
+
 \section{Non-Functional Requirements} \label{NFR}
 \begin{itemize}
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_sigma}:]
@@ -1045,6 +1099,9 @@ where $\sigma_\text{MatLab}$ is the execution time of each equivalent program/fu
 
 \textit{[Rationale: The program should have a reasonable/comparable execution time compared to that of one of the industry standard's.]}
 \end{itemize}
+
+\wss{In addition to the execution time, it would be great to see a comparison of
+  the accuracy.}
 
 \newpage
 \begin{landscape}
