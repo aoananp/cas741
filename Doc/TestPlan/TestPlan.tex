@@ -45,6 +45,7 @@
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
 \newcommand{\famdesc}{Library of ODE Solvers}
 \newcommand{\famurl}{https://github.com/aoananp/cas741/}
+\newcommand{\unittesturl}{https://www.mathworks.com/help/matlab/matlab_prog/author-class-based-unit-tests-in-matlab.html}
 
 \begin{document}
 
@@ -150,6 +151,8 @@ The test team that will execute the test cases, write and review the Test Report
 
 \subsection{Automated Testing Approach}
 Automated unit testing will be implemented for \famname{} as described in Section \ref{sec_verificationtools}.
+A combination of the Unit Testing Framework and MATLAB's Test Class will be used for automated testing.
+
 %Since MATLAB only offers commercially available testing libraries, the scope of automated testing in this Test
 %Plan is limited to unit testing.
 
@@ -159,11 +162,14 @@ The verification tools to be used will be the following:
 \begin{enumerate}
 \item{Unit Testing Framework\\}
 A Unit Testing Framework designed in MATLAB that will compare MATLAB's own functional programs
-with
-\famname{}' running the same inputs will be implemented.
+with \famname{}' running the same inputs will be implemented.
 
 The following algorithm will be implemented to compare the results:
 $$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}_\text{MATLAB}} $$
+
+\item{MATLAB's Test Class\\}
+MATLAB's Test Class (matlab.unittest.testcase) will be used for providing the framework for automated
+system testing. The documentation can be referenced in \href{\unittesturl}{MATHWORKS}.
 
 \item{Static Analyer\\}
 The program's IDE (MATLAB) will be used as a Static Analyzer tool for program debugging and
@@ -296,7 +302,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = sin(x) - y^2, h = 1, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = -0.6695$, success = true
+Output: $y_k = -0.669532$, success = true
 					
 How test will be performed: Automated system test
 
@@ -366,7 +372,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 3$, success = true
+Output: $y_k = 5$, success = true
 					
 How test will be performed: Automated system test
 
@@ -378,7 +384,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 5.0625$, success = true
+Output: $y_k = 6.972900$, success = true
 					
 How test will be performed: Automated system test
 
@@ -390,7 +396,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = sin(x) - y^2, h = 5, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = -4$, success = true
+Output: $y_k = -43.897311$, success = true
 					
 How test will be performed: Automated system test
 
@@ -402,7 +408,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = sin(x) - y^2, h = 1, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = -0.6695$, success = true
+Output: $y_k = -1.101197$, success = true
 					
 How test will be performed: Automated system test
 
@@ -419,7 +425,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 2, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 3$, success = true
+Output: $y_k = 7$, success = true
 					
 How test will be performed: Automated system test
 
@@ -431,7 +437,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = y, h = 0.5, x_0 = 0, y_0 = 1, x_k = 2$
 					
-Output: $y_k = 5.0625$, success = true
+Output: $y_k = 7.383970$, success = true
 					
 How test will be performed: Automated system test
 
@@ -443,7 +449,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = sin(x) - y^2, h = 5, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = -4$, success = true
+Output: $y_k = -1702.845129$, success = true
 					
 How test will be performed: Automated system test
 
@@ -455,7 +461,7 @@ Initial State: Not applicable
 					
 Input: $f(x, y) = sin(x) - y^2, h = 1, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output: $y_k = -0.6695$, success = true
+Output: $y_k = -1.028367$, success = true
 					
 How test will be performed: Automated system test
 
@@ -645,8 +651,9 @@ $\sigma$ & seconds & The measure of time a program executes.\\
 \bottomrule
 \end{longtable*}
 
-\subsection{Usability Survey Questions?}
+\subsection{Usability Survey Questions}
+No usability study will be performed for \famname{}.
 
-This is a section that would be appropriate for some teams.
+%This is a section that would be appropriate for some teams.
 
 \end{document}
