@@ -45,7 +45,8 @@
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
 \newcommand{\famdesc}{Library of ODE Solvers}
 \newcommand{\famurl}{https://github.com/aoananp/cas741/}
-\newcommand{\unittesturl}{https://www.mathworks.com/help/matlab/matlab_prog/author-class-based-unit-tests-in-matlab.html}
+\newcommand{\unittesturl}{https://www.mathworks.com/help/matlab/matlab_prog/author-class-based-unit-tests-
+in-matlab.html}
 
 \begin{document}
 
@@ -70,7 +71,8 @@
 
 \section{Symbols, Abbreviations and Acronyms}
 The following table lists the symbols, abbreviations and acronyms used in the Test Plan.
-The software library's Commonality Analysis (CA) tables provide supplementary items in addition to the ones listed below.\\
+The software library's Commonality Analysis (CA) tables provide supplementary items in addition to the ones 
+listed below.\\
 \begin{table} [h]
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{l l l l |} 
@@ -97,7 +99,7 @@ The software library's Commonality Analysis (CA) tables provide supplementary it
 
 \listoftables
 
-\listoffigures
+%\listoffigures
 
 \newpage
 
@@ -106,22 +108,29 @@ The software library's Commonality Analysis (CA) tables provide supplementary it
 %This document ...
 
 \section{General Information}
-The following section provides an overview of the Test Plan for the Library of Ordinary Differential Equation (ODE) Solvers.\\
-This section explains the purpose of this document, the scope of the system, and an overview of the following sections.
+The following section provides an overview of the Test Plan for the Library of Ordinary Differential Equation (ODE) 
+Solvers.\\
+This section explains the purpose of this document, the scope of the system, and an overview of the following 
+sections.
 
 \subsection{Purpose}
-The main purpose of this document (the Test Plan) is to describe the verification and validation process that will be used to test the
-functionality of \famname{}.  This document closely follows the requirements and governs the subsequent testing activities.
-This document is intended to be used as a reference for all testing and will be used to increase confidence in the software implementation.\\
+The main purpose of this document (the Test Plan) is to describe the verification and validation process that will 
+be used to test the functionality of \famname{}.  This document closely follows the requirements and governs
+the subsequent testing activities. This document is intended to be used as a reference for all testing and will be
+used to increase confidence in the 
+software implementation.\\
 \\
 This document will be used as a guide and starting point for the Test Report. The test cases
-listed in this document will be executed and the output will be analyzed to uncover errors, increase confidence and correctness in the software.
+listed in this document will be executed and the output will be analyzed to uncover errors, increase confidence 
+and correctness in the software.
 
 \subsection{Scope}
-The scope of the testing is limited to the \famdesc{}. Given the appropriate inputs, each program in \famname{} is intended to find
+The scope of the testing is limited to the \famdesc{}. Given the appropriate inputs, each program in \famname{} is 
+intended to find
 the solution to an Initial Value Problem (IVP).\\
 \\
-Due to time and cost constraints, the scope of testing is limited to automated unit and manual system verification and validation activities.\\
+Due to time and cost constraints, the scope of testing is limited to automated unit and manual system verification 
+and validation activities.\\
 \\
 Static testing will be briefly described and will be left to the developer and verifier to perform with due diligence.
 
@@ -138,7 +147,8 @@ perform the testing, the approach to automated testing, the tools to be used for
 and the non-testing based verification. 
 	
 \subsection{Software Description}
-The software being tested is the \famdesc{}. Given the ODE, initial values of $x$ and $y$, and the final value of $x$,
+The software being tested is the \famdesc{}. Given the ODE, initial values of $x$ and $y$, and the final value of 
+$x$,
 the programs calculate the final value of $y$ through the use of numerical methods.
 
 \subsection{Test Team}
@@ -165,7 +175,8 @@ A Unit Testing Framework designed in MATLAB that will compare MATLAB's own funct
 with \famname{}' running the same inputs will be implemented.
 
 The following algorithm will be implemented to compare the results:
-$$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}_\text{MATLAB}} $$
+$$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}
+_\text{MATLAB}} $$
 
 \item{MATLAB's Test Class\\}
 MATLAB's Test Class (matlab.unittest.testcase) will be used for providing the framework for automated
@@ -181,7 +192,9 @@ It provides the Build Server functionality to fully maintain and document the so
 As well, it provides the compare functionality for future regression testing and analysis of code updates.
 
 \item{Code Coverage Tool\\}
-Due to the commercial nature of MATLAB, only commercial code coverage tools are viable for use due to the maturity, increased confidence, and detailed documentation that they offer. Other coverage tools may be considered, but no code coverage tool will be considered in the scope of this test plan due to budget constraints.
+Due to the commercial nature of MATLAB, only commercial code coverage tools are viable for use due to the 
+maturity, increased confidence, and detailed documentation that they offer. Other coverage tools may be 
+considered, but no code coverage tool will be considered in the scope of this test plan due to budget constraints.
 
 \end{enumerate}
 
@@ -199,13 +212,14 @@ Due to the commercial nature of MATLAB, only commercial code coverage tools are 
 \paragraph{Code Inspection\\}
 \famname{} will undergo an initial desk review by an independent body.
 The code will be perused for syntax errors and correct program calls.
-This code inspection activity provides the initial sanity check for the developer and the software.
+This code inspection activity provides the initial sanity check for the developer, the reviewer, and the software.
 
 \paragraph{Code Walkthrough\\}
 \famname{} will undergo code walkthrough by the developer and an independent body.
 They will jointly review the code and reference the Commonality Analysis for algorithm adherence. This activity
 will also involve logic analysis, loop and recursion boundary tracing (using by-hand test cases), passing of
-variables and references, and if the code is programmatically correct.
+variables and references, and if the code is programmatically correct. The code walkthrough will be executed
+with the guidance laid out in Section \ref{checklist}.
 
 \paragraph{Symbolic Execution\\}
 Generally, symbolic execution will be performed using the boundary input conditions. Test conditions will be
@@ -215,13 +229,17 @@ analyzed and executed by-hand. Generally, inputs in, on, and around the boundary
 %execution etc.  Enter not applicable if that is the case.}
 
 \section{System Test Description}
-System testing will be executed to provide increased confidence that \famname{} will achieve the goals defined in the Commonality Analysis. It uses a "black box" approach wherein it tests the system as a whole through the use of input and output analysis.
+System testing will be executed to provide increased confidence that \famname{} will achieve the goals defined in 
+the Commonality Analysis. It uses a "black box" approach wherein it tests the system as a whole through the use 
+of input and output analysis.
 
 \subsection{Tests for Faulty Input}
 
 \subsubsection{Input}
 		
-The input will be based on the Assumptions table in the Commonality Analysis. Each test will correspond to an entry from the assumptions item whilst altering a specific input variable to a non-permissible value. The list of inputs is in order with the entries in the table.
+The input will be based on the Assumptions table in the Commonality Analysis. Each test will correspond to an 
+entry from the assumptions item whilst altering a specific input variable to a non-permissible value. The list of 
+inputs is in order with the entries in the table.
 
 \begin{table} [H]
   \caption{Faulty Input Test Cases}
@@ -487,9 +505,11 @@ Initial State: Not Applicable
 					
 Input/Condition: $f(x, y) = sin(x) - y^2, h = 1E-5, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output/Result: $\sigma_\text{\famname{}} \leq 4*\sigma_\text{MATLAB}$ (\famname{}' runtimes shall be no more than four (4) times that of MATLAB's.)
+Output/Result: $\sigma_\text{\famname{}} \leq 4*\sigma_\text{MATLAB}$ (\famname{}' runtimes shall be no more 
+than four (4) times that of MATLAB's.)
 					
-How test will be performed: Using MATLAB's Run and Time functionality, the execution time of a program will be measured and compared through program calls to the respective MATLAB and \famname{} functions.\
+How test will be performed: Using MATLAB's Run and Time functionality, the execution time of a program will be 
+measured and compared through program calls to the respective MATLAB and \famname{} functions.\
 
 \end{enumerate}
 
@@ -509,7 +529,8 @@ Input/Condition: $f(x, y) = sin(x) - y^2, h = \text{(VARIABLE)}, x_0 = 0, y_0 = 
 					
 Output/Result: The $\epsilon_{\text{relative}}$ vs. $h$ plot.
 The $y_k$ values will be compared according to the following formula -
-$$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}_\text{MATLAB}} $$
+$$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}
+_\text{MATLAB}} $$
 					
 How test will be performed: The $h$ (step-size) values will be varied across the range (0, 1000]. 
 $\epsilon_{\text{relative}}$ will be plotted against $h$.
@@ -533,7 +554,8 @@ $\epsilon_{\text{relative}}$ will be plotted against $h$.
 %...
 
 \subsection{Traceability Between Test Cases and Requirements}
-The following table shows the traceability mapping for the test cases laid out in this Test Plan to the requirements described in the Commonality Analysis.
+The following table shows the traceability mapping for the test cases laid out in this Test Plan to the requirements 
+described in the Commonality Analysis.
 
 \begin{table} [H]
   \caption{Requirements Traceability Matrix}
@@ -618,7 +640,8 @@ Input/Condition: $f(x, y) = y, h = .1, x_0 = 0, y_0 = 1, x_k = 1$
 Output/Result: $y_k$ through each time step
 
 How test will be performed: Each iteration of the loops or recursions in the code will be observed in run-time.
-Each variable will be monitored prior to loop or function re-entry. This will be done through all four methods (Euler, Trapezoid, Heun, and Runge-Kutta).
+Each variable will be monitored prior to loop or function re-entry. This will be done through all four methods (Euler, 
+Trapezoid, Heun, and Runge-Kutta).
 
 \end{enumerate}
 
@@ -630,9 +653,21 @@ Each variable will be monitored prior to loop or function re-entry. This will be
 
 \section{Appendix}
 
-Not applicable.
+\subsection{Walkthrough Questionnaire} \label{checklist}
+\begin{enumerate}
+\item{Are there defects in the code?}
+\item{Does the code adhere to MATLAB coding standards and guidelines (syntax, function calls, etc.)?}
+\item{Does the code sensibly apply the ODE solvers as defined in the Commonality Analysis?}
+\item{Does the code contain spelling errors?}
+\item{Do the recursion/loops have the correct terminating cases according to the formulas defined in the Commonality Analysis?}
+\item{Does the code have the correct inputs and outputs?}
+\item{Do the datatypes in the code adhere to ones defined in the requirements and specifications?}
+\item{Does the code satisfy the ranges and assumptions defined in the Commonality Analysis?}
+
+\end{enumerate}
 
 %This is where you can place additional information.
+\pagebreak
 
 \subsection{Symbolic Parameters}
 
