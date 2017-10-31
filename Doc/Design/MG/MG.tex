@@ -15,7 +15,8 @@
     linkcolor=red,
     urlcolor=blue
 }
-\usepackage[round]{natbib}
+
+\input{../../Comments}
 
 \newcounter{acnum}
 \newcommand{\actheacnum}{AC\theacnum}
@@ -29,37 +30,36 @@
 \newcommand{\mthemnum}{M\themnum}
 \newcommand{\mref}[1]{M\ref{#1}}
 
-\title{SE 3XA3: Software Requirements Specification\\Title of Project}
-
-\author{Team \#, Team Name
-		\\ Student 1 name and macid
-		\\ Student 2 name and macid
-		\\ Student 3 name and macid
-}
-
-\date{\today}
-
-\input{../../Comments}
+\newcommand{\famdesc}{Library of ODE Solvers}
+\newcommand{\famname}{Library of ODE Solvers}
 
 \begin{document}
+
+\title{Module Guide: \famdesc{}} 
+\author{Paul Aoanan}
+\date{\today}
 
 \maketitle
 
 \pagenumbering{roman}
-\tableofcontents
-\listoftables
-\listoffigures
 
-\begin{table}[bp]
-\caption{\bf Revision History}
+\section{Revision History}
+
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+\today{} & 1.0 & Initial draft.\\
+%Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
-\end{table}
+
+\newpage
+
+\tableofcontents
+
+\listoftables
+
+\listoffigures
 
 \newpage
 
@@ -134,9 +134,21 @@ change.
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
   hardware on which the software is running.
-\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
-  initial input data.
-\item ...
+\item[\refstepcounter{acnum} \actheacnum \label{acConstraints}:] The assumptions and constraints
+on the input parameters.
+\item[\refstepcounter{acnum} \actheacnum \label{acLanguage}:] The specific language
+which the software is written in.
+\item[\refstepcounter{acnum} \actheacnum \label{acStepSize}:] The assumption that
+the step size $h$ is constant.
+\item[\refstepcounter{acnum} \actheacnum \label{acEulerMethod}:] The implementation
+of Euler's Method.
+\item[\refstepcounter{acnum} \actheacnum \label{acTrapMethod}:] The implementation
+of the Trapezoidal Method.
+\item[\refstepcounter{acnum} \actheacnum \label{acHeunMethod}:] The implementation
+of Heun's Method.
+\item[\refstepcounter{acnum} \actheacnum \label{acRKMethod}:] The implementation
+of the Runge-Kutta Method.
+\item[\refstepcounter{acnum} \actheacnum \label{acPlot}:] The implementation of plotting data.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -150,10 +162,18 @@ decisions will be changed.
 
 \begin{description}
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
-  (Input: File and/or Keyboard, Output: File, Memory, and/or Screen).
+  (Input: Function Call with correctly formatted arguments, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software.
-\item ...
+  a source of input data external to the software such as a function call with arguments.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The format of the
+  initial input data.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInputParams}:] The format
+of the input parameters.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The format of the
+initial output data.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to
+calculate the value of $y_k$ in an ODE Initial Value Problem.
+%\item[\refstepcounter{ucnum} \uctheucnum \label{uc}:]
 \end{description}
 
 \section{Module Hierarchy} \label{SecMH}
@@ -165,11 +185,21 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item ...
+\item [\refstepcounter{mnum} \mthemnum \label{mInputParams}:] Input Parameters Module
+\item [\refstepcounter{mnum} \mthemnum \label{mODEParse}:] Equation String Parser Module
+\item [\refstepcounter{mnum} \mthemnum \label{mOutputFormat}:] Output Format Module
+\item [\refstepcounter{mnum} \mthemnum \label{mEuler}:] Euler's Method Module
+\item [\refstepcounter{mnum} \mthemnum \label{mTrap}:] Trapezoidal Method Module
+\item [\refstepcounter{mnum} \mthemnum \label{mHeun}:] Heun's Method Module
+\item [\refstepcounter{mnum} \mthemnum \label{mRK}:] Runge-Kutta's Method Module
+\item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plotting Module
+
 \end{description}
 
+Note that the M\ref{mHH} is a commonly used module and is already implemented by the operating system. It will not be reimplemented.
+Similarly, M\ref{mODEParse}, M\ref{mOutputFormat}, and M\ref{mPlot} are already available in Matlab and will not be reimplemented.
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \begin{tabular}{p{0.3\textwidth} p{0.6\textwidth}}
 \toprule
@@ -179,19 +209,16 @@ actually be implemented.
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\
-& ?\\ 
-& ?\\
+\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameters Module\\
+& Euler's Method Module\\
+& Trapezoidal Method Module\\
+& Heun's Method Module\\
+& Runge-Kutta's Method Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {?}\\
-& ?\\
-& ?\\
+\multirow{3}{0.3\textwidth}{Software Decision Module} & {Equation String Parser Module}\\
+& Plotting Module\\
+& Output Format Module\\
 \bottomrule
 
 \end{tabular}
