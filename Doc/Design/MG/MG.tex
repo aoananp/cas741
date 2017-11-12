@@ -128,8 +128,7 @@ unlikely changes are listed in Section \ref{SecUchange}.
 Anticipated changes are the source of the information that is to be hidden
 inside the modules. Ideally, changing one of the anticipated changes will only
 require changing the one module that hides the associated decision. The approach
-adapted here is called design for
-change.
+adapted here is called design for change.
 
 \begin{description}
 \item[\refstepcounter{acnum} \actheacnum \label{acHardware}:] The specific
@@ -138,8 +137,8 @@ change.
 on the input parameters.
 \item[\refstepcounter{acnum} \actheacnum \label{acLanguage}:] The specific language
 which the software is written in.
-\item[\refstepcounter{acnum} \actheacnum \label{acStepSize}:] The assumption that
-the step size $h$ is constant.
+%\item[\refstepcounter{acnum} \actheacnum \label{acStepSize}:] The assumption that
+%the step size $h$ is constant.
 \item[\refstepcounter{acnum} \actheacnum \label{acEulerMethod}:] The implementation
 of Euler's Method.
 \item[\refstepcounter{acnum} \actheacnum \label{acTrapMethod}:] The implementation
@@ -148,7 +147,7 @@ of the Trapezoidal Method.
 of Heun's Method.
 \item[\refstepcounter{acnum} \actheacnum \label{acRKMethod}:] The implementation
 of the Runge-Kutta Method.
-\item[\refstepcounter{acnum} \actheacnum \label{acPlot}:] The implementation of plotting data.
+%\item[\refstepcounter{acnum} \actheacnum \label{acPlot}:] The implementation of plotting data.
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -164,13 +163,12 @@ decisions will be changed.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucIO}:] Input/Output devices
   (Input: Function Call with correctly formatted arguments, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
-  a source of input data external to the software such as a function call with arguments.
+an expected program call with the assumed arguments to the library's modules.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The format of the
   initial input data.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInputParams}:] The format
 of the input parameters.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The format of the
-initial output data.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The format of the output data.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to
 calculate the value of $y_k$ in an ODE Initial Value Problem.
 %\item[\refstepcounter{ucnum} \uctheucnum \label{uc}:]
@@ -185,19 +183,19 @@ actually be implemented.
 
 \begin{description}
 \item [\refstepcounter{mnum} \mthemnum \label{mHH}:] Hardware-Hiding Module
-\item [\refstepcounter{mnum} \mthemnum \label{mInputParams}:] Input Parameters Module
+\item [\refstepcounter{mnum} \mthemnum \label{mExt}:] External Interface Module
 \item [\refstepcounter{mnum} \mthemnum \label{mODEParse}:] Equation String Parser Module
 \item [\refstepcounter{mnum} \mthemnum \label{mOutputFormat}:] Output Format Module
 \item [\refstepcounter{mnum} \mthemnum \label{mEuler}:] Euler's Method Module
 \item [\refstepcounter{mnum} \mthemnum \label{mTrap}:] Trapezoidal Method Module
 \item [\refstepcounter{mnum} \mthemnum \label{mHeun}:] Heun's Method Module
 \item [\refstepcounter{mnum} \mthemnum \label{mRK}:] Runge-Kutta's Method Module
-\item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plotting Module
+%\item [\refstepcounter{mnum} \mthemnum \label{mPlot}:] Plotting Module
 
 \end{description}
 
 Note that the M\ref{mHH} is a commonly used module and is already implemented by the operating system. It will not be reimplemented.
-Similarly, M\ref{mODEParse}, M\ref{mOutputFormat}, and M\ref{mPlot} are already available in Matlab and will not be reimplemented.
+Similarly, M\ref{mODEParse} and M\ref{mOutputFormat} are already available in Matlab and will not be reimplemented.
 
 \begin{table}[H]
 \centering
@@ -209,15 +207,15 @@ Similarly, M\ref{mODEParse}, M\ref{mOutputFormat}, and M\ref{mPlot} are already 
 {Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding Module} & Input Parameters Module\\
+\multirow{5}{0.3\textwidth}{Behaviour-Hiding Module} & External Interface Module\\
 & Euler's Method Module\\
 & Trapezoidal Method Module\\
 & Heun's Method Module\\
 & Runge-Kutta's Method Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision Module} & {Equation String Parser Module}\\
-& Plotting Module\\
+\multirow{2}{0.3\textwidth}{Software Decision Module} & {Equation String Parser Module}\\
+%& Plotting Module\\
 & Output Format Module\\
 \bottomrule
 
@@ -273,17 +271,58 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Input Format Module (\mref{mInput})}
+\subsubsection{External Interface Module (\mref{mExt})}
 
 \begin{description}
-\item[Secrets:]The format and structure of the input data.
-\item[Services:]Converts the input data into the data structure used by the
-  input parameters module.
-\item[Implemented By:] [Your Program Name Here]
+\item[Secrets:]The interface exposed to the external world or wrapper function.
+\item[Services:]Provides the external interface to the library for use by a driver program.
+The external interface module handles the external interface of LODES validating the inputs
+sending them downstream.
+\item[Implemented By:] LODES
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Euler's Method Module (\mref{mEuler})}
 
+\begin{description}
+\item[Secrets:]The implementation of the Euler's Method algorithm.
+\item[Services:]Provides the calculation to obtain $y_k$ using Euler's method.
+\item[Implemented By:] LODES
+\end{description}
+
+\subsubsection{Trapezoidal Method Module (\mref{mTrap})}
+
+\begin{description}
+\item[Secrets:]The implementation of the Trapezoidal Method algorithm.
+\item[Services:]Provides the calculation to obtain $y_k$ using the trapezoidal method.
+\item[Implemented By:] LODES
+\end{description}
+
+\subsubsection{Heun's Method Module (\mref{mHeun})}
+
+\begin{description}
+\item[Secrets:]The implementation of Heun's Method algorithm.
+\item[Services:]Provides the calculation to obtain $y_k$ using Heun's method.
+\item[Implemented By:] LODES
+\end{description}
+
+\subsubsection{Runge-Kutta's Method Module (\mref{mRK})}
+
+\begin{description}
+\item[Secrets:]The implementation of the Runge-Kutta 4 Method algorithm.
+\item[Services:]Provides the calculation to obtain $y_k$ using the Runge-Kutta 4 method.
+\item[Implemented By:] LODES
+\end{description}
+
+%\subsubsection{Input Format Module (\mref{mInput})}
+%
+%\begin{description}
+%\item[Secrets:]The format and structure of the input data.
+%\item[Services:]Converts the input data into the data structure used by the
+%  input parameters module.
+%\item[Implemented By:] [Your Program Name Here]
+%\end{description}
+
+~\newpage
 
 \subsection{Software Decision Module}
 
@@ -298,7 +337,21 @@ selected.
 \item[Implemented By:] --
 \end{description}
 
-\subsubsection{Etc.}
+\subsubsection{Equation String Parser Module (\mref{mODEParse})}
+
+\begin{description}
+\item[Secrets:]The implementation of a string parser algorithm.
+\item[Services:]Parses the equation string input and returns a valid and manipulatable ODE equation.
+\item[Implemented By:] Matlab
+\end{description}
+
+\subsubsection{Output Format Module (\mref{mOutputFormat})}
+
+\begin{description}
+\item[Secrets:]The implementation of sending the desired output to its destination.
+\item[Services:]Sends the output to be used by the outside environment or driver program.
+\item[Implemented By:] Matlab
+\end{description}
 
 \section{Traceability Matrix} \label{SecTM}
 
@@ -313,17 +366,18 @@ requirements and between the modules and the anticipated changes.
 \toprule
 \textbf{Req.} & \textbf{Modules}\\
 \midrule
-R1 & \mref{mHH}, \mref{mInput}, \mref{mParams}, \mref{mControl}\\
-R2 & \mref{mInput}, \mref{mParams}\\
-R3 & \mref{mVerify}\\
-R4 & \mref{mOutput}, \mref{mControl}\\
-R5 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R6 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}, \mref{mSeqDS}, \mref{mSolver}, \mref{mPlot}\\
-R7 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R8 & \mref{mOutput}, \mref{mEnergy}, \mref{mControl}, \mref{mSeqDS}, \mref{mPlot}\\
-R9 & \mref{mVerifyOut}\\
-R10 & \mref{mOutput}, \mref{mODEs}, \mref{mControl}\\
-R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
+IM1 & \mref{mEuler}\\
+IM2 & \mref{mTrap}\\
+IM3 & \mref{mHeun}\\
+IM4 & \mref{mRK}\\
+C1 & \mref{mExt}\\
+C2 & \mref{mODEParse}\\
+C3 & \mref{mEuler}, \mref{mTrap}, \mref{mHeun}, \mref{mRK}\\
+O1 & \mref{mHH}, \mref{mOutputFormat}\\
+O2 & \mref{mHH}, \mref{mOutputFormat}\\
+O3 & \mref{mEuler}, \mref{mTrap}, \mref{mHeun}, \mref{mRK}\\
+O4 & \mref{mEuler}, \mref{mTrap}, \mref{mHeun}, \mref{mRK}, \mref{mOutputFormat}\\
+O5 & \mref{mEuler}, \mref{mTrap}, \mref{mHeun}, \mref{mRK}, \mref{mOutputFormat}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Requirements and Modules}
@@ -337,17 +391,12 @@ R11 & \mref{mOutput}, \mref{mODEs}, \mref{mEnergy}, \mref{mControl}\\
 \textbf{AC} & \textbf{Modules}\\
 \midrule
 \acref{acHardware} & \mref{mHH}\\
-\acref{acInput} & \mref{mInput}\\
-\acref{acParams} & \mref{mParams}\\
-\acref{acVerify} & \mref{mVerify}\\
-\acref{acOutput} & \mref{mOutput}\\
-\acref{acVerifyOut} & \mref{mVerifyOut}\\
-\acref{acODEs} & \mref{mODEs}\\
-\acref{acEnergy} & \mref{mEnergy}\\
-\acref{acControl} & \mref{mControl}\\
-\acref{acSeqDS} & \mref{mSeqDS}\\
-\acref{acSolver} & \mref{mSolver}\\
-\acref{acPlot} & \mref{mPlot}\\
+\acref{acConstraints} & \mref{mExt}\\
+\acref{acLanguage} & \mref{mExt}\\
+\acref{acEulerMethod} & \mref{mEuler}\\
+\acref{acTrapMethod} & \mref{mTrap}\\
+\acref{acHeunMethod} & \mref{mHeun}\\
+\acref{acRKMethod} & \mref{mRK}\\
 \bottomrule
 \end{tabular}
 \caption{Trace Between Anticipated Changes and Modules}
@@ -369,7 +418,7 @@ because they use modules from the lower levels.
 
 \begin{figure}[H]
 \centering
-%\includegraphics[width=0.7\textwidth]{UsesHierarchy.png}
+\includegraphics[width=1.1\textwidth]{use.png}
 \caption{Use hierarchy among modules}
 \label{FigUH}
 \end{figure}
