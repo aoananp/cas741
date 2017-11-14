@@ -33,13 +33,14 @@ urlcolor=cyan          % color of external links
 
 \input{../../Comments}
 
-\newcommand{\progname}{Program Name}
+\newcommand{\progname}{LODES}
+\newcommand{\progdesc}{Library of ODE Solvers}
 
 \begin{document}
 
-\title{Module Interface Specification for ...}
+\title{Module Interface Specification for \progname{}\\ (\progdesc{})}
 
-\author{Author Name}
+\author{Paul Aoanan}
 
 \date{\today}
 
@@ -52,8 +53,8 @@ urlcolor=cyan          % color of external links
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-Date 1 & 1.0 & Notes\\
-Date 2 & 1.1 & Notes\\
+\today{} & 1.0 & Initial draft.\\
+%Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
 
@@ -61,9 +62,11 @@ Date 2 & 1.1 & Notes\\
 
 \section{Symbols, Abbreviations and Acronyms}
 
-See SRS Documentation at \wss{give url}
+See SRS Documentation at the following Github link:\\
+\url{https://github.com/aoananp/cas741/blob/master/Doc/SRS/CA.pdf}
+%\wss{give url}
 
-\wss{Also add any additional symbols, abbreviations or acronyms}
+%\wss{Also add any additional symbols, abbreviations or acronyms}
 
 \newpage
 
@@ -76,16 +79,17 @@ See SRS Documentation at \wss{give url}
 \section{Introduction}
 
 The following document details the Module Interface Specifications for
-\wss{Fill in your project name and description}
+\progname{}, the \progdesc{}.
+%\wss{Fill in your project name and description}
 
 Complementary documents include the System Requirement Specifications
 and Module Guide.  The full documentation and implementation can be
-found at \url{...}.  \wss{provide the url for your repo}
+found at the following link: \url{https://github.com/aoananp/cas741}. 
+%\wss{provide the url for your repo}
 
 \section{Notation}
 
-\wss{You should describe your notation.  You can use what is below as
-  a starting point.}
+%\wss{You should describe your notation.  You can use what is below as a starting point.}
 
 The structure of the MIS for modules comes from \citet{HoffmanAndStrooper1995},
 with the addition that template modules have been adapted from
@@ -130,21 +134,19 @@ The following table is taken directly from the Module Guide document for this pr
 \textbf{Level 1} & \textbf{Level 2}\\
 \midrule
 
-{Hardware-Hiding} & ~ \\
+{Hardware-Hiding Module} & ~ \\
 \midrule
 
-\multirow{7}{0.3\textwidth}{Behaviour-Hiding} & Input Parameters\\
-& Output Format\\
-& Output Verification\\
-& Temperature ODEs\\
-& Energy Equations\\ 
-& Control Module\\
-& Specification Parameters Module\\
+\multirow{5}{0.3\textwidth}{Behaviour-Hiding Module} & External Interface Module\\
+& Euler's Method Module\\
+& Trapezoidal Method Module\\
+& Heun's Method Module\\
+& Runge-Kutta's Method Module\\
 \midrule
 
-\multirow{3}{0.3\textwidth}{Software Decision} & {Sequence Data Structure}\\
-& ODE Solver\\
-& Plotting\\
+\multirow{2}{0.3\textwidth}{Software Decision Module} & {Equation String Parser Module}\\
+%& Plotting Module\\
+& Output Format Module\\
 \bottomrule
 
 \end{tabular}
@@ -154,6 +156,54 @@ The following table is taken directly from the Module Guide document for this pr
 
 \newpage
 ~\newpage
+
+\section{MIS of External Interface Module} \label{modExternalInterface}
+This module is the interface exposed to the external world or driver program.
+It provides access to the library and 
+
+\subsection{Module}
+lodes
+
+%\wss{Short name for the module}
+
+\subsection{Uses}
+EqParse, Euler (Section \ref{modEuler}), Trap (Section \ref{modTrap}),
+Heun (Section \ref{modHeun}), RK (Section \ref{modRK}), Output (Section \ref{modOutput})
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+ODE\_method & ODE\_method $\in \{1, 2, 3, 4\}$  & - &  inputerror\\
+ODE\_eq & STRING & - & badODEEq\\
+x\_0 & $\mathbb{R}$ & - & badX0\\
+y\_0 & $\mathbb{R}$ & - & badY0\\
+x\_k & $\mathbb{R}$ & - & badXK\\
+h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & badH\\
+y\_k & - & $\mathbb{R}$ & - \\
+success & - & BOOL & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+none
+
+\subsubsection{Access Routine Semantics}
+
+\noindent \wss{accessProg}():
+\begin{itemize}
+\item transition: \wss{if appropriate} 
+\item output: \wss{if appropriate} 
+\item exception: \wss{if appropriate} 
+\end{itemize}
+
+\newpage
 
 \section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for cross-referencing}
 
