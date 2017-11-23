@@ -187,6 +187,7 @@ x\_0 & $\mathbb{R}$ & - & badX0\\
 y\_0 & $\mathbb{R}$ & - & badY0\\
 x\_k & $\mathbb{R}$ & - & badXK\\
 h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & badH\\
+plot & bool & plotDisplay & - \\
 y & - & [$n$ x $1] \in \mathbb{R}$ & - \\
 success & - & BOOL & - \\
 \hline
@@ -200,12 +201,12 @@ none
 
 \subsubsection{Access Routine Semantics}
 
-\noindent lodes():
+\noindent lodes(ODE\_method, ODE\_eq, x\_0, y\_0, x\_k, h, plot):
 \begin{itemize}
 
 \item Pseudocode:\\
-Get (ODE\_method: integer), (ODE\_eq: string), (x\_0: $\mathbb{R}$), (y\_0: $\mathbb{R}$),
-(x\_k: $\mathbb{R}$),\\
+%Get (ODE\_method: integer), (ODE\_eq: string), (x\_0: $\mathbb{R}$), (y\_0: $\mathbb{R}$),
+%(x\_k: $\mathbb{R}$),\\
 (h: $\mathbb{R}$ . h $>$ 0) from input arguments\\
 \\
 bool eq\_OK $:=$ EqParse(ODE\_eq)\\
@@ -215,13 +216,13 @@ if NOT(eq\_OK)\\
 \\
 Select ODE\_method:\\
 \itab{ } \tab{Case: 1}\\
-\itab{ } \tab{} \tab{y, success $:=$ euler(ODE\_eq, x\_0, y\_0, h)}\\
+\itab{ } \tab{} \tab{y, success $:=$ euler(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
 \itab{ } \tab{Case: 2}\\
-\itab{ } \tab{} \tab{y, success $:=$ trap(ODE\_eq, x\_0, y\_0, h)}\\
+\itab{ } \tab{} \tab{y, success $:=$ trap(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
 \itab{ } \tab{Case: 3}\\
-\itab{ } \tab{} \tab{y, success $:=$ heun(ODE\_eq, x\_0, y\_0, h)}\\
+\itab{ } \tab{} \tab{y, success $:=$ heun(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
 \itab{ } \tab{Case: 4}\\
-\itab{ } \tab{} \tab{y, success $:=$ rk(ODE\_eq, x\_0, y\_0, h)}\\
+\itab{ } \tab{} \tab{y, success $:=$ rk(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
 
 
 
