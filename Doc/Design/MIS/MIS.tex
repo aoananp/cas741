@@ -35,6 +35,9 @@ urlcolor=cyan          % color of external links
 
 \newcommand{\progname}{LODES}
 \newcommand{\progdesc}{Library of ODE Solvers}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{.05\textwidth}\rlap{#1}}
+\newcommand{\iitab}[1]{\hspace{.3\textwidth}\rlap{#1}}
 
 \begin{document}
 
@@ -159,7 +162,7 @@ The following table is taken directly from the Module Guide document for this pr
 
 \section{MIS of External Interface Module} \label{modExternalInterface}
 This module is the interface exposed to the external world or driver program.
-It provides access to the library and 
+It provides access to the library and returns the solution to the ODE IVP.
 
 \subsection{Module}
 lodes
@@ -167,8 +170,77 @@ lodes
 %\wss{Short name for the module}
 
 \subsection{Uses}
+
 EqParse, Euler (Section \ref{modEuler}), Trap (Section \ref{modTrap}),
 Heun (Section \ref{modHeun}), RK (Section \ref{modRK}), Output (Section \ref{modOutput})
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+ODE\_method & ODE\_method $\in \{1, 2, 3, 4\}$  & - &  inputerror\\
+ODE\_eq & string & - & badODEEq\\
+x\_0 & $\mathbb{R}$ & - & badX0\\
+y\_0 & $\mathbb{R}$ & - & badY0\\
+x\_k & $\mathbb{R}$ & - & badXK\\
+h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & badH\\
+y & - & [$n$ x $1] \in \mathbb{R}$ & - \\
+success & - & BOOL & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+none
+
+\subsubsection{Access Routine Semantics}
+
+\noindent lodes():
+\begin{itemize}
+
+\item Pseudocode:\\
+Get (ODE\_method: integer), (ODE\_eq: string), (x\_0: $\mathbb{R}$), (y\_0: $\mathbb{R}$),
+(x\_k: $\mathbb{R}$),\\
+(h: $\mathbb{R}$ . h $>$ 0) from input arguments\\
+\\
+bool eq\_OK $:=$ EqParse(ODE\_eq)\\
+\\
+if NOT(eq\_OK)\\
+\itab{ } \tab{return success = false}\\
+\\
+Select ODE\_method:\\
+\itab{ } \tab{Case: 1}\\
+\itab{ } \tab{} \tab{y, success $:=$ euler(ODE\_eq, x\_0, y\_0, h)}\\
+\itab{ } \tab{Case: 2}\\
+\itab{ } \tab{} \tab{y, success $:=$ trap(ODE\_eq, x\_0, y\_0, h)}\\
+\itab{ } \tab{Case: 3}\\
+\itab{ } \tab{} \tab{y, success $:=$ heun(ODE\_eq, x\_0, y\_0, h)}\\
+\itab{ } \tab{Case: 4}\\
+\itab{ } \tab{} \tab{y, success $:=$ rk(ODE\_eq, x\_0, y\_0, h)}\\
+
+
+
+\end{itemize}
+
+\newpage
+
+
+\section{MIS of Euler's Method} \label{modEuler}
+This module handles the implementation of solving an ODE IVP using Euler's Method. 
+
+\subsection{Module}
+euler
+
+%\wss{Short name for the module}
+
+\subsection{Uses}
+
+None applicable.
 
 \subsection{Syntax}
 
@@ -204,6 +276,7 @@ none
 \end{itemize}
 
 \newpage
+
 
 \section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for cross-referencing}
 
