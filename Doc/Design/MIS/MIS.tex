@@ -75,6 +75,8 @@ See SRS Documentation at the following Github link:\\
 
 \tableofcontents
 
+\listoftables
+
 \newpage
 
 \pagenumbering{arabic}
@@ -171,7 +173,7 @@ lodes
 
 \subsection{Uses}
 
-EqParse, Euler (Section \ref{modEuler}), Trap (Section \ref{modTrap}),
+EqParse (Section \ref{modEqParse}), Euler (Section \ref{modEuler}), Trap (Section \ref{modTrap}),
 Heun (Section \ref{modHeun}), RK (Section \ref{modRK}), Output (Section \ref{modOutput})
 
 \subsection{Syntax}
@@ -187,8 +189,10 @@ x\_0 & $\mathbb{R}$ & - & badX0\\
 y\_0 & $\mathbb{R}$ & - & badY0\\
 x\_k & $\mathbb{R}$ & - & badXK\\
 h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & badH\\
-plot & bool & plotDisplay & - \\
-y & - & [$n$ x $1] \in \mathbb{R}$ & - \\
+plot & bool & - & - \\
+displayResult & bool & - & - \\
+x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
 success & - & BOOL & - \\
 \hline
 \end{tabular}
@@ -199,6 +203,8 @@ success & - & BOOL & - \\
 \subsubsection{State Variables}
 none
 
+\newpage
+
 \subsubsection{Access Routine Semantics}
 
 \noindent lodes(ODE\_method, ODE\_eq, x\_0, y\_0, x\_k, h, plot):
@@ -207,25 +213,76 @@ none
 \item Pseudocode:\\
 %Get (ODE\_method: integer), (ODE\_eq: string), (x\_0: $\mathbb{R}$), (y\_0: $\mathbb{R}$),
 %(x\_k: $\mathbb{R}$),\\
-(h: $\mathbb{R}$ . h $>$ 0) from input arguments\\
-\\
-bool eq\_OK $:=$ EqParse(ODE\_eq)\\
-\\
+%(h: $\mathbb{R}$ . h $>$ 0) from input arguments\\
+function f, bool eq\_OK $:=$ EqParse(ODE\_eq);\\
 if NOT(eq\_OK)\\
-\itab{ } \tab{return success = false}\\
-\\
+\itab{ } \tab{return badODEEq := true, success := false;}\\
+if NOT(ISREAL(x\_0))\\
+\itab{ } \tab{return badX0 := true, success := false;}\\
+if NOT(ISREAL(y\_0))\\
+\itab{ } \tab{return badY0 := true, success := false;}\\
+if NOT(ISREAL(x\_k))\\
+\itab{ } \tab{return badXK := true, success := false;}\\
+if NOT(ISREAL(h) and h $>$ 0)\\
+\itab{ } \tab{return badH := true, success := false;}\\
 Select ODE\_method:\\
 \itab{ } \tab{Case: 1}\\
-\itab{ } \tab{} \tab{y, success $:=$ euler(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
+\itab{ } \tab{} \tab{x, y, success $:=$ euler(f, x\_0, y\_0, x\_k, h);}\\
 \itab{ } \tab{Case: 2}\\
-\itab{ } \tab{} \tab{y, success $:=$ trap(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
+\itab{ } \tab{} \tab{x, y, success $:=$ trap(f, x\_0, y\_0, x\_k, h);}\\
 \itab{ } \tab{Case: 3}\\
-\itab{ } \tab{} \tab{y, success $:=$ heun(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
+\itab{ } \tab{} \tab{x, y, success $:=$ heun(f x\_0, y\_0, x\_k, h);}\\
 \itab{ } \tab{Case: 4}\\
-\itab{ } \tab{} \tab{y, success $:=$ rk(ODE\_eq, x\_0, y\_0, x\_k, h)}\\
+\itab{ } \tab{} \tab{x, y, success $:=$ rk(f, x\_0, y\_0, x\_k, h);}\\
+\itab{ } \tab{Case: else}\\
+\itab{ } \tab{} \tab{return inputerror := true, success := false;}\\
+End Select\\
+\\
+output(x, y, plot, displayResult);\\
+\\
+return x, y, success;
+\end{itemize}
 
+\newpage
 
+\section{MIS of the Equation String Parser} \label{modEqParse}
+This module handles the implementation of the Equation String Parser module. 
 
+\subsection{Module}
+eqParse
+
+\subsection{Uses}
+
+none
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+ODE\_eq & string & - & - \\
+f & - & Machine-interpreted equation & - \\
+eq\_OK & - & bool & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+none
+
+\subsubsection{Access Routine Semantics}
+eqParse(ODE\_eq):
+\begin{itemize}
+\item Pseudocode:\\
+try\\
+\itab{ } \tab{f := parse(ODE\_eq); \text{\%convert the ODE equation string to a machine-interpretable string}}\\
+\itab{ } \tab{return f, eq\_OK := true;}\\
+catch\\
+\itab{ } \tab{return f := 0, eq\_OK := false;}
 \end{itemize}
 
 \newpage
@@ -236,8 +293,6 @@ This module handles the implementation of solving an ODE IVP using Euler's Metho
 
 \subsection{Module}
 euler
-
-%\wss{Short name for the module}
 
 \subsection{Uses}
 
@@ -250,13 +305,13 @@ None applicable.
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-ODE\_method & ODE\_method $\in \{1, 2, 3, 4\}$  & - &  inputerror\\
-ODE\_eq & STRING & - & badODEEq\\
-x\_0 & $\mathbb{R}$ & - & badX0\\
-y\_0 & $\mathbb{R}$ & - & badY0\\
-x\_k & $\mathbb{R}$ & - & badXK\\
-h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & badH\\
-y\_k & - & $\mathbb{R}$ & - \\
+f & Machine-interpreted equation & - & -\\
+x\_0 & $\mathbb{R}$ & - & -\\
+y\_0 & $\mathbb{R}$ & - & -\\
+x\_k & $\mathbb{R}$ & - & -\\
+h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
+x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
 success & - & BOOL & - \\
 \hline
 \end{tabular}
@@ -267,37 +322,51 @@ success & - & BOOL & - \\
 \subsubsection{State Variables}
 none
 
-\subsubsection{Access Routine Semantics}
+\newpage
 
-\noindent \wss{accessProg}():
+\subsubsection{Access Routine Semantics}
+euler(f, x\_0, y\_0, x\_k, h):
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item Pseudocode:\\
+success := false;\\
+x(1) := x\_0;\\
+y(1) := y\_0;\\
+N := (x\_0 - x\_k) / h;\\
+for n = 1 to N\\
+\itab{ } \tab{x(n+1) := x(n) + h;}\\
+\itab{ } \tab{y(n+1) := y(n) + h * f(x(n), y(n));}\\
+end for\\
+success := true;\\
+return x, y, success;
 \end{itemize}
 
 \newpage
 
-
-\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for cross-referencing}
+\section{MIS of Trapezoidal Method} \label{modTrap}
+This module handles the implementation of solving an ODE IVP using the Trapezoidal Method. 
 
 \subsection{Module}
-
-\wss{Short name for the module}
+trap
 
 \subsection{Uses}
 
+None applicable.
 
 \subsection{Syntax}
 
-\subsubsection{Exported Access Programs}
-
 \begin{center}
-\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
 \hline
 \textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
 \hline
-\wss{accessProg} & - & - & - \\
+f & Machine-interpreted equation & - & -\\
+x\_0 & $\mathbb{R}$ & - & -\\
+y\_0 & $\mathbb{R}$ & - & -\\
+x\_k & $\mathbb{R}$ & - & -\\
+h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
+x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+success & - & BOOL & - \\
 \hline
 \end{tabular}
 \end{center}
@@ -305,16 +374,290 @@ none
 \subsection{Semantics}
 
 \subsubsection{State Variables}
+none
 
+\newpage
 
 \subsubsection{Access Routine Semantics}
-
-\noindent \wss{accessProg}():
+euler(f, x\_0, y\_0, x\_k, h):
 \begin{itemize}
-\item transition: \wss{if appropriate} 
-\item output: \wss{if appropriate} 
-\item exception: \wss{if appropriate} 
+\item Pseudocode:\\
+success := false;\\
+double yNext = 0.0;\\
+x(1) := x\_0;\\
+y(1) := y\_0;\\
+N := (x\_0 - x\_k) / h;\\
+for n = 1 to N\\
+\itab{ } \tab{x(n+1) := x(n) + h;}\\
+\itab{ } \tab{\text{\%Solve for yNext, then store in y(n+1)}}\\
+\itab{ } \tab{y(n+1) := solve(yNext := y(n) + (h/2) * f(x(n+1), yNext), yNext)};\\
+end for\\
+success := true;\\
+return x, y, success;
 \end{itemize}
+
+\newpage
+
+\section{MIS of Heun Method} \label{modHeun}
+This module handles the implementation of solving an ODE IVP using Heun's Method. 
+
+\subsection{Module}
+heun
+
+\subsection{Uses}
+
+None applicable.
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+f & Machine-interpreted equation & - & -\\
+x\_0 & $\mathbb{R}$ & - & -\\
+y\_0 & $\mathbb{R}$ & - & -\\
+x\_k & $\mathbb{R}$ & - & -\\
+h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
+x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+success & - & BOOL & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+none
+
+\newpage
+
+\subsubsection{Access Routine Semantics}
+heun(f, x\_0, y\_0, x\_k, h):
+\begin{itemize}
+\item Pseudocode:\\
+success := false;\\
+x(1) := x\_0;\\
+y(1) := y\_0;\\
+N := (x\_0 - x\_k) / h;\\
+for n = 1 to N\\
+\itab{ } \tab{x(n+1) := x(n) + h;}\\
+\itab{ } \tab{y(n+1) := y(n) + (h/2) * (f(x(n) + h, y(n) + h * f(x(n), y(n)));}\\
+end for\\
+success := true;\\
+return x, y, success;
+\end{itemize}
+
+\newpage
+
+\section{MIS of Runge-Kutta 4 Method} \label{modRK}
+This module handles the implementation of solving an ODE IVP using the Runge-Kutta 4 Method. 
+
+\subsection{Module}
+rk
+
+\subsection{Uses}
+
+None applicable.
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+f & Machine-interpreted equation & - & -\\
+x\_0 & $\mathbb{R}$ & - & -\\
+y\_0 & $\mathbb{R}$ & - & -\\
+x\_k & $\mathbb{R}$ & - & -\\
+h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
+x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+success & - & BOOL & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+none
+
+\newpage
+
+\subsubsection{Access Routine Semantics}
+rk(f, x\_0, y\_0, x\_k, h):
+\begin{itemize}
+\item Pseudocode:\\
+success := false;\\
+x(1) := x\_0;\\
+y(1) := y\_0;\\
+double k1, k2, k3, k4;\\
+N := (x\_0 - x\_k) / h;\\
+for n = 1 to N\\
+\itab{ } \tab{x(n+1) := x(n) + h;}\\
+\itab{ } \tab{k1 := f(x(n), y(n));}\\
+\itab{ } \tab{k2 := f(x(n) + h/2, y(n) + h * (k1/2));}\\
+\itab{ } \tab{k3 := f(x(n) + h/2, y(n) + h * (k2/2));}\\
+\itab{ } \tab{k4 := f(x(n) + h, y(n) + h * k3);}\\
+\itab{ } \tab{y(n+1) := y(n) + (h/6) * (k1 + 2*k2 + 2*k3 + k4);}\\
+end for\\
+success := true;\\
+return x, y, success;
+\end{itemize}
+
+\newpage
+
+\section{MIS of the Output Module} \label{modOutput}
+This module handles the implementation of the Output module. 
+
+\subsection{Module}
+output
+
+\subsection{Uses}
+
+Hardware Hiding (Section \ref{modHWH})
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+plot & BOOL & - & - \\
+displayResult & BOOL & - & - \\
+x & [1 x $n$] & - & - \\
+y & [1 x $n$] & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+none
+
+\subsubsection{Access Routine Semantics}
+output(x, y, plot, displayResult):
+\begin{itemize}
+\item Pseudocode:\\
+if (plot)\\
+\itab { } \tab{plot(x, y);}\\
+if (displayResult)\\
+\itab { } \tab{print(x);}\\
+\itab { } \tab{print(y);}\\
+end if
+
+\end{itemize}
+
+\newpage
+
+\section{MIS of the Hardware Hiding Module} \label{modHWH}
+This module handles the implementation of the Output module. 
+
+\subsection{Module}
+hardwarehiding
+
+\subsection{Uses}
+
+none
+
+\subsection{Syntax}
+
+\begin{center}
+\begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
+\hline
+\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+\hline
+x & [1 x $n$] & - & - \\
+y & [1 x $n$] & - & - \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Semantics}
+
+\subsubsection{State Variables}
+none
+
+\subsubsection{Access Routine Semantics}
+plot(x, y):
+\begin{itemize}
+\item Pseudocode:\\
+displayPlotToScreen(x, y); \text{\%display x vs. y graph on screen}
+\end{itemize}
+display(x):
+\begin{itemize}
+\item Pseudocode:\\
+outputToScreen(x); \text{\%display array on screen}
+\end{itemize}
+
+\newpage
+
+%\section{MIS of \wss{Module Name}} \label{Module} \wss{Use labels for cross-referencing}
+%
+%\subsection{Module}
+%
+%\wss{Short name for the module}
+%
+%\subsection{Uses}
+%
+%
+%\subsection{Syntax}
+%
+%\subsubsection{Exported Access Programs}
+%
+%\begin{center}
+%\begin{tabular}{p{2cm} p{4cm} p{4cm} p{2cm}}
+%\hline
+%\textbf{Name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions} \\
+%\hline
+%\wss{accessProg} & - & - & - \\
+%\hline
+%\end{tabular}
+%\end{center}
+%
+%\subsection{Semantics}
+%
+%\subsubsection{State Variables}
+%
+%
+%\subsubsection{Access Routine Semantics}
+%
+%\noindent \wss{accessProg}():
+%\begin{itemize}
+%\item transition: \wss{if appropriate} 
+%\item output: \wss{if appropriate} 
+%\item exception: \wss{if appropriate} 
+%\end{itemize}
+
+\newpage
+
+\section{MG to MIS Traceability Matrix}
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.4\textwidth} p{0.5\textwidth}}
+\toprule
+\textbf{MG Module} & \textbf{MIS Module}\\
+\midrule
+M1 - Hardware Hiding & Section \ref{modHWH} - Hardware Hiding\\
+M2 - External Interface & Section \ref{modExternalInterface} - External Interface\\
+M3 - Equation String Parser & Section \ref{modEqParse} - Equation String Parser\\
+M4 - Output Format Module & Section \ref{modOutput} - Output\\
+M5 - Euler's Method & Section \ref{modEuler} - Euler's Method\\
+M6 - Trapezoidal Method & Section \ref{modTrap} - Trapezoidal Method\\
+M7 - Heun's Method & Section \ref{modHeun} - Heun's Method\\
+M8 - Runge-Kutta 4 Method & Section \ref{modRK} - Runge-Kutta 4 Method\\
+
+\bottomrule
+\end{tabular}
+\caption{Trace Between Module Guide and Module Interface Specification}
+\label{TblRT}
+\end{table}
 
 \newpage
 
@@ -325,6 +668,6 @@ none
 
 \section{Appendix} \label{Appendix}
 
-\wss{Extra information if required}
+Not applicable.
 
 \end{document}
