@@ -136,7 +136,8 @@ adapted here is called design for change.
 \item[\refstepcounter{acnum} \actheacnum \label{acConstraints}:] The assumptions and constraints
 on the input parameters.
 \item[\refstepcounter{acnum} \actheacnum \label{acLanguage}:] The specific language
-which the software is written in.
+which the software is written in. \wss{There really isn't a way to hide this in
+  the design.  If the language changes, everything will have to be rewritten.}
 %\item[\refstepcounter{acnum} \actheacnum \label{acStepSize}:] The assumption that
 %the step size $h$ is constant.
 \item[\refstepcounter{acnum} \actheacnum \label{acEulerMethod}:] The implementation
@@ -173,6 +174,9 @@ of the input parameters.
 calculate the value of $y_k$ in an ODE Initial Value Problem.
 %\item[\refstepcounter{ucnum} \uctheucnum \label{uc}:]
 \end{description}
+
+\wss{Formats are easy to hide.  You should classify these as likely
+  (anticipated) changes}
 
 \section{Module Hierarchy} \label{SecMH}
 
@@ -423,7 +427,15 @@ because they use modules from the lower levels.
 \label{FigUH}
 \end{figure}
 
+\wss{If module are on the same level of the hierarchy, the picture should
+  reflect this.  That is, the Output Format module should be on the same line as
+  the other modules.}
+
 %\section*{References}
+
+\wss{Good start for the design.  Remember that you may have to modify the design
+  as you work through the MIS and gain a deeper understanding of how your
+  modules interact.}
 
 \bibliographystyle {plainnat}
 \bibliography {MG}
