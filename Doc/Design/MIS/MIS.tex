@@ -71,6 +71,12 @@ See SRS Documentation at the following Github link:\\
 
 %\wss{Also add any additional symbols, abbreviations or acronyms}
 
+\wss{You don't really use the same symbols as your SRS.  Instead, you seem to
+  prefer symbols that are closer to the code.  I think you might find the MIS
+  easier to read if you used the SRS notation.  For instance, $x_0$ is easier to
+  read than x\_0.  If you want to use the code style symbols, you should show
+  the mapping between the SRS symbols and the MIS symbols.}
+
 \newpage
 
 \tableofcontents
@@ -198,6 +204,9 @@ success & - & BOOL & - \\
 \end{tabular}
 \end{center}
 
+\wss{Rather than ODE methods being selected by an integer from 1 to 4, why not
+  define a new enumerated type with the possible values Euler, Trap, etc.?}
+
 \subsection{Semantics}
 
 \subsubsection{State Variables}
@@ -208,6 +217,8 @@ none
 \subsubsection{Access Routine Semantics}
 
 \noindent lodes(ODE\_method, ODE\_eq, x\_0, y\_0, x\_k, h, plot):
+\wss{displayResult is missing here}
+
 \begin{itemize}
 
 \item Pseudocode:\\
@@ -269,6 +280,10 @@ eq\_OK & - & bool & - \\
 \end{tabular}
 \end{center}
 
+\wss{You misinterpreted the MIS syntax section.  The name is the name of the
+  access program and the in and out are the types of the inputs and outputs.
+  The name for your syntax section should be eqParse.}
+
 \subsection{Semantics}
 
 \subsubsection{State Variables}
@@ -316,6 +331,12 @@ success & - & BOOL & - \\
 \hline
 \end{tabular}
 \end{center}
+
+\wss{The notation for a sequence of reals is odd.  It would be easier to
+  understand if you just used $\mathbb{R}^n$ for the sequence of real numbers.}
+
+\wss{If your constraint on $h$ is violated, what happens?  I would think that
+  there would be an exception.}
 
 \subsection{Semantics}
 
@@ -559,6 +580,10 @@ end if
 \section{MIS of the Hardware Hiding Module} \label{modHWH}
 This module handles the implementation of the Output module. 
 
+\wss{Unless you are writing device drivers, you don't really need to specify the
+  access programs for the hardware hiding module.  As it is, your access
+  programs are unclear.}
+
 \subsection{Module}
 hardwarehiding
 
@@ -595,6 +620,11 @@ display(x):
 \item Pseudocode:\\
 outputToScreen(x); \text{\%display array on screen}
 \end{itemize}
+
+\wss{I would have expected environment variables here to show the connection
+  between your code and the file system and the screen.  I would expect the
+  output related environment variables to be in your output module.  In this way
+  you can hide the details of the hardware hiding module.}
 
 \newpage
 
@@ -659,6 +689,8 @@ M8 - Runge-Kutta 4 Method & Section \ref{modRK} - Runge-Kutta 4 Method\\
 \label{TblRT}
 \end{table}
 
+\wss{Nice to show this.}
+
 \newpage
 
 \bibliographystyle {plainnat}
@@ -668,6 +700,6 @@ M8 - Runge-Kutta 4 Method & Section \ref{modRK} - Runge-Kutta 4 Method\\
 
 \section{Appendix} \label{Appendix}
 
-Not applicable.
+Not applicable. \wss{If it isn't applicable, you can comment out this section.}
 
 \end{document}
