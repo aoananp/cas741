@@ -1,8 +1,8 @@
 function output(x, y, toPlot, displayResult, ODE_method)
 if toPlot
     methodString = '';
-    figure
-    plot(x, y);
+    figure('Name', 'LODES Plot', 'NumberTitle', 'off')
+    plot(x, y, '-o');
     switch ODE_method
         case 1
             methodString = 'Euler''s Method';

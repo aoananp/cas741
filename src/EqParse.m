@@ -1,7 +1,8 @@
 function [f, eq_OK] = EqParse(ODE_eq)
 eq_OK = false;
 try
-    f = sym(ODE_eq);
+    
+    f = str2func(strcat('@(x, y)', 32, ODE_eq));
     eq_OK = true;
     return
 catch e
