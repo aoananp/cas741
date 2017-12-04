@@ -1,4 +1,4 @@
-function [errornorm, splineerror] = lodestest(ODE_method, ODE_eq, x_0, y_0, x_k, h, toPlot, displayResult, toSave)
+function [ylodes, yy, errornorm, splineerror] = lodestest(ODE_method, ODE_eq, x_0, y_0, x_k, h, toPlot, displayResult, toSave)
 %Herein lies the test interface code to be used for the LODES library.
 
 % Initialize variables
@@ -36,7 +36,7 @@ try
         splineerror(i) = splinediff(i) / yy(i);
         splineerrorpercent(i) = 100 * splineerror(i);
     end
-    errornorm = norm(splinediff)/norm(ytestarr);
+    errornorm = norm(splinediff)/norm(yy);
 
     if (toPlot && successlodes)
         figure('Name', 'LODES vs MATLAB ODE45 ODE Solvers', 'NumberTitle', 'off')
