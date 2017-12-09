@@ -1,0 +1,8 @@
+The installation of LODES only requires MATLAB2017a.
+Add the folder to the path and it shall be able to run.
+
+The following is the guide:
+- lodes.m: main program
+- lodestest.m: provides a testing interface to LODES. Has the plotting and error calculation functions
+- testing/testClases.m: lists the test cases for LODES
+- testing/testscript.m: this is the main testscript for LODES which was used in developing the Test Report
