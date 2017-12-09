@@ -77,12 +77,19 @@
 \newcounter{outputnum} %Output Number
 \newcommand{\otheoutputnum}{O\theoutputnum}
 \newcommand{\oref}[1]{O\ref{#1}}
-\newcounter{bibnum} %Output Number
+\newcounter{bibnum} %Bib Number
 \newcommand{\bthebibnum}{\thebibnum}
 \newcommand{\bref}[1]{\ref{#1}}
 \newcounter{nfrnum} %NFR Number
 \newcommand{\nfrthenfrnum}{\thenfrnum}
 \newcommand{\nfrrref}[1]{NFR\ref{#1}}
+\newcounter{conum} %Common Output Number
+\newcommand{\cotheconum}{CO\theconum}
+\newcommand{\coref}[1]{CO\ref{#1}}
+
+\newcounter{ccnum} %Common Calc Number
+\newcommand{\cctheccnum}{CC\theccnum}
+\newcommand{\ccref}[1]{CC\ref{#1}}
 
 
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
@@ -107,7 +114,8 @@
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-\today & 1.0 & Initial draft.\\
+October 20, 2017 & 1.0 & Initial draft.\\
+\today & 1.1 & Addressed comments and first LODES revision.\\
 %Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -131,31 +139,33 @@ for solving ordinary differential equations.  The symbols are listed in alphabet
 
 \renewcommand{\arraystretch}{1.2}
 %\noindent \begin{tabularx}{1.0\textwidth}{l l X}
-\noindent \begin{longtable*}{l l p{12cm}} \toprule
-\textbf{symbol} & \textbf{unit} & \textbf{description}\\
+\noindent \begin{longtable*}{l l l p{12cm}} \toprule
+\textbf{symbol} & \textbf{unit} & \textbf{type} & \textbf{description}\\
 \midrule
-$dy/dx$ & \text {-} & Rate of change of $y$ with respect to $x$\\
-$F$ & \text {-} & Order function applied to the Runge Kutta Method\\
-$f(x, y)$ & \text{-} & Explicit form of the ODE function containing $(x,y)$\\
-$f_{x}(x, y)$ & \text{-} & Explicit form of the derivative of $f(x, y)$ with respect to x\\
-$f_{y}(x, y)$ & \text{-} & Explicit form of the derivative of $f(x, y)$ with respect to y\\
-$h$ & \text{-} & Step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
-$K_1, K_2, K_3, K_4$ & \text{-} & Intermediary variables used in the Runge-Kutta method\\
-$n$ & \text{-} & Reference recursion step\\
-$o$ & \text{-} & Solution variable\\
-$x_\text{0}$ & \text{-} & Initial value $x$\\
-$x_\text{k}$ & \text{-} & Final value $x$\\
-$x_\text{n}$ & \text{-} & Intermediate $n^\text{th}$ value $x$\\
-$y_\text{0}$ & \text{-} & Initial value $y$\\ 
-$y_\text{k}$ & \text{-} & Final value $y$\\
-$y_\text{n}$ & \text{-} & Intermediate $n^\text{th}$ value $y$\\ 
-$y'$ & \text{-} & Implicit form of the first order ODE = $f(x, y)$\\
-$y^\text{(n)}$ & \text{-} & Implicit form of the ODE to the $n^\text{th}$ order\\
+$dy/dx$ & \text {-} & $\mathbb{R}$ & Rate of change of $y$ with respect to $x$\\
+$F$ & \text{-} & $\mathbb{R}^3 \rightarrow \mathbb{R}$ & Order function applied to the Runge Kutta Method\\
+$f(x, y)$ & \text{-} & $\mathbb{R}^2 \rightarrow \mathbb{R}$& Explicit form of the ODE function containing $(x,y)$\\
+$f_{x}(x, y)$ & \text{-} & $\mathbb{R}^2 \rightarrow \mathbb{R}$ & Explicit form of the derivative of $f(x, y)$ with respect to x\\
+$f_{y}(x, y)$ & \text{-} & $\mathbb{R}^2 \rightarrow \mathbb{R}$ & Explicit form of the derivative of $f(x, y)$ with respect to y\\
+$h$ & \text{-} & $\mathbb{R}$ . $h > 0$ & Step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
+$K_1, K_2, K_3, K_4$ & $\mathbb{R}$ & \text{-} & Intermediary variables used in the Runge-Kutta method\\
+$n$ & \text{-} & $\mathbb{R}$ & Reference recursion step\\
+$o$ & \text{-} & $\mathbb{R}$  & Solution variable\\
+$x_\text{0}$ & \text{-} & $\mathbb{R}$  & Initial value $x$\\
+$x_\text{k}$ & \text{-} & $\mathbb{R}$  & Final value $x$\\
+$x_\text{n}$ & \text{-} & $\mathbb{R}$ & Intermediate $n^\text{th}$ value $x$\\
+$y_\text{0}$ & \text{-} & $\mathbb{R}$ & Initial value $y$\\ 
+$y_\text{k}$ & \text{-} & $\mathbb{R}$  & Final value $y$\\
+$y_\text{n}$ & \text{-} &$\mathbb{R}$ & Intermediate $n^\text{th}$ value $y$\\ 
+$y'$ & \text{-} &$\mathbb{R} \rightarrow \mathbb{R}$& Implicit form of the first order ODE = $f(x, y)$\\
+$y^\text{(n)}$ & \text{-} &$\mathbb{R} \rightarrow \mathbb{R}$& Implicit form of the ODE to the $n^\text{th}$ order\\
+$y$ & \text{-} & $1$ x $\mathbb{R}^k$ & The array containing all intermediate $y_\text{n}$ values\\
 \bottomrule
 \end{longtable*}
 
 \wss{Usually $n$ and $k$ are used in the opposite way.  That is, the total
   number of steps is $n$ and the intermediate step is $k$.}
+  \wpa{Duly noted - in the scope of this project, the convention is as listed above.}
 \subsection{Abbreviations and Acronyms}
 
 \renewcommand{\arraystretch}{1.2}
@@ -211,7 +221,7 @@ and the organization of the document.
 
 \subsection{Purpose of Document}
 The main purpose of this document is to formally describe program families of
-the known well-known methods of solving Initial Value Problems of ODEs.
+the well-known methods of solving Initial Value Problems of ODEs.
 The goals and mathematical models used in the \famname{} code are provided with
 an emphasis on explicitly identifying assumptions, constraints, and unambiguous definitions.
 
@@ -233,6 +243,7 @@ Section~\ref{SecUserCharacteristics}.
 
 \wss{For the characteristics of intended reader try to be more specific about
   the education.  What degree?  What course areas?  What level?}
+  \wpa{This is listed in Section \ref{SecUserCharacteristics}}
 
 \subsection{Organization of Document}
 The organization of this document follows the template for a CA for scientific
@@ -310,7 +321,7 @@ Problems for ODEs using numerical methods. It can be used to solve different var
 given their initial values. It can be implemented to find the most accurate method (the method
 which produces the least error in their scientific computing implementation).
 
-\subsection{Terminology and  Definitions}
+\subsection{Terminology and Definitions}
 
 This subsection provides a list of terms that are used in the subsequent
 sections and their meanings, with the purpose of reducing ambiguity and making it
@@ -324,16 +335,17 @@ exists in the domain of the solution
 \item Final values: An ``ending point" ($x_\text{k}, y_\text{k}$) of unknown value $y_\text{k}$
 that exists in the domain of the solution
 
-\item Step size: The measure of arbitrary positive value ($h$) from the starting point
-($x_\text{0}, y_\text{0}$) of the domain to the next ($x_\text{1}, y_\text{1}$), where
-$x_\text{1} = x_\text{0} + h$ \wss{It appears that you have the same step size
+\item Step size: The measure of arbitrary positive value ($h$) from an arbitrary point
+($x_\text{n}, y_\text{n}$) of the domain to the next ($x_\text{n+1}, y_\text{n+1}$), where
+$x_\text{n+1} = x_\text{n} + h$. \wss{It appears that you have the same step size
   throughout your computation.  You should add this fact as an assumption.
   Also, when you are presenting the step size, it would be better to use a
   generic step, rather than the first step.  It is a more general way to convey
   the information.}
+  \wpa{Noted - the definition has been revised.}
 
-\item Derivative: The amount by which a a function changes at any given point as an
-instantaneous rate of change \wss{missing a period.}
+\item Derivative: The amount by which a function changes at any given point as an
+instantaneous rate of change. \wss{missing a period.} \wpa{Period has been added.}
 
 \item Numerical Analysis: A branch of mathematics and computer science wherein the solutions
 are numerical approximations taking into account the errors involved in the process.
@@ -341,17 +353,23 @@ are numerical approximations taking into account the errors involved in the proc
 \item Numerical Approximation: An approximation of the exact solution to the problem with the
 use of known numerical techniques while minimizing error.
 
-\item Recursion: The repeated application of a procedure or program. \wss{I
+\item Recursion: The repeated call of a procedure, program, or subroutine to itself. \wss{I
     think you can find a better definition of recursion.  With this definition a
     for loop is recursion.  :-)}
+    \wpa{Addressed. Definition has been updated.}
 
 \item Initial Value Problem: A type of ODE problem where the initial conditions are stated and
 used to find the solution to the ODE.
 
-\item Linear Function: A function which graph is a straight line. \wss{A
-    definition for linear ODEs would be more appropriate.}
+\item Linear Ordinary Differential Equation: A linear ordinary differential equation (ODE) is a type of ODE that
+has variables and their derivatives multiplied by constants. It is of the form:
 
-\item Continuous Function: A function which does not have any breaks in its graph across its domain.
+$$a_n(x)y^n(x) + a_{n-1}(x)y^{n-1}(x) ... + a_{1}(x)y^{1}(x) + a_{0}(x)y^{0}(x)  = f(x,y) $$
+
+\wss{A definition for linear ODEs would be more appropriate.}
+    \wpa{Addressed. ODE is defined.}
+
+\item Continuous Function: A function which is fully defined across its domain interval.
 
 \end{itemize}
 
@@ -385,8 +403,10 @@ Symbol &$dy/dx$\\
         &$h$ is the step size.\\
   \hline
   Source&
-        Nagle, et al, "Solutions and Initial Value Problems," \wss{Use ``quote''
-          to get correct quotation marks} in
+        Nagle, et al, ``Solutions and Initial Value Problems," \wss{Use ``quote''
+          to get correct quotation marks}
+          \wpa{Typo addressed.}
+          in
         \textit{Fundamentals of Differential Equations and Boundary Value Problems},
         3rd ed. USA: Addison Wesley Longman, 2000, ch. 1, p. 7. ~\cite{Nagle2000}
   \\
@@ -401,14 +421,22 @@ Symbol &$dy/dx$\\
 \begin{itemize}
 
 \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_SolveForY}:]{
-Given an explicit first order continuous ordinary differential equation (ODE) problem
+Given an explicit first order continuous linear ordinary differential equation (ODE) problem
 represented by $y'= f(x,y)$, the set of initial
-values $x_\text{0}$ and $y_\text{0}$ that satisfy $y(x_\text{0}) = y_\text{0}$,
-and $x_\text{k}$, return $y_\text{k}$ such that $y(x_\text{k}) = y_\text{k}$ (the final
+values $x_\text{0}$, $y_\text{0}$ that satisfy $y(x_\text{0}) = y_\text{0}$,
+and $x_\text{k}$, and a constant step-size $h$ used for approximation,
+return the set of $y$ which contains the intermediate values, $y_n$
+to finding the solution $y_\text{k}$ such that $y(x_\text{k}) = y_\text{k}$ (the final
 values), where $y(x)$ is a function, $f(x,y)$ is a function, and $x$
-is an independent variable.} \wss{What about the step size $h$?  Do you want to
+is an independent variable.}
+
+\wss{What about the step size $h$?  Do you want to
 just solve for the final value, or do you want the intermediate values?  Most of
 the time the scientist or engineer will be interested in the intermediate values.}
+
+\wpa{Step size $h$ is assumed constant. The requirements to the software
+have been changed to produce not only the final value of $y_k$,
+but also the intermediate values.}
 
 % \item[GS\refstepcounter{goalnum}\thegoalnum \label{G_InputOutput}:]{
 % Provide the user the means of providing the required inputs, calling the ODE solver
@@ -438,7 +466,7 @@ on.
   &Explicit form of the first order ODE:\\ %$n^{th}$ order ODE:\\ 
   &$y' = f(x, y)$\\
   %&$y^\text{(n)} = f(x, y, y',..., y^\text{(n-1)})$\\
-  &Given the initial values:\\
+  &Given the initial values:\\ 
   &$(x_0, y_0)$ such that $y(x_0) = y_0$,\\
   &Find $y_k$ such that $y(x_k) = y_k$.\\
   %Equation&  $y^{(n)} = F(x,y,y',...,y^{(n-1)})$\\ %; y(x_\text{0}) = y_\text{0}$\\
@@ -446,7 +474,9 @@ on.
   Description & 
                 \wss{I've had a quick look for it, but I cannot find an
                 assumption that you are only accepting the explicit form.  Does
-                that mean that you are also considering the implicit form?}  The above model gives the definition of an ordinary differential equation initial
+                that mean that you are also considering the implicit form?} 
+                \wpa{Please see Assumption \ref{A_explicit}.}
+                The above model gives the definition of an ordinary differential equation initial
                 value problem.
 
                 A differential equation is an equation, where the unknown is a
@@ -469,15 +499,14 @@ on.
   \hline
   Ref.\ By & \ddref{D_SLOPE}, \tref{T_uniqsoln}, \iref{euler}, \iref{trapezoid}, \iref{heun},
   \iref{runge}, \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
-  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
-  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
-  \aref{A_entriesofxk}, \aref{A_dimofxk}, \oref{O_valuesyk}\\
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \oref{CO_valuesyk}\\
   \hline
 \end{tabular}
 \end{minipage}\\
 
 \wss{If you have a reference by entry, then the referenced by chunk (or its
   derivation) should actually reference the chunk that has it as an entry.}
+  \wpa{I'm afraid I do not quite understand what this means. Please clarify.}
 
 ~\newline
 
@@ -525,11 +554,45 @@ on.
   \hline
 \end{tabular}
 \end{minipage}\\
+\subsection{Common Calculations} \label{sec_CommCalc}
 
+\begin{itemize}
+\item[CC\refstepcounter{ccnum}\theccnum \label{CC_inputs}:]
+Check the inputs if they satisfy the input assumptions.
 ~\newline
+[All items in Section~\ref{sec_Assumptions}]
+
+\item[CC\refstepcounter{ccnum}\theccnum \label{CC_odeparse}:]
+Parse the input ODE string which which exhibits the characteristics laid out by
+[\aref{A_explicit}], [\aref{A_linearity}], [\aref{A_continuous}], [\aref{A_roots}], and
+[\aref{A_boundary}].
+
+\end{itemize}
+
+\subsection{Common Outputs} \label{sec_CommOutputs}
+
+\begin{itemize}
+\item[CO\refstepcounter{conum}\theconum \label{CO_valuesyk}:]
+The program returns the intermediate and final values of $y_n$ $y_k$ as $y$.
+~\newline
+[\gsref{G_SolveForY}], [\tref{T_ODE}], [\tref{T_uniqsoln}]
+
+\item[CO\refstepcounter{conum}\theconum \label{CO_success}:]
+The program returns TRUE if it does not encounter exceptions in generating the solution
+to the ODE problem.
+
+\item[CO\refstepcounter{conum}\theconum \label{CO_fail}:]
+The program returns FALSE if it encounters exceptions in inputs or in its calculations
+or errors in generating the solution to the ODE problem.
+~\newline
+[\gsref{G_SolveForY}]
+
+\end{itemize}
+
+\newpage
 
 \section{Variabilities}
-This section presents the variabilities in \famname{}. It details the varying instance models,
+This section presents the variabilities in \famname{}. It details the various instance models,
 gives the assumptions for the input, the variabilities in the calculations, and
 finally the target output.
 
@@ -557,8 +620,8 @@ in Section~\ref{sec_theoretical}.
   \hline
   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
   &using the recursive formulas:\\
-  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-  &$y_\text{n+1} = y_\text{n} + h*f(x_\text{n}, y_\text{n}), n = 0, 1, 2,...$\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,... k-1$\\
+  &$y_\text{n+1} = y_\text{n} + h*f(x_\text{n}, y_\text{n}), n = 0, 1, 2,..., k-1$\\
   \hline
   Description&$y' = f(x, y)$ is the first order ODE.\\
   &$h$ is the constant step size.\\
@@ -581,10 +644,8 @@ in Section~\ref{sec_theoretical}.
   \hline
   Ref.\ By & \iref{heun}, \iref{trapezoid}, \aref{A_programcalls},
   \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
-  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
-  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
-  \aref{A_entriesofxk}, \aref{A_dimofxk}
-
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}
+ 
   \\
   \hline
 \end{tabular}
@@ -595,7 +656,7 @@ in Section~\ref{sec_theoretical}.
 Let $y' = f(x, y),$   $y(x_0) = y_0$, $h$ as a fixed positive number
 (step-size), and consider the equally spaced points in the domain:\\
 \\
-\hspace*{2ex} $x_n = x_0 + nh,$   $n = 0, 1, 2...$\\
+\hspace*{2ex} $x_n = x_0 + nh,$   $n = 0, 1, 2... k-1$\\
 \\
 The construction of values $y_n$ that approximate the solution values proceeds as follows.
 At the point $(x_0, y_0)$, the slope of the solution to $y' = f(x, y)$ is given by
@@ -628,9 +689,9 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
   \hline
   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
   &using the recursive formulas:\\
-  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
   &$y_\text{n+1} = y_\text{n} + h*[f(x_\text{n}, y_\text{n})+f(x_\text{n+1}, y_\text{n+1})] / 2,
-  n = 0, 1, 2,...$\\
+  n = 0, 1, 2,..., k-1$\\
   \hline
   Description&$y' = f(x, y)$ is the first order ODE.\\
   &$h$ is the constant step size.\\
@@ -653,9 +714,7 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
   \hline
   Ref.\ By & \aref{A_programcalls},
   \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
-  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
-  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
-  \aref{A_entriesofxk}, \aref{A_dimofxk}
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}
   \\
   \hline
 \end{tabular}
@@ -665,21 +724,21 @@ Repeating the process (recursion), until we reach $y_k$ yields the derivation of
 
 Using [\iref{euler}] as a starting point:\\
 \\
-\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*f(x_\text{n}, y_\text{n}), n = 0, 1, 2,...$\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*f(x_\text{n}, y_\text{n}), n = 0, 1, 2,..., k-1$\\
 \\
 The Reverse Euler's Method can be derived by taking the values at the next iteration point
 while working backwards:\\
 \\
-\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*f(x_\text{n+1}, y_\text{n+1}), n = 0, 1, 2,...$\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*f(x_\text{n+1}, y_\text{n+1}), n = 0, 1, 2,..., k-1$\\
 \\
 Using a trapezoid formed by the two approximations, the average can be combined into the
 trapezoid method:\\
 \\
-\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
 \hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*[f(x_\text{n}, y_\text{n})+f(x_\text{n+1},
-y_\text{n+1})] / 2, n = 0, 1, 2,...$\\
+y_\text{n+1})] / 2, n = 0, 1, 2,..., k-1$\\
 \\
 Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Method.\\
 
@@ -701,8 +760,8 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
   \hline
   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
   &using the recursive formulas:\\
-  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-  &$y_\text{n+1} = y_\text{n} + \frac{h}{2}\{[f(x_n, y_n) + f(x_n + h, y_n + h*f(x_n, y_n)]\}, n = 0, 1, 2,...$\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
+  &$y_\text{n+1} = y_\text{n} + \frac{h}{2}\{[f(x_n, y_n) + f(x_n + h, y_n + h*f(x_n, y_n)]\}, n = 0, 1, 2,..., k-1$\\
   \hline
   Description&$y' = f(x, y)$ is the first order ODE.\\
   &$h$ is the constant step size.\\
@@ -725,9 +784,7 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
   \hline
   Ref.\ By & \aref{A_programcalls},
   \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
-  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
-  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
-  \aref{A_entriesofxk}, \aref{A_dimofxk}
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}
 
   \\
   \hline
@@ -743,19 +800,23 @@ Repeating the process (recursion) until we reach $y_k$ yields the Trapezoid Meth
   easily add new family members in the specification, simply by giving new
   values for $\phi$.  You have also (implicitly as far as I can tell) assumed
   that all $h_k$ are equal to $h$.}
+  
+  \wpa{This change is slated for the next revision of this CA
+  as this will be a formatting change. The intent of this CA revision is to prepare
+  the code prior to testing.}
 
 \subsubsection*{Detailed Derivation of Heun's Method}
 
 By modifying the trapezoid scheme [\iref{trapezoid}]:\\
 \\
-\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
 \hspace*{2ex}$y_\text{n+1} = y_\text{n} + h*[f(x_\text{n}, y_\text{n})+f(x_\text{n+1},
-y_\text{n+1})] / 2, n = 0, 1, 2,...$\\
+y_\text{n+1})] / 2, n = 0, 1, 2,..., k-1$\\
 \\
 by using a predicted approximation for $y_{n+1} = y_n + h * f(x_n, y_n)$, we can derive:\\
 \\
-\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-\hspace*{2ex}$y_\text{n+1} = y_\text{n} + \frac{h}{2}\{[f(x_n, y_n) + f(x_n + h, y_n + h*f(x_n, y_n)]\}, n = 0, 1, 2,...$\\
+\hspace*{2ex}$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
+\hspace*{2ex}$y_\text{n+1} = y_\text{n} + \frac{h}{2}\{[f(x_n, y_n) + f(x_n + h, y_n + h*f(x_n, y_n)]\}, n = 0, 1, 2,..., k-1$\\
 \\
 Repeating the process (recursion) until we reach $y_k$ yields Heun's Method.\\
 
@@ -824,8 +885,8 @@ Repeating the process (recursion) until we reach $y_k$ yields Heun's Method.\\
   \hline
   Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
   &using the recursive formulas:\\
-  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,...$\\
-  &$y_\text{n+1} = y_\text{n} + \frac{h}{6}(K_1 + 2K_2 + 2K_3 + K_4), n = 0, 1, 2,...$\\
+  &$x_\text{n+1} = x_\text{n} + h, n = 0, 1, 2,..., k-1$\\
+  &$y_\text{n+1} = y_\text{n} + \frac{h}{6}(K_1 + 2K_2 + 2K_3 + K_4), n = 0, 1, 2,..., k-1$\\
   &where:\\
   &$K_1 = f(x_n, y_n)$,\\
   &$K_2 = f(x_n + h/2, y_n + h*K_{1}/2)$\\
@@ -857,9 +918,7 @@ Repeating the process (recursion) until we reach $y_k$ yields Heun's Method.\\
   \hline
   Ref.\ By & \aref{A_programcalls},
   \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
-  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
-  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
-  \aref{A_entriesofxk}, \aref{A_dimofxk}
+  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}
 
   \\
   \hline
@@ -880,6 +939,58 @@ where the choice of F depends on the order of method.
 The exhaustive derivation of the the Runge Kutta method can be analyzed in~\cite{Nagle2000}.
 \\
 
+%%Instance Model 5
+%
+%\noindent
+%\begin{minipage}{\textwidth}
+%\renewcommand*{\arraystretch}{1.5}
+%\begin{tabular}{| p{\colAwidth} | p{\colBwidth}|}
+%  \hline
+%  \rowcolor[gray]{0.9}
+%  Number& IM\refstepcounter{instnum}\theinstnum \label{family}\\
+%  \hline
+%  Label& \bf One-step Initial Value Problem Solver\\
+%  \hline
+%  Input& $y_\text{n}, h, $\\
+%  \hline
+%  Output& $y_\text{k}$ such that $y_\text{k} = y(x_\text{k})$  \\
+%  &using the one-step formula:\\
+%  &$${y}_{k+1} = {y}_k + h \phi(t_k, {x}_k, h_k)$$\\ 
+%  \hline
+%  Description&$y' = f(x, y)$ is the first order ODE.\\
+%  &$h$ is the constant step size.\\
+%  &$K_1, K_2, K_3,$ and $K_4$ are the intermediate variables.\\
+%  &$x_\text{0}$ is the initial value of $x$.\\
+%  &$x_\text{n+1}$ is the value of $x$ in the next equation iteration.\\
+%  &$x_\text{k}$ is the final value of $x$.\\
+%  &$y_\text{0}$ is the initial value of $y$, such that $y_\text{0} = y(x_\text{0})$.\\
+%  &$y_\text{n+1}$ is the value of $y$ in the next equation iteration.\\
+%  &$y_\text{k}$ is the final value of $y$.\\
+%  &$f_{x}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to x\\
+%  &$f_{y}(x, y)$ is the explicit form of the derivative of $f(x, y)$ with respect to y\\
+%  &$n$ is the reference recursion step.\\
+%
+%  & The above equations are used recursively until $x_\text{n+1} = x_\text{k}$ and $y_\text{n+1} =
+%  y_\text{k}$.
+%  \\
+%  \hline
+%  Sources&
+%        M. Heath, "Numerical Solution of ODEs," in \textit{Scientific Computing an
+%        Introductory Survey, 2}nd ed. New York: McGraw Hill, 2002, ch. 9.3, p. 405-406.
+%        ~\cite{Heath2002} 
+%  \\
+%  \hline
+%  Ref.\ By & \aref{A_programcalls},
+%  \aref{A_typeoff}, \aref{A_explicit}, \aref{A_linearity},
+%  \aref{A_continuous}, \aref{A_roots}, \aref{A_boundary}, \aref{A_entriesofh}, 
+%  \aref{A_entriesofx0}, \aref{A_dimofx0}, \aref{A_entriesofy0}, \aref{A_dimofy0},
+%  \aref{A_entriesofxk}, \aref{A_dimofxk}
+%
+%  \\
+%  \hline
+%\end{tabular}
+%\end{minipage}\\
+
 \subsection{Assumptions} \label{sec_Assumptions}
 % This section simplifies the problem by stating the assumptions.
 % The numbers given in the square brackets refer to the theoretical model
@@ -893,13 +1004,14 @@ The exhaustive derivation of the the Runge Kutta method can be analyzed in~\cite
   %   appropriate traceability to T, GD, DD etc., using commands like dref, ddref etc.}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_programcalls}:]
-It is assumed that the user will declare which of the four methods (Euler's Method, Heun's
+It is an input that the user will declare which of the four methods (Euler's Method, Heun's
 Method, Trapezoid Method, Fourth-Order Runge Kutta Method) will be used in solving
 the ODE IVP as shown in [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
 %~\newline
 %[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
 \wss{This isn't an assumption, but an input.}
+\wpa{Reworded.}
 
 \textit{[Rationale: The choice of which variability is decided upon by the user/programmer
 on compile time as the intent is to keep the library lightweight and functional - only four
@@ -913,14 +1025,14 @@ The ODE will be of the first order, given by $y' = f(x, y)$ as described in [\tr
 %~\newline
 %[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
-\textit{[Rationale: First order ODEs are chosen for the purposes of having a portable
-library that can be used and implemented in a variety of popular non-math oriented programming
-languages.]}
+\textit{[Rationale: First order ODEs are chosen for practicality and to limit the scope
+for this application.]}
 
 \wss{This rationale doesn't really hold up to scrutiny.  A system of first order
   ODEs, which is a more general version of your scope, can be implemented in a
   variety of popular languages too.  I believe you made this decision for
   practical, scope related, reasons; it is okay to say that.  :-)}
+  \wpa{Thank you - rationale has been reworded.}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_explicit}:]
 The entry of $f(x, y)$ will be of the explicit form such that $y' = f(x, y)$
@@ -933,8 +1045,7 @@ as described in [\tref{T_ODE}] and taken as an input in
   this assumption from T1 would be helpful.}
  
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_linearity}:]
-The entry $f(x, y)$ can be linear or non-linear
-as described in [\tref{T_ODE}] and taken as an input in
+The entry $f(x, y)$ is a linear ODE as described in [\tref{T_ODE}] and taken as an input in
 [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
 %~\newline
 %[\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
@@ -942,6 +1053,8 @@ as described in [\tref{T_ODE}] and taken as an input in
 \wss{You weren't really clear on the difference between linear and non-linear
   ODEs.  If you google it, you should be able to find a clear explanation.  If
   not, please let me know.}
+  \wpa{Thank you - the definition of linear ODE has been presented in the initial section.
+  As well, the software is limited to linear ODEs.}
 
 \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_continuous}:]
 The entry $f(x, y)$ will be a continuous function
@@ -963,99 +1076,93 @@ as described in [\tref{T_ODE}] and [\tref{T_uniqsoln}] and taken as an input in
 The entry ODE problem is strictly an initial value problem; boundary value problems will
 not be handled in the following [\tref{T_ODE}], [\tref{T_uniqsoln}],
 [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], and [\iref{runge}].
-% ~\newline
-% [\tref{T_ODE}], [\tref{T_uniqsoln}],
-% [\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
 
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_orderoff}:]
-% It is assumed that user will convert the input $f(x,y)$ to be of the first order,
-% since higher order ODEs can be represented as a system of first order ODEs.
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofh}:]
+%The entry for $h$ is from the set of positive $\mathbb{R}$.
+%~\newline
+%[\tref{T_ODE}], [\tref{T_uniqsoln}],
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofx0}:]
+%The entry for $x_0$ is from the set of $\mathbb{R}$.
+%~\newline
+%[\tref{T_ODE}], [\tref{T_uniqsoln}],
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofx0}:]
+%The entry $x_0$ is of a single dimension.
+%~\newline
+%[\tref{T_ODE}], [\tref{T_uniqsoln}],
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofy0}:]
+%The entry for $y_0$ is from the set of $\mathbb{R}$.
+%~\newline
+%[\tref{T_ODE}], [\tref{T_uniqsoln}],
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofy0}:]
+%The entry $y_0$ is of a single dimension.
+%~\newline
+%[\tref{T_ODE}], [\tref{T_uniqsoln}],
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofxk}:]
+%The entry for $x_k$ is from the set of $\mathbb{R}$.
+%~\newline
+%[\tref{T_ODE}], [\tref{T_uniqsoln}],
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofxk}:]
+%The entry $x_k$ is of a single dimension.
+%~\newline
+%[\tref{T_ODE}], [\tref{T_uniqsoln}],
+%[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
+%
 
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-% $f(x, y)$ will be of a single dimension - the user is responsible to perform the intermediate
-% matrix calculations in solving the system of first order ODEs.
-
-% \item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimoff}:]
-% $f(x, y)$ will have constant coefficients.
-
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofh}:]
-The entry for $h$ is from the set of positive $\mathbb{R}$.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
-
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofx0}:]
-The entry for $x_0$ is from the set of $\mathbb{R}$.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
-
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofx0}:]
-The entry $x_0$ is of a single dimension.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
-
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofy0}:]
-The entry for $y_0$ is from the set of $\mathbb{R}$.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
-
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofy0}:]
-The entry $y_0$ is of a single dimension.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
-
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofxk}:]
-The entry for $x_k$ is from the set of $\mathbb{R}$.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
-
-\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofxk}:]
-The entry $x_k$ is of a single dimension.
-~\newline
-[\tref{T_ODE}], [\tref{T_uniqsoln}],
-[\iref{euler}], [\iref{trapezoid}], [\iref{heun}], [\iref{runge}]
-
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofh}:]
+%Deleted on Revison 1.
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofx0}:]
+%Deleted on Revison 1.
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofx0}:]
+%Deleted on Revison 1.
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofy0}:]
+%Deleted on Revison 1.
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofy0}:]
+%Deleted on Revison 1.
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_entriesofxk}:]
+%Deleted on Revison 1.
+%
+%\item[A\refstepcounter{assumpnum}\theassumpnum \label{A_dimofxk}:]
+%Deleted on Revison 1.
 \end{itemize}
 
 \wss{Your last assumptions aren't really assumptions; they are just type
   information on the inputs.  A better way to capture this would be to include
   the type information in your document.  Including it in the list of symbols
   would be an easy place to start.}
+  \wpa{Last assumptions were removed and type is stated in the list of symbols.}
+  
 
-\subsection{Calculation} \label{sec_Calculation}
+\subsection{Calculation} \label{sec_CommCalculation}
 
 \begin{itemize}
-\item[C\refstepcounter{calcnum}\thecalcnum \label{C_inputs}:]
-Check the inputs if they satisfy the input assumptions.
-~\newline
-[All items in Section~\ref{sec_Assumptions}]
-
-
-\item[C\refstepcounter{calcnum}\thecalcnum \label{C_odeparse}:]
-Parse the input ODE string which which exhibits the characteristics laid out by
-[\aref{A_explicit}], [\aref{A_linearity}], [\aref{A_continuous}], [\aref{A_roots}], and
-[\aref{A_boundary}].
-% ~\newline
-% [\aref{A_explicit}], [\aref{A_linearity}], [\aref{A_continuous}], [\aref{A_roots}],
-% [\aref{A_boundary}]
 
 \item[C\refstepcounter{calcnum}\thecalcnum \label{C_progname}:]
 Perform the ODE solver model according to the user program call among the options listed by
 in [\aref{A_typeoff}] and [\tref{T_ODE}] using [\iref{euler}], [\iref{trapezoid}],
 [\iref{heun}], and [\iref{runge}].
-% ~\newline
-% [\aref{A_typeoff}], [\tref{T_ODE}], [\iref{euler}], [\iref{trapezoid}],
-% [\iref{heun}], [\iref{runge}]
 
 \end{itemize}
 
 \wss{Some of your calculations don't seem to be variabilities.  In that case,
   they are commonalities and should be labelled as such.}
+  \wpa{Common calculations are now moved to Commonalities Section \ref{sec_CommCalc}.}
 
 \subsection{Output} \label{sec_Output}
 
@@ -1069,26 +1176,11 @@ another program.
 \item[O\refstepcounter{outputnum}\theoutputnum \label{O_encodingyk}:]
 The encoding of $y_k$ can be a binary or text as shown to the user.
 
-\item[O\refstepcounter{outputnum}\theoutputnum \label{O_valuesyk}:]
-The possible values of $y_k$ are the set of $\mathbb{R}$
-$\cup$ $\{-\infty, \infty,$ undefined$\}$
-~\newline
-[\gsref{G_SolveForY}], [\tref{T_ODE}], [\tref{T_uniqsoln}]
-
-\item[O\refstepcounter{outputnum}\theoutputnum \label{O_success}:]
-The program returns TRUE if it does not encounter exceptions in generating the solution
-to the ODE problem.
-
-\item[O\refstepcounter{outputnum}\theoutputnum \label{O_fail}:]
-The program returns FALSE if it encounters exceptions in inputs or in its calculations
-or errors in generating the solution to the ODE problem.
-~\newline
-[\gsref{G_SolveForY}]
-
 \end{itemize}
 
 \wss{The outputs that are not variabilities should be identified as
   commonalities.}
+  \wpa{Common outputs are now moved to Commonalities Section \ref{sec_CommOutputs}.}
 
 \section{Non-Functional Requirements} \label{NFR}
 \begin{itemize}
@@ -1098,10 +1190,17 @@ shall not be greater than $4 * \sigma_\text{MatLab}$,
 where $\sigma_\text{MatLab}$ is the execution time of each equivalent program/function in MatLab.
 
 \textit{[Rationale: The program should have a reasonable/comparable execution time compared to that of one of the industry standard's.]}
+
+\item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_epsilon}:]
+Given the same inputs, the software shall provide an interface to compare the intermediate outputs (the elements of matrix $y$) with
+that of MATLAB's built-in ODE solver by providing $\varepsilon$.
+
+\textit{[Rationale: The program should provide a meaningful tool for accuracy analysis.]}
 \end{itemize}
 
 \wss{In addition to the execution time, it would be great to see a comparison of
   the accuracy.}
+  \wpa{Comparison of accuracy has been added.}
 
 \newpage
 \begin{landscape}
@@ -1117,27 +1216,25 @@ definitions, instance models, and calculations with the assumptions, calculation
 
 \begin{table}[h!]
 \centering
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
   & \aref{A_programcalls}& \aref{A_typeoff}& \aref{A_explicit}& \aref{A_linearity}&
-  \aref{A_continuous}& \aref{A_roots}& \aref{A_boundary}& \aref{A_entriesofh}& 
-  \aref{A_entriesofx0}& \aref{A_dimofx0}& \aref{A_entriesofy0}& \aref{A_dimofy0}&
-  \aref{A_entriesofxk}& \aref{A_dimofxk}& 
+  \aref{A_continuous}& \aref{A_roots}& \aref{A_boundary}& 
+
   %\cref{C_inputs}& \cref{C_odeparse}& \cref{C_progname}& 
-  \oref{O_outputyk}& \oref{O_encodingyk}& \oref{O_valuesyk}& \oref{O_success}&
-  \oref{O_fail} \\
+  \oref{O_outputyk}& \oref{O_encodingyk}& \coref{CO_valuesyk}& \coref{CO_success}&
+  \coref{CO_fail} \\
 \hline
-\gsref{G_SolveForY}         & & & & & & & & & & & & & & & X& & X& X&X\\ \hline
-%\gsref{G_InputOutput}       & & & & & & & & & & & & & & & & & & & & & &\\ \hline
-\tref{T_ODE}                & & X& X& X& X& X& X& X& X& X& X& X& X& X& & & X& &\\ \hline
-\tref{T_uniqsoln}           & & & & & X& X& X& X& X& X& X& X& X& X& & & X& &\\ \hline
-\iref{euler}                & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
-\iref{trapezoid}            & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
-\iref{heun}                 & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
-\iref{runge}                & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
-\cref{C_inputs}             & X& X& X& X& X& X& X& X& X& X& X& X& X& X& & & & &\\ \hline
-\cref{C_odeparse}           & & & X& X& X& X& X& & & & & & & & & & & &\\ \hline
-\cref{C_progname}           & & X& & & & & & & & & & & & & & & & &\\ \hline
+\gsref{G_SolveForY}         &  & & & & & & X& & X& X& & X\\ \hline
+\tref{T_ODE}                	&  & X& X& X& X& X& X& & & X& &\\ \hline
+\tref{T_uniqsoln}           	&  & & & & X& X& X& & & X& &\\ \hline
+\iref{euler}                		& X& X& X& X& X& X& X&  & & & &\\ \hline
+\iref{trapezoid}            	& X& X& X& X& X& X& X& & & & &\\ \hline
+\iref{heun}                 		& X& X& X& X& X& X& X& & & & &\\ \hline
+\iref{runge}                		& X& X& X& X& X& X& X& & & & &\\ \hline
+\ccref{CC_inputs}             	& X& X& X& X& X& X& X& & & & &\\ \hline
+\ccref{CC_odeparse}        	& & & X& X& X& X& X& & & & &\\ \hline
+\cref{C_progname}		& & X& & & & & & & & & &\\ \hline
 
 \end{tabular}
 \caption{Traceability Matrix Showing the Connections Between Assumptions, Calculations, and Outputs with Other Items}
@@ -1167,6 +1264,7 @@ This section shows additional information pertinent to this Commonality Analysis
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule
 $\sigma$ & seconds & The measure of time a program executes.\\
+$\varepsilon$ & - & The norm of the relative error vector.\\
 
 \bottomrule
 \end{longtable*}

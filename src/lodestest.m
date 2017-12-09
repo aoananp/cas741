@@ -36,6 +36,7 @@ try
         splineerror(i) = splinediff(i) / yy(i);
         splineerrorpercent(i) = 100 * splineerror(i);
     end
+    %errornorm = ||ytest - ymatlab||/||ymatlab||
     errornorm = norm(splinediff)/norm(yy);
 
     if (toPlot && successlodes)
@@ -51,9 +52,9 @@ try
         %Display norm error plot
         figure('Name', '% Spline Relative Error', 'NumberTitle', 'off')
         plot(xlodes, splineerrorpercent, '-o', 'Color', [1,0,1]);
-        title('% vs x - Spline Relative Error Comparison between ODE45 and LODES')
+        title('% error vs x - Spline Relative Error Comparison between ODE45 and LODES')
         xlabel('x');
-        ylabel('%');
+        ylabel('% error');
         ylim([0 100])
         if(toSave)
             saveas(gcf, 'RelativeErrorPlot.jpg')

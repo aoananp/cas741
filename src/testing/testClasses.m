@@ -4,7 +4,7 @@ classdef testClasses < matlab.unittest.TestCase
     
     methods (Test)
         function testLODESSolution1(test1)
-            tolerance = 0.1;
+            tolerance = eps;
             ODE_string = 'x';
             x_0 = 0;
             y_0 = 1;
@@ -21,7 +21,7 @@ classdef testClasses < matlab.unittest.TestCase
             test1.verifyEqual(yrk, ytestarr, 'RelTol', tolerance);
         end
         function testLODESSolution2(test1)
-            tolerance = 0.1;
+            tolerance = eps;
             ODE_string = 'x^2 - 3*y';
             x_0 = 0;
             y_0 = 1;
