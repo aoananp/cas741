@@ -5,7 +5,7 @@ classdef testClasses < matlab.unittest.TestCase
     methods (Test)
         function testLODESSolution1(test1)
             tolerance = eps;
-            ODE_string = 'x';
+            ODE_string = 'y';
             x_0 = 0;
             y_0 = 1;
             x_k = 2;

@@ -62,8 +62,8 @@ in-matlab.html}
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-\today & 1.0 & Initial draft.\\
-%Date 2 & 1.1 & Notes\\
+October 24, 2017 & 1.0 & Initial draft.\\
+\today & 1.1 & Initial revision.\\
 \bottomrule
 \end{tabularx}
 
@@ -113,8 +113,18 @@ Solvers.\\  \wss{You do not need to end your paragraphs with this symbol.  A
   hard return and a newline will end the paragraph.}
   \wpa{Thank you - noted.}
   
-This section explains the purpose of this document, the scope of the system, and an overview of the following 
-sections.
+The Test Plan contains the verification and validation activities outlined for LODES (\href{https://github.com/aoananp/cas741}).
+The development of LODES follows the traditional waterfall model, wherein the software requirements and
+expectations are laid out in the Software Requirements Specification (SRS).
+
+The Test Plan contains the
+system test cases which are used to verify and validate the SRS functional and non-functional requirements of
+LODES. Furthermore, the Test Plan also contains unit test cases which are used to verify the functionality
+laid out in the Module Guide and Module Interface Specification design documents
+
+Section \ref{sec_purpose} explains the purpose of this document,
+Section \ref{sec_scope} the scope of the system,
+and Section \ref{sec_overview} the document overview.
 
 \wss{This ``roadmap'' doesn't really make sense.  You start with describing the
   ``following section'' and then  you introduce ``this section.''  Is the
@@ -122,21 +132,22 @@ sections.
   would also make sense.  You can put this document in context.  What is the
   project?  What other documentation exists.  In particular, you should point to
   the SRS.  You should also give the GitHub url where the project is located.}
+  \wpa{Comments addressed above.}
 
-\subsection{Purpose}
+\subsection{Purpose} \label{sec_purpose}
 The main purpose of this document (the Test Plan) is to describe the verification and validation process that will 
 be used to test the functionality of \famname{}.  This document closely follows the requirements and governs
 the subsequent testing activities. This document is intended to be used as a reference for all testing and will be
 used to increase confidence in the 
 software implementation.  \wss{I deleted the extra newline you inserted.  You
   are nearly always best to go with the LaTeX default formatting and not start
-  manually inserting newlines.}
+  manually inserting newlines.} \wpa{Noted - thank you.}
 
 This document will be used as a guide and starting point for the Test Report. The test cases
 listed in this document will be executed and the output will be analyzed to uncover errors, increase confidence 
 and correctness in the software.
 
-\subsection{Scope}
+\subsection{Scope} \label{sec_scope}
 The scope of the testing is limited to the \famdesc{}. Given the appropriate inputs, each program in \famname{} is 
 intended to find
 the solution to an Initial Value Problem (IVP).\\
@@ -146,7 +157,7 @@ and validation activities.\\
 \\
 Static testing will be briefly described and will be left to the developer and verifier to perform with due diligence.
 
-\subsection{Overview of Document}
+\subsection{Overview of Document} \label{sec_overview}
 The following sections provide more detail about the testing of \famname{}.
 Information about the testing process is provided and the software specifications
 that were discussed in the Commonality Analysis are stated.
@@ -186,10 +197,10 @@ The verification tools to be used will be the following:
 A Unit Testing Framework designed in MATLAB that will compare MATLAB's own functional programs
 with \famname{}' running the same inputs will be implemented.
 
-The following algorithm \wss{say equation, not algorithm} will be implemented to
+The following equation \wss{say equation, not algorithm} \wpa{Reworded.} will be implemented to
 compare the results:
-$$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}
-_\text{MATLAB}} $$
+$$\epsilon_{\text{relative}} = \frac{\|\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}\|} {\| \text{Result}
+_\text{MATLAB} \|} $$
 
 \wss{The above equation will give you an error for every instant of time where
   you do the calculations; that is, you will have an error for each time step.
@@ -198,13 +209,15 @@ is too much for a person to take in.  You should also have a scalar value to
 assess the error.  Specifically, you should take the norm of your
 $\epsilon_\text{relative}$ vector.  Any vector norm is fine, as long as you say
 which one you are using.}
+\wpa{The equation has been modified to take the norm of the vector instead. The testing software will also
+have the ability to output the plot of the error percent of each step.}
 
 \item{MATLAB's Test Class\\}
 MATLAB's Test Class (matlab.unittest.testcase) will be used for providing the framework for automated
 system testing. The documentation can be referenced in \href{\unittesturl}{MATHWORKS}.
 
-\item{Static Analyer\\} \wss{proof read}
-The program's IDE (MATLAB) will be used as a Static Analyzer tool for program debugging and
+\item{Static Analyer\\} \wss{proof read} \wpa{Proof read.}
+The MATLAB IDE will be used for program debugging and
 for checking syntax errors.
 
 \item{Continuous Integration\\}
@@ -213,7 +226,9 @@ It provides the Build Server functionality to fully maintain and document the so
 As well, it provides the compare functionality for future regression testing and
 analysis of code updates.  \wss{How does the build server find Matlab?  This is
   something you should look into sooner than later, since it might require
-  something special to deal with the Matlab licensing.}
+  something special to deal with the Matlab licensing.} \wpa{MATLAB 2017a
+  has a built-in Build Server that seamlessly integrates with Git.}
+  
 
 \item{Code Coverage Tool\\}
 Due to the commercial nature of MATLAB, only commercial code coverage tools are viable for use due to the 
@@ -238,21 +253,30 @@ test plan due to budget constraints. \wss{Okay -- good to be explicit.}
 \famname{} will undergo an initial desk review by an independent body.  The code
 will be perused for syntax errors and correct program calls.  This code
 inspection activity provides the initial sanity check for the developer, the
-reviewer, and the software.  \wss{You should be more specific about how you are
+reviewer, and the software. The code inspection checklist
+is provided in the Appendix Section \ref{checklist}.
+
+ \wss{You should be more specific about how you are
   going to run the code inspection.  Probably you want to give a checklist for
   the reviewer to follow.  A google search will find you many checklists that
   could give you a good starting point.  The checklist should be included in
   your appendix.}
+  \wpa{The code inspection checklist is provided in Section \ref{checklist}}
 
 \paragraph{Code Walkthrough\\}
 \famname{} will undergo code walkthrough by the developer and an independent
 body.  They will jointly review the code and reference the Commonality Analysis
 for algorithm adherence. This activity will also involve logic analysis, loop
 and recursion boundary tracing (using by-hand test cases), passing of variables
-and references, and if the code is programmatically correct. The code
-walkthrough will be executed with the guidance laid out in Section
-\ref{checklist}.  \wss{Great to see that you have additional details.  If I have
+and references, and if the code is programmatically correct.
+The Walkthrough Report will contain the results of a visual inspection of the code involved in the project.
+
+\wss{Great to see that you have additional details.  If I have
   any comments on the walkthrough, I'll make them when I review that section.}
+  \wpa{The code inspection checklist is shown in Section \ref{checklist}.
+  The walkthrough report will include the details of each specific iteration of the code
+  and will have to based on the actual code itself. The Commonality Analysis and the Unit Test plan
+  will serve as the heuristic guides in carrying out the code walkthrough.}
 
 \paragraph{Symbolic Execution\\}
 Generally, symbolic execution will be performed using the boundary input conditions. Test conditions will be
@@ -260,6 +284,8 @@ analyzed and executed by-hand. Generally, inputs in, on, and around the boundary
 conditions are chosen.  \wss{Are you doing symbolic execution?  There isn't
   enough information here.  What software
   tool are you using?}
+  \wpa{In the interest of time, details of symbolic execution testing and and its execution will be covered in
+  Revision 2 of the document and the next iteration of the waterfall model.}
 
 %\wss{List any approaches like code inspection, code walkthrough, symbolic
 %execution etc.  Enter not applicable if that is the case.}
@@ -270,7 +296,7 @@ conditions are chosen.  \wss{Are you doing symbolic execution?  There isn't
 
 \section{System Test Description}
 System testing will be executed to provide increased confidence that \famname{} will achieve the goals defined in 
-the Commonality Analysis. It uses a "black box" \wss{quotes in LaTeX are done as
+the Commonality Analysis. It uses a ``black box" \wss{quotes in LaTeX are done as
   ``quotes.''   That is, there is a different symbol for the opening and closing
   quotation marks.}  approach wherein it tests the system as a whole through the use 
 of input and output analysis.
@@ -286,26 +312,26 @@ inputs is in order with the entries in the table.
 \begin{table} [H]
   \caption{Faulty Input Test Cases}
   \label{Table:Table_FaultyInputs}  
-\begin{tabular}{|c|p{8cm}|p{6cm}|}
+\begin{tabular}{|c|p{6cm}|p{8cm}|}
   \hline	
   \textbf{Number} & \textbf{Input} &\textbf{Expected Outcome}\\
   \hline 
   01 & ODE Function Call $\mathbb{\notin}$ \{euler741, trap741, heun741, rk4741\} $\mathbb{\cup}$ 
   MATLAB functions & error: undefined function call\\ \hline
-  02& $f(x, y) = y'' + y' + x + 2$ & success: false\\ \hline
-  03& $f(x, y) = y' + 1$ & success: false\\ \hline
-  04& $f(x, y) = (dx/dy) + 1$ & success: false\\ \hline
-  05& $f(x, y) = (y + 1) / x$ & success: false\\ \hline
-  06& $f(x, y) = y/(x-3)$ & success: false\\ \hline
-  07& Boundary Value Problem & success: false\\ \hline
-  08& $h = -1$ & success: false\\ \hline
-  09& $h = 0$ & success: false\\ \hline
-  10& $x_0 = i$ & success: false\\ \hline 
-  11& $x_0 = [0, 1]$ & success: false\\ \hline 
-  12& $y_0 = i$ & success: false\\ \hline 
-  13& $y_0 = [0, 1]$ & success: false\\ \hline
-  14& $x_k = i$ & success: false\\ \hline 
-  15& $x_k = [0, 1]$ & success: false\\ \hline
+  02& $f(x, y) = y'' + y' + x + 2$ & success: false; the ODE is of second order and the software is outside of the assumptions\\ \hline
+  03& $f(x, y) = y' + 1$ & success: false; the form shall be of $y' = f(x, y)$\\ \hline
+  04& $f(x, y) = (dx/dy) + 1$ & success: false; the form shall be of $y' = f(x, y)$\\ \hline
+  05& $f(x, y) = (y + 1) / x$ & success: false; the ODE shall be linear\\ \hline
+  06& $f(x, y) = y/(x-3)$ & success: false; the ODE shall be linear\\ \hline
+  07& Boundary Value Problem & success: false; BVPs are out of scope of the software\\ \hline
+  08& $h = -1$ & success: false; h shall be greater than 0\\ \hline
+  09& $h = 0$ & success: false; h shall be greater than 0\\ \hline
+  10& $x_0 = i$ & success: false; inputs shall be $\in \mathbb{R}$\\ \hline 
+  11& $x_0 = [0, 1]$ & success: false; input shall be a single number\\ \hline 
+  12& $y_0 = i$ & success: false; inputs shall be $\in \mathbb{R}$\\ \hline 
+  13& $y_0 = [0, 1]$ & success: false; input shall be a single number\\ \hline
+  14& $x_k = i$ & success: false; inputs shall be $\in \mathbb{R}$\\ \hline 
+  15& $x_k = [0, 1]$ & success: false; input shall be a single number\\ \hline
 
 \end{tabular}\\
 \end{table}
@@ -316,6 +342,7 @@ inputs is in order with the entries in the table.
   how exactly are derivatives represented?  Are you using symbolic programming,
   like for Maple?  If you are just passing a function, then $y''$ won't have any
   semantic meaning.}
+    \wpa{Clarifications to the table have been made.}
 
 \subsection{Tests for Functional Requirements}
 
@@ -341,6 +368,8 @@ How test will be performed: Automated system test  \wss{For these test cases, it
   verify if your output is correct.  Your test cases might actually come from
   symbolically solving the algorithm.  If this is the case, you really need to
   make it clear.}
+  \wpa{The test will be performed as such. The listed inputs are for the tester to input to the program.
+  The output will be verified when compared with the MATLAB solution.}
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-euler_simpleiterative}: Simple-Iterative Case}}
 
@@ -455,6 +484,9 @@ How test will be performed: Automated system test
   them.  I suggest that instead of presenting each test separately,  you build a
   table that summarizes all of the related tests.  It would take less space and
   it would be easier to review.}
+  
+  \wpa{Noted. This will be addressed in the next revision of the Test Plan and the next waterfall iteration.
+  For now, the focus is on test execution - the document's content is valid for now for our purposes.}
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-heun_simpleiterative}: Simple-Iterative Case}}
 
@@ -558,6 +590,12 @@ How test will be performed: Automated system test
 
 \wss{Are you just taking one step for each of these tests?  You really also need
   tests that will predict the ODE values for a sequence of steps.}
+  
+ \wpa{These tests are the comparing the results of the ODE to the solutions worked out by hand.
+ The testing method to be used is by relying on the MATLAB's solution as the oracle and taking the
+ norm of the relative error vector - this is described early on in the document. The test report will
+ indeed be a summary of observed errors. The outputs are
+ left here for reference and for discussion in the Test Report.}
 
 \subsection{Tests for Nonfunctional Requirements}
 
@@ -575,10 +613,10 @@ Initial State: Not Applicable
 					
 Input/Condition: $f(x, y) = sin(x) - y^2, h = 1E-5, x_0 = 0, y_0 = 1, x_k = 5$
 					
-Output/Result: $\sigma_\text{\famname{}} \leq 4*\sigma_\text{MATLAB}$ (\famname{}' runtimes shall be no more 
-than four (4) times that of MATLAB's.)  \wss{Use a symbolic constant here, so
+Output/Result: $\sigma_\text{\famname{}} \leq mult * \sigma_\text{MATLAB}$ (\famname{}' runtimes shall be no more 
+than $mult$ times that of MATLAB's. For now, $mult = 4$ is defined.)  \wss{Use a symbolic constant here, so
   that it is easy to change.  Also, this requirement should be in the SRS.  Is
-  it there?  If not, you should add it.}
+  it there?  If not, you should add it.} \wpa{This requirement is in the CA.}
 					
 How test will be performed: Using MATLAB's Run and Time functionality, the execution time of a program will be 
 measured and compared through program calls to the respective MATLAB and \famname{} functions.\
@@ -589,6 +627,8 @@ measured and compared through program calls to the respective MATLAB and \famnam
   measure any difference between the different methods with one step.
   Everything will happen too fast.  You should have a long integration time to
   let the tiny speed differences accumulate.}
+  
+  \wpa{This is through all the steps in the ODE solver, executing from $x_0$ to $x_k$ and $y_0$ to $y_k$.}
 
 \subsubsection{Results Analysis}
 
@@ -605,7 +645,7 @@ Initial State: Not Applicable
 Input/Condition: $f(x, y) = sin(x) - y^2, h = \text{(VARIABLE)}, x_0 = 0, y_0 = 1, x_k = 5$
 					
 Output/Result: The $\epsilon_{\text{relative}}$ vs. $h$ plot.
-The $y_k$ values will be compared according to the following formula -
+The intermediate $y$ values (Result) will be compared according to the following formula of the relative error norm -
 $$\epsilon_{\text{relative}} = \frac{\text{Result}_\text{MATLAB} - \text{Result}_\text{\famname{}}} {\text{Result}
 _\text{MATLAB}} $$
 					
@@ -624,6 +664,8 @@ $\epsilon_{\text{relative}}$ will be plotted against $h$.
   library of ODE solvers, suggesting that you can return to this idea for
   testing.  It is time now to return to your original idea.  :-)  It would be a great
   plot to show how the error differs between your different methods.}
+  \wpa{For testing, the MATLAB ODE solver will serve as the oracle. The comparisons will be made against it
+  and observations against the desktop execution (outputs described in the Functional Tests) of the solution will be described.}
 
 %\item{test-id2\\}
 %
@@ -700,25 +742,30 @@ machine-interpreted function.
 
 \wss{Are you implementing a parser?  I thought that Matlab was just taking care
   of this?}
+  \wpa{MATLAB will take care of the parser - I figured since it was part of my requirement, that I shall test it as well.}
 
 \item{\textbf{T-\refstepcounter{tnum}\thetnum \label{t-parser1}: Trigonometric}}
 
-Type: Functional, Manual, Unit 
-					
-Initial State: Not Applicable
-					
-Input/Condition: $f(x, y) = sin^2(x) - y^3$
-					
-Output/Result: Machine-interpreted $f(x, y)$
-					
-How test will be performed: $f(x, y)$ will be passed into the parser function and the output shall be a
-machine-interpreted function.
+The test case is removed in Release 0.
+
+%Type: Functional, Manual, Unit 
+%					
+%Initial State: Not Applicable
+%					
+%Input/Condition: $f(x, y) = sin^2(x) - y^3$
+%					
+%Output/Result: Machine-interpreted $f(x, y)$
+%					
+%How test will be performed: $f(x, y)$ will be passed into the parser function and the output shall be a
+%machine-interpreted function.
 
 \end{enumerate}
 
 \wss{I don't understand why there is a trigonometric unit test?  You aren't
   planning on implementing trigonometric functions (I don't think) and you don't
   need to test Matlab.}
+  
+  \wpa{This test case is removed.}
 
 \wss{For the unit tests you really shouldn't try to be specific until you have
   done your design.  This section was intended to be an overview of your plans
@@ -752,7 +799,7 @@ Trapezoid, Heun, and Runge-Kutta).
 
 \section{Appendix}
 
-\subsection{Walkthrough Questionnaire} \label{checklist}
+\subsection{Code Inspection Checklist} \label{checklist}
 \begin{enumerate}
 \item{Are there defects in the code?}
 \item{Does the code adhere to MATLAB coding standards and guidelines (syntax, function calls, etc.)?}
@@ -761,6 +808,7 @@ Trapezoid, Heun, and Runge-Kutta).
 \item{Do the recursion/loops have the correct terminating cases according to the formulas defined in the Commonality Analysis?}
 \item{Does the code have the correct inputs and outputs?}  \wss{What does this
     mean?  Do you mean whether it agrees with the requirements?}
+    \wpa{It shall agree with the inputs and outputs listed in the functional requirements listed above through code walkthrough.}
 \item{Do the datatypes in the code adhere to ones defined in the requirements and specifications?}
 \item{Does the code satisfy the ranges and assumptions defined in the Commonality Analysis?}
 \end{enumerate}
@@ -768,6 +816,8 @@ Trapezoid, Heun, and Runge-Kutta).
 \wss{This isn't actually a code walkthrough procedure.  This is a code
   inspection checklist.  A walkthrough is when a group of reviewers ``play
   computer'' and go through the code and its algorithms by hand.}
+  \wpa{Noted - that was the intent of the section :-). The section has been renamed.}
+
 
 %This is where you can place additional information.
 \pagebreak
