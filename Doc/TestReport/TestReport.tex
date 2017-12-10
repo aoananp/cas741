@@ -1,8 +1,25 @@
 \documentclass[12pt, titlepage]{article}
 
 \usepackage{booktabs}
-\usepackage{tabularx}
+
+\usepackage{amsmath, mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{colortbl}
+\usepackage{xr}
 \usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{xfrac}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
+
+\usepackage[round]{natbib}
 \hypersetup{
     colorlinks,
     citecolor=black,
@@ -17,6 +34,12 @@
 \newcommand{\famname}{LODES} % PUT YOUR PROGRAM NAME HERE
 \newcommand{\famdesc}{Library of ODE Solvers}
 \newcommand{\famurl}{https://github.com/aoananp/cas741/}
+
+\newcounter{tnum} %Test Number
+\newcommand{\ttheccnum}{T\thetnum}
+\newcommand{\tref}[1]{T\ref{#1}}
+
+\usepackage{fullpage}
 
 \begin{document}
 
@@ -42,14 +65,39 @@
 
 \section{Symbols, Abbreviations and Acronyms}
 
+\subsection{Table of Symbols}
+
+The table that follows summarizes the symbols used in this document along with
+their units.  The choice of symbols was made to be consistent with the numeral analysis
+and ordinary differential equation literature and with existing documentation
+for solving ordinary differential equations.  The symbols are listed in alphabetical order.
+
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{l l} 
-  \toprule		
-  \textbf{symbol} & \textbf{description}\\
-  \midrule 
-  T & Test\\
-  \bottomrule
-\end{tabular}\\
+\noindent \begin{longtable*}{l l l p{8cm}} \toprule
+\textbf{symbol} & \textbf{unit} & \textbf{type} & \textbf{description}\\
+\midrule
+$dy/dx$ & \text {-} & $\mathbb{R}$ & Rate of change of $y$ with respect to $x$\\
+$\varepsilon_\text{relative}$ & - & $\mathbb{R}$ & The relative error\\
+$F$ & \text{-} & $\mathbb{R}^3 \rightarrow \mathbb{R}$ & Order function applied to the Runge Kutta Method\\
+$f(x, y)$ & \text{-} & $\mathbb{R}^2 \rightarrow \mathbb{R}$& Explicit form of the ODE function containing $(x,y)$\\
+$f_{x}(x, y)$ & \text{-} & $\mathbb{R}^2 \rightarrow \mathbb{R}$ & Explicit form of the derivative of $f(x, y)$ with respect to x\\
+$f_{y}(x, y)$ & \text{-} & $\mathbb{R}^2 \rightarrow \mathbb{R}$ & Explicit form of the derivative of $f(x, y)$ with respect to y\\
+$h$ & \text{-} & $\mathbb{R}$ . $h > 0$ & Step-size from $x_\text{(0)}$ to the next point $x_\text{(1)}$, where $x_\text{(1)} = x_\text{(0)} + h$\\
+$K_1, K_2, K_3, K_4$ & $\mathbb{R}$ & \text{-} & Intermediary variables used in the Runge-Kutta method\\
+$n$ & \text{-} & $\mathbb{R}$ & Reference recursion step\\
+$o$ & \text{-} & $\mathbb{R}$  & Solution variable\\
+T & - & - & Test\\
+$x_\text{0}$ & \text{-} & $\mathbb{R}$  & Initial value $x$\\
+$x_\text{k}$ & \text{-} & $\mathbb{R}$  & Final value $x$\\
+$x_\text{n}$ & \text{-} & $\mathbb{R}$ & Intermediate $n^\text{th}$ value $x$\\
+$y_\text{0}$ & \text{-} & $\mathbb{R}$ & Initial value $y$\\ 
+$y_\text{k}$ & \text{-} & $\mathbb{R}$  & Final value $y$\\
+$y_\text{n}$ & \text{-} &$\mathbb{R}$ & Intermediate $n^\text{th}$ value $y$\\ 
+$y'$ & \text{-} &$\mathbb{R} \rightarrow \mathbb{R}$& Implicit form of the first order ODE = $f(x, y)$\\
+$y^\text{(n)}$ & \text{-} &$\mathbb{R} \rightarrow \mathbb{R}$& Implicit form of the ODE to the $n^\text{th}$ order\\
+$y$ & \text{-} & $1$ x $\mathbb{R}^k$ & The array containing all intermediate $y_\text{n}$ values\\
+\bottomrule
+\end{longtable*}
 
 \wss{symbols, abbreviations or acronyms -- you can reference the SRS tables if needed}
 
