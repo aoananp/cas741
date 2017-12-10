@@ -1192,10 +1192,9 @@ where $\sigma_\text{MatLab}$ is the execution time of each equivalent program/fu
 \textit{[Rationale: The program should have a reasonable/comparable execution time compared to that of one of the industry standard's.]}
 
 \item[NFR\refstepcounter{nfrnum}\thenfrnum \label{NFR_epsilon}:]
-Given the same inputs, the software shall provide an interface to compare the intermediate outputs (the elements of matrix $y$) with
-that of MATLAB's built-in ODE solver by providing $\varepsilon$.
+Given the same inputs, the software shall have $\|\varepsilon_\text{relative}\| \leq 0.20$ when compared to MATLAB's own ODE solver.
 
-\textit{[Rationale: The program should provide a meaningful tool for accuracy analysis.]}
+\textit{[Rationale: The program's relative error norm shall be within a pre-defined number.]}
 \end{itemize}
 
 \wss{In addition to the execution time, it would be great to see a comparison of
@@ -1263,8 +1262,8 @@ This section shows additional information pertinent to this Commonality Analysis
 \noindent \begin{longtable*}{l l p{12cm}} \toprule
 \textbf{symbol} & \textbf{unit} & \textbf{description}\\
 \midrule
-$\sigma$ & seconds & The measure of time a program executes.\\
-$\varepsilon$ & - & The norm of the relative error vector.\\
+$\sigma$ & seconds & The measure of time a program executes\\
+$\varepsilon$ & - & The relative error vector\\
 
 \bottomrule
 \end{longtable*}
