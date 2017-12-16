@@ -1,0 +1,809 @@
+Running testClasses
+
+yeuler =
+
+     1     3
+
+
+ytestarr =
+
+    1.0000    7.3891
+
+
+norm =
+
+    0.5886
+
+
+errorarray =
+
+         0    0.5940
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution1.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>    Actual</strong><strong>       Expected    </strong><strong>         Error      </strong><strong>      RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______</strong>    <strong>_______________</strong>    <strong>________________</strong>    <strong>__________________</strong>    <strong>____________________</strong>
+        
+            2        3         7.3890570168536    -4.3890570168536    -0.593994200727192    2.22044604925031e-16
+    
+    Actual double:
+             1     3
+    Expected double:
+           1.000000000000000   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',15,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution1) at 15</a>
+================================================================================
+
+ytrap =
+
+     1     5
+
+
+ytestarr =
+
+    1.0000    7.3891
+
+
+norm =
+
+    0.3204
+
+
+errorarray =
+
+         0    0.3233
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution1.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>    Actual</strong><strong>       Expected    </strong><strong>         Error      </strong><strong>      RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______</strong>    <strong>_______________</strong>    <strong>________________</strong>    <strong>__________________</strong>    <strong>____________________</strong>
+        
+            2        5         7.3890570168536    -2.3890570168536    -0.323323667878653    2.22044604925031e-16
+    
+    Actual double:
+             1     5
+    Expected double:
+           1.000000000000000   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',17,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution1) at 17</a>
+================================================================================
+
+yheun =
+
+     1     5
+
+
+ytestarr =
+
+    1.0000    7.3891
+
+
+norm =
+
+    0.3204
+
+
+errorarray =
+
+         0    0.3233
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution1.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>    Actual</strong><strong>       Expected    </strong><strong>         Error      </strong><strong>      RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______</strong>    <strong>_______________</strong>    <strong>________________</strong>    <strong>__________________</strong>    <strong>____________________</strong>
+        
+            2        5         7.3890570168536    -2.3890570168536    -0.323323667878653    2.22044604925031e-16
+    
+    Actual double:
+             1     5
+    Expected double:
+           1.000000000000000   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',19,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution1) at 19</a>
+================================================================================
+
+yrk =
+
+     1     7
+
+
+ytestarr =
+
+    1.0000    7.3891
+
+
+norm =
+
+    0.0522
+
+
+errorarray =
+
+         0    0.0527
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution1.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>    Actual</strong><strong>       Expected    </strong><strong>          Error       </strong><strong>       RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______</strong>    <strong>_______________</strong>    <strong>__________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>
+        
+            2        7         7.3890570168536    -0.389057016853605    -0.0526531350301141    2.22044604925031e-16
+    
+    Actual double:
+             1     7
+    Expected double:
+           1.000000000000000   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',21,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution1) at 21</a>
+================================================================================
+.
+yeuler =
+
+    1.0000    1.5000    2.2500    3.3750    5.0625
+
+
+ytestarr =
+
+    1.0000    1.6487    2.7183    4.4817    7.3891
+
+
+norm =
+
+    0.2832
+
+
+errorarray =
+
+         0    0.0902    0.1723    0.2469    0.3149
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution2.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>    Actual</strong><strong>        Expected    </strong><strong>          Error       </strong><strong>       RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______</strong>    <strong>________________</strong>    <strong>__________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>
+        
+            2           1.5     1.6487215144387    -0.148721514438696    -0.0902041449306423    2.22044604925031e-16
+            3          2.25    2.71828199730153    -0.468281997301532     -0.172271308777529    2.22044604925031e-16
+            4         3.375    4.48169001126243     -1.10669001126243     -0.246935867603812    2.22044604925031e-16
+            5        5.0625     7.3890570168536      -2.3265570168536     -0.314865213727136    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000   1.500000000000000   2.250000000000000   3.375000000000000   5.062500000000000
+    Expected double:
+           1.000000000000000   1.648721514438696   2.718281997301532   4.481690011262426   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',32,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution2) at 32</a>
+================================================================================
+
+ytrap =
+
+    1.0000    1.6250    2.6406    4.2910    6.9729
+
+
+ytestarr =
+
+    1.0000    1.6487    2.7183    4.4817    7.3891
+
+
+norm =
+
+    0.0502
+
+
+errorarray =
+
+         0    0.0144    0.0286    0.0425    0.0563
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution2.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>        Actual    </strong><strong>        Expected    </strong><strong>           Error       </strong><strong>       RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______________</strong>    <strong>________________</strong>    <strong>___________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>
+        
+            2                 1.625     1.6487215144387    -0.0237215144386962    -0.0143878236748625    2.22044604925031e-16
+            3              2.640625    2.71828199730153    -0.0776569973015317    -0.0285684109958506    2.22044604925031e-16
+            4           4.291015625    4.48169001126243     -0.190674386262426    -0.0425451974106339    2.22044604925031e-16
+            5        6.972900390625     7.3890570168536     -0.416156626228605    -0.0563206678848734    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000   1.625000000000000   2.640625000000000   4.291015625000000   6.972900390625000
+    Expected double:
+           1.000000000000000   1.648721514438696   2.718281997301532   4.481690011262426   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',34,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution2) at 34</a>
+================================================================================
+
+yheun =
+
+    1.0000    1.6250    2.6406    4.2910    6.9729
+
+
+ytestarr =
+
+    1.0000    1.6487    2.7183    4.4817    7.3891
+
+
+norm =
+
+    0.0502
+
+
+errorarray =
+
+         0    0.0144    0.0286    0.0425    0.0563
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution2.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>        Actual    </strong><strong>        Expected    </strong><strong>           Error       </strong><strong>       RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______________</strong>    <strong>________________</strong>    <strong>___________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>
+        
+            2                 1.625     1.6487215144387    -0.0237215144386962    -0.0143878236748625    2.22044604925031e-16
+            3              2.640625    2.71828199730153    -0.0776569973015317    -0.0285684109958506    2.22044604925031e-16
+            4           4.291015625    4.48169001126243     -0.190674386262426    -0.0425451974106339    2.22044604925031e-16
+            5        6.972900390625     7.3890570168536     -0.416156626228605    -0.0563206678848734    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000   1.625000000000000   2.640625000000000   4.291015625000000   6.972900390625000
+    Expected double:
+           1.000000000000000   1.648721514438696   2.718281997301532   4.481690011262426   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',36,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution2) at 36</a>
+================================================================================
+
+yrk =
+
+    1.0000    1.6484    2.7173    4.4794    7.3840
+
+
+ytestarr =
+
+    1.0000    1.6487    2.7183    4.4817    7.3891
+
+
+norm =
+
+   6.1253e-04
+
+
+errorarray =
+
+   1.0e-03 *
+
+         0    0.1723    0.3443    0.5165    0.6884
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution2.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>         Actual     </strong><strong>        Expected    </strong><strong>            Error        </strong><strong>        RelativeError    </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>________________</strong>    <strong>________________</strong>    <strong>_____________________</strong>    <strong>_____________________</strong>    <strong>____________________</strong>
+        
+            2               1.6484375     1.6487215144387     -0.00028401443869619    -0.000172263439403762    2.22044604925031e-16
+            3        2.71734619140625    2.71828199730153    -0.000935805895281749    -0.000344263728417704    2.22044604925031e-16
+            4        4.47937536239624    4.48169001126243     -0.00231464886618582    -0.000516467863767717    2.22044604925031e-16
+            5        7.38397032395005     7.3890570168536     -0.00508669290355268    -0.000688408939320743    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000   1.648437500000000   2.717346191406250   4.479375362396240   7.383970323950052
+    Expected double:
+           1.000000000000000   1.648721514438696   2.718281997301532   4.481690011262426   7.389057016853605
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',38,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution2) at 38</a>
+================================================================================
+.
+yeuler =
+
+     1    -4
+
+
+ytestarr =
+
+    1.0000   -1.0108
+
+
+norm =
+
+    2.1023
+
+
+errorarray =
+
+         0   -2.9573
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution3.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>    Actual</strong><strong>        Expected     </strong><strong>          Error      </strong><strong>     RelativeError  </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>______</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>________________</strong>    <strong>____________________</strong>
+        
+            2        -4        -1.01079006197098    -2.98920993802902    2.95730048255542    2.22044604925031e-16
+    
+    Actual double:
+             1    -4
+    Expected double:
+           1.000000000000000  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',49,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution3) at 49</a>
+================================================================================
+
+ytrap =
+
+    1.0000  -43.8973
+
+
+ytestarr =
+
+    1.0000   -1.0108
+
+
+norm =
+
+   30.1622
+
+
+errorarray =
+
+         0  -42.4287
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution3.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>         Actual      </strong><strong>        Expected     </strong><strong>          Error      </strong><strong>     RelativeError  </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>________________</strong>    <strong>____________________</strong>
+        
+            2        -43.8973106866578    -1.01079006197098    -42.8865206246869    42.4287121907991    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000 -43.897310686657846
+    Expected double:
+           1.000000000000000  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',51,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution3) at 51</a>
+================================================================================
+
+yheun =
+
+    1.0000  -43.8973
+
+
+ytestarr =
+
+    1.0000   -1.0108
+
+
+norm =
+
+   30.1622
+
+
+errorarray =
+
+         0  -42.4287
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution3.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>         Actual      </strong><strong>        Expected     </strong><strong>          Error      </strong><strong>     RelativeError  </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>________________</strong>    <strong>____________________</strong>
+        
+            2        -43.8973106866578    -1.01079006197098    -42.8865206246869    42.4287121907991    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000 -43.897310686657846
+    Expected double:
+           1.000000000000000  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',53,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution3) at 53</a>
+================================================================================
+
+yrk =
+
+   1.0e+03 *
+
+    0.0010   -1.7028
+
+
+ytestarr =
+
+    1.0000   -1.0108
+
+
+norm =
+
+   1.1969e+03
+
+
+errorarray =
+
+   1.0e+03 *
+
+         0   -1.6837
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution3.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>         Actual      </strong><strong>        Expected     </strong><strong>          Error      </strong><strong>     RelativeError  </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>________________</strong>    <strong>____________________</strong>
+        
+            2        -1702.84512882598    -1.01079006197098    -1701.83433876401    1683.66746250505    2.22044604925031e-16
+    
+    Actual double:
+           1.0e+03 *
+        
+           0.001000000000000  -1.702845128825983
+    Expected double:
+           1.000000000000000  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',55,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution3) at 55</a>
+================================================================================
+.
+yeuler =
+
+    1.0000         0    0.8415    1.0427    0.0966   -0.6695
+
+
+ytestarr =
+
+    1.0000    0.8035    0.9538    0.7436    0.1502   -1.0108
+
+
+norm =
+
+    0.4569
+
+
+errorarray =
+
+         0    1.0000    0.1178    0.4022    0.3570   -0.3376
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution4.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>          Actual      </strong><strong>        Expected     </strong><strong>           Error       </strong><strong>      RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>__________________</strong>    <strong>_________________</strong>    <strong>___________________</strong>    <strong>__________________</strong>    <strong>____________________</strong>
+        
+            2                         0    0.803498260367072     -0.803498260367072                    -1    2.22044604925031e-16
+            3         0.841470984807897     0.95380754323836     -0.112336558430464    -0.117776965832184    2.22044604925031e-16
+            4          1.04269499336001    0.743638851851789      0.299056141508218     0.402152389918193    2.22044604925031e-16
+            5        0.0966021522418493    0.150235602951416    -0.0536334507095666    -0.356995609934823    2.22044604925031e-16
+            6        -0.669532318883836    -1.01079006197098      0.341257743087148    -0.337614857848636    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000                   0   0.841470984807897   1.042694993360007   0.096602152241849  -0.669532318883836
+    Expected double:
+           1.000000000000000   0.803498260367072   0.953807543238360   0.743638851851789   0.150235602951416  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',66,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution4) at 66</a>
+================================================================================
+The identifier was: 
+MATLAB:class:InvalidHandleThere was an error! The message was: 
+Invalid or deleted object.
+ytrap =
+
+    1.0000    0.9207    0.9541    0.5700    0.0251   -1.1012
+
+
+ytestarr =
+
+    1.0000    0.8035    0.9538    0.7436    0.1502   -1.0108
+
+
+norm =
+
+    0.1277
+
+
+errorarray =
+
+         0    0.1459    0.0003    0.2335    0.8328   -0.0894
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution4.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>          Actual      </strong><strong>        Expected     </strong><strong>           Error        </strong><strong>       RelativeError    </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>__________________</strong>    <strong>_________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>
+        
+            2         0.920735492403948    0.803498260367072       0.117237232036877        0.14590850760936    2.22044604925031e-16
+            3         0.954130968258594     0.95380754323836    0.000323425020233414    0.000339088343897265    2.22044604925031e-16
+            4          0.56999267801283    0.743638851851789      -0.173646173838959      -0.233508743399502    2.22044604925031e-16
+            5        0.0251222646962669    0.150235602951416      -0.125113338255149      -0.832780884139753    2.22044604925031e-16
+            6         -1.10119664749119    -1.01079006197098     -0.0904065855202025      0.0894415061263214    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000   0.920735492403948   0.954130968258594   0.569992678012830   0.025122264696267  -1.101196647491187
+    Expected double:
+           1.000000000000000   0.803498260367072   0.953807543238360   0.743638851851789   0.150235602951416  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',68,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution4) at 68</a>
+================================================================================
+The identifier was: 
+MATLAB:class:InvalidHandleThere was an error! The message was: 
+Invalid or deleted object.
+yheun =
+
+    1.0000    0.9207    0.9541    0.5700    0.0251   -1.1012
+
+
+ytestarr =
+
+    1.0000    0.8035    0.9538    0.7436    0.1502   -1.0108
+
+
+norm =
+
+    0.1277
+
+
+errorarray =
+
+         0    0.1459    0.0003    0.2335    0.8328   -0.0894
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution4.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>          Actual      </strong><strong>        Expected     </strong><strong>           Error        </strong><strong>       RelativeError    </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>__________________</strong>    <strong>_________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>    <strong>____________________</strong>
+        
+            2         0.920735492403948    0.803498260367072       0.117237232036877        0.14590850760936    2.22044604925031e-16
+            3         0.954130968258594     0.95380754323836    0.000323425020233414    0.000339088343897265    2.22044604925031e-16
+            4          0.56999267801283    0.743638851851789      -0.173646173838959      -0.233508743399502    2.22044604925031e-16
+            5        0.0251222646962669    0.150235602951416      -0.125113338255149      -0.832780884139753    2.22044604925031e-16
+            6         -1.10119664749119    -1.01079006197098     -0.0904065855202025      0.0894415061263214    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000   0.920735492403948   0.954130968258594   0.569992678012830   0.025122264696267  -1.101196647491187
+    Expected double:
+           1.000000000000000   0.803498260367072   0.953807543238360   0.743638851851789   0.150235602951416  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',70,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution4) at 70</a>
+================================================================================
+
+yrk =
+
+    1.0000    0.7863    0.9434    0.7180    0.1408   -1.0284
+
+
+ytestarr =
+
+    1.0000    0.8035    0.9538    0.7436    0.1502   -1.0108
+
+
+norm =
+
+    0.0187
+
+
+errorarray =
+
+         0    0.0214    0.0109    0.0345    0.0626   -0.0174
+
+
+================================================================================
+<strong>Verification failed in testClasses/testLODESSolution4.</strong>
+
+    ---------------------
+    Framework Diagnostic:
+    ---------------------
+    <a href="matlab:helpPopup matlab.unittest.TestCase.verifyEqual" style="font-weight:bold">verifyEqual</a> failed.
+    --> The values are not equal using "isequaln".
+    --> The error was not within relative tolerance.
+    --> Failure table:
+            <strong>Index</strong><strong>         Actual      </strong><strong>        Expected     </strong><strong>           Error        </strong><strong>       RelativeError   </strong><strong>     RelativeTolerance  </strong>
+            <strong>_____</strong>    <strong>_________________</strong>    <strong>_________________</strong>    <strong>____________________</strong>    <strong>___________________</strong>    <strong>____________________</strong>
+        
+            2         0.78631839551037    0.803498260367072     -0.0171798648567016    -0.0213813342282199    2.22044604925031e-16
+            3        0.943371788846183     0.95380754323836     -0.0104357543921774    -0.0109411531353023    2.22044604925031e-16
+            4        0.717989268823369    0.743638851851789     -0.0256495830284202    -0.0344919889063735    2.22044604925031e-16
+            5         0.14083244087226    0.150235602951416    -0.00940316207915609    -0.0625894388176213    2.22044604925031e-16
+            6        -1.02836702616913    -1.01079006197098     -0.0175769641981469     0.0173893322257965    2.22044604925031e-16
+    
+    Actual double:
+           1.000000000000000   0.786318395510370   0.943371788846183   0.717989268823369   0.140832440872260  -1.028367026169131
+    Expected double:
+           1.000000000000000   0.803498260367072   0.953807543238360   0.743638851851789   0.150235602951416  -1.010790061970984
+
+    ------------------
+    Stack Information:
+    ------------------
+    In <a href="matlab:opentoline('/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m',72,1)">/Users/paulaoanan/School/cas741/Project/cas741/src/testing/testClasses.m (testClasses.testLODESSolution4) at 72</a>
+================================================================================
+.
+Done testClasses
+__________
+
+Failure Summary:
+
+     Name                            Failed  Incomplete  Reason(s)
+    =============================================================================
+     testClasses/testLODESSolution1    X                 Failed by verification.
+    -----------------------------------------------------------------------------
+     testClasses/testLODESSolution2    X                 Failed by verification.
+    -----------------------------------------------------------------------------
+     testClasses/testLODESSolution3    X                 Failed by verification.
+    -----------------------------------------------------------------------------
+     testClasses/testLODESSolution4    X                 Failed by verification.
+    
+
+result = 
+
+  1×4 <a href="matlab:helpPopup matlab.unittest.TestResult" style="font-weight:bold">TestResult</a> array with properties:
+
+    Name
+    Passed
+    Failed
+    Incomplete
+    Duration
+    Details
+
+Totals:
+   0 Passed, 4 Failed, 0 Incomplete.
+   12.6715 seconds testing time.
+

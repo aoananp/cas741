@@ -47,7 +47,7 @@ try
         ylabel('y');
         legend('ODE45', 'LODES');
         if(toSave)
-            saveas(gcf, 'LODESvsMATLABPlot.jpg')
+            saveas(gcf, strcat(num2str(ODE_method),'LODESvsMATLABPlot.jpg'))
         end
         %Display norm error plot
         figure('Name', '% Spline Relative Error', 'NumberTitle', 'off')
@@ -57,7 +57,7 @@ try
         ylabel('% error');
         ylim([0 100])
         if(toSave)
-            saveas(gcf, 'RelativeErrorPlot.jpg')
+            saveas(gcf, strcat(num2str(ODE_method),'RelativeErrorPlot.jpg'))
         end
     end
     if displayResult
