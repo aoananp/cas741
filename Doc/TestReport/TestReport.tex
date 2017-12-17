@@ -646,7 +646,10 @@ Unit testing was performed and the results and execution are the similar
 on the level of Functional Requirement as described in Section \ref{sec_fr}
 since the library is only of one level.\\
 
-Further unit testing can be explored in the future.
+Further unit testing can be explored in the future.\\
+
+Unit testing of the modules implemented by MATLAB and the Operating System (OS)
+has been deemed unnecessary due to proof of use.
 
 \section{Changes Due to Testing} \label{sec_changes}
 
@@ -702,30 +705,39 @@ modules in the Module Guide (MG).
   \hline	
   \textbf{Test Number} & \textbf{MG Modules}\\
   \hline 
-   T1& IM1, O1, O2, O3, O4, O5\\ \hline
-   T2& IM1, O1, O2, O3, O4, O5\\ \hline
-   T3& IM1, O1, O2, O3, O4, O5\\ \hline
-   T4& IM1, O1, O2, O3, O4, O5\\ \hline
-   T5& IM2, O1, O2, O3, O4, O5\\ \hline
-   T6& IM2, O1, O2, O3, O4, O5\\ \hline
-   T7& IM2, O1, O2, O3, O4, O5\\ \hline
-   T8& IM2, O1, O2, O3, O4, O5\\ \hline
-   T9& IM3, O1, O2, O3, O4, O5\\ \hline
-   T10& IM3, O1, O2, O3, O4, O5\\ \hline
-   T11& IM3, O1, O2, O3, O4, O5\\ \hline
-   T12& IM3, O1, O2, O3, O4, O5\\ \hline
-   T13& IM4, O1, O2, O3, O4, O5\\ \hline
-   T14& IM4, O1, O2, O3, O4, O5\\ \hline
-   T15& IM4, O1, O2, O3, O4, O5\\ \hline
-   T16& IM4, O1, O2, O3, O4, O5\\ \hline
-   T17& NFR1\\ \hline
-   T18& NFR2\\ \hline
+   T1& M1, M2, M3, M4, M5\\ \hline
+   T2& M1, M2, M3, M4, M5\\ \hline
+   T3& M1, M2, M3, M4, M5\\ \hline
+   T4& M1, M2, M3, M4, M5\\ \hline
+   T5& M1, M2, M3, M4, M6\\ \hline
+   T6& M1, M2, M3, M4, M6\\ \hline
+   T7& M1, M2, M3, M4, M6\\ \hline
+   T8& M1, M2, M3, M4, M6\\ \hline
+   T9& M1, M2, M3, M4, M7\\ \hline
+   T10& M1, M2, M3, M4, M7\\ \hline
+   T11& M1, M2, M3, M4, M7\\ \hline
+   T12& M1, M2, M3, M4, M7\\ \hline
+   T13& M1, M2, M3, M4, M8\\ \hline
+   T14& M1, M2, M3, M4, M8\\ \hline
+   T15& M1, M2, M3, M4, M8\\ \hline
+   T16& M1, M2, M3, M4, M8\\ \hline
+   T17& - \\ \hline
+   T18& - \\ \hline
 
 \end{tabular}\\
 \end{table}
 
 \section{Code Coverage Metrics} \label{sec_ccm}
+The following Code Coverage figure was obtained from MATLAB's 
+Code Coverage Report Tool. Running the test program with in-boundary
+conditions (excluding extraneous scenarios), the code coverage tool
+produces the following results:\\
 
+\begin{figure}[H]
+ \includegraphics[width=\linewidth]{images/CCM}
+  \caption{Code Coverage Tool result.}
+  \label{fig:CCM}
+\end{figure}
 
 \bibliographystyle{plainnat}
 
