@@ -135,9 +135,10 @@ adapted here is called design for change.
   hardware on which the software is running.
 \item[\refstepcounter{acnum} \actheacnum \label{acConstraints}:] The assumptions and constraints
 on the input parameters.
-\item[\refstepcounter{acnum} \actheacnum \label{acLanguage}:] The specific language
-which the software is written in. \wss{There really isn't a way to hide this in
+\item[\refstepcounter{acnum} \actheacnum \label{acLanguage}:] Moved to  UC\ref{ucLanguage}. \wss{There really isn't a way to hide this in
   the design.  If the language changes, everything will have to be rewritten.}
+  \wpa{Moved to unlikely changes.}
+  
 %\item[\refstepcounter{acnum} \actheacnum \label{acStepSize}:] The assumption that
 %the step size $h$ is constant.
 \item[\refstepcounter{acnum} \actheacnum \label{acEulerMethod}:] The implementation
@@ -148,7 +149,12 @@ of the Trapezoidal Method.
 of Heun's Method.
 \item[\refstepcounter{acnum} \actheacnum \label{acRKMethod}:] The implementation
 of the Runge-Kutta Method.
-%\item[\refstepcounter{acnum} \actheacnum \label{acPlot}:] The implementation of plotting data.
+\item[\refstepcounter{acnum} \actheacnum \label{acInput}:] The format of the
+  initial input data.
+\item[\refstepcounter{acnum} \actheacnum \label{acInputParams}:] The format
+of the input parameters.
+\item[\refstepcounter{acnum} \actheacnum \label{acOutput}:] The format of the output data.
+
 \end{description}
 
 \subsection{Unlikely Changes} \label{SecUchange}
@@ -165,18 +171,19 @@ decisions will be changed.
   (Input: Function Call with correctly formatted arguments, Output: File, Memory, and/or Screen).
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] There will always be
 an expected program call with the assumed arguments to the library's modules.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] The format of the
-  initial input data.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucInputParams}:] The format
-of the input parameters.
-\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] The format of the output data.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInput}:] Moved to AC\ref{acInput}.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucInputParams}:] Moved to AC\ref{acInputParams}.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucOutput}:] Moved to AC\ref{acOutput}.
 \item[\refstepcounter{ucnum} \uctheucnum \label{ucGoal}:] The goal of the system is to
 calculate the value of $y_k$ in an ODE Initial Value Problem.
+\item[\refstepcounter{ucnum} \uctheucnum \label{ucLanguage}:] The specific language
+which the software is written in.
 %\item[\refstepcounter{ucnum} \uctheucnum \label{uc}:]
 \end{description}
 
 \wss{Formats are easy to hide.  You should classify these as likely
   (anticipated) changes}
+  \wpa{Moved to Anticipated Changes.}
 
 \section{Module Hierarchy} \label{SecMH}
 
@@ -430,6 +437,7 @@ because they use modules from the lower levels.
 \wss{If module are on the same level of the hierarchy, the picture should
   reflect this.  That is, the Output Format module should be on the same line as
   the other modules.}
+\wpa{Figure has been modified.}
 
 %\section*{References}
 
