@@ -56,7 +56,8 @@ urlcolor=cyan          % color of external links
 \begin{tabularx}{\textwidth}{p{3cm}p{2cm}X}
 \toprule {\bf Date} & {\bf Version} & {\bf Notes}\\
 \midrule
-\today{} & 1.0 & Initial draft.\\
+December 4, 2017 & 1.0 & Initial draft.\\
+\today{} & 1.1 & Addressed comments and initial release.\\
 %Date 2 & 1.1 & Notes\\
 \bottomrule
 \end{tabularx}
@@ -206,6 +207,8 @@ success & - & BOOL & - \\
 
 \wss{Rather than ODE methods being selected by an integer from 1 to 4, why not
   define a new enumerated type with the possible values Euler, Trap, etc.?}
+  \wpa{Comment taken into account, but the design intent was to make it low-level in a sense
+  that string manipulation shall be minimized.}
 
 \subsection{Semantics}
 
@@ -216,8 +219,8 @@ none
 
 \subsubsection{Access Routine Semantics}
 
-\noindent lodes(ODE\_method, ODE\_eq, x\_0, y\_0, x\_k, h, plot):
-\wss{displayResult is missing here}
+\noindent lodes(ODE\_method, ODE\_eq, x\_0, y\_0, x\_k, h, plot, displayResult):
+\wss{displayResult is missing here} \wpa{Thank you - added the variable.}
 
 \begin{itemize}
 
@@ -266,7 +269,7 @@ eqParse
 
 none
 
-\subsection{Syntax}
+\subsection{eqParse}
 
 \begin{center}
 \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
@@ -283,6 +286,7 @@ eq\_OK & - & bool & - \\
 \wss{You misinterpreted the MIS syntax section.  The name is the name of the
   access program and the in and out are the types of the inputs and outputs.
   The name for your syntax section should be eqParse.}
+  \wpa{Thank you - modifications done in the document.}
 
 \subsection{Semantics}
 
@@ -313,7 +317,7 @@ euler
 
 None applicable.
 
-\subsection{Syntax}
+\subsection{euler}
 
 \begin{center}
 \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
@@ -325,8 +329,8 @@ x\_0 & $\mathbb{R}$ & - & -\\
 y\_0 & $\mathbb{R}$ & - & -\\
 x\_k & $\mathbb{R}$ & - & -\\
 h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
-x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
-y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+x & - & $\mathbb{R}^n$ & - \\
+y & - & $\mathbb{R}^n$ & - \\
 success & - & BOOL & - \\
 \hline
 \end{tabular}
@@ -334,9 +338,12 @@ success & - & BOOL & - \\
 
 \wss{The notation for a sequence of reals is odd.  It would be easier to
   understand if you just used $\mathbb{R}^n$ for the sequence of real numbers.}
+  \wpa {Thank you - it has been modified.}
 
 \wss{If your constraint on $h$ is violated, what happens?  I would think that
   there would be an exception.}
+  \wpa{This constraint has been discussed in the Interface Module. No error handling
+  is done in this module.}
 
 \subsection{Semantics}
 
@@ -373,7 +380,7 @@ trap
 
 None applicable.
 
-\subsection{Syntax}
+\subsection{trap}
 
 \begin{center}
 \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
@@ -385,8 +392,8 @@ x\_0 & $\mathbb{R}$ & - & -\\
 y\_0 & $\mathbb{R}$ & - & -\\
 x\_k & $\mathbb{R}$ & - & -\\
 h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
-x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
-y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+x & - & $\mathbb{R}^n$ & - \\
+y & - & $\mathbb{R}^n$ & - \\
 success & - & BOOL & - \\
 \hline
 \end{tabular}
@@ -429,7 +436,7 @@ heun
 
 None applicable.
 
-\subsection{Syntax}
+\subsection{heun}
 
 \begin{center}
 \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
@@ -441,8 +448,8 @@ x\_0 & $\mathbb{R}$ & - & -\\
 y\_0 & $\mathbb{R}$ & - & -\\
 x\_k & $\mathbb{R}$ & - & -\\
 h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
-x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
-y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+x & - & $\mathbb{R}^n$ & - \\
+y & - & $\mathbb{R}^n$ & - \\
 success & - & BOOL & - \\
 \hline
 \end{tabular}
@@ -483,7 +490,7 @@ rk
 
 None applicable.
 
-\subsection{Syntax}
+\subsection{rk}
 
 \begin{center}
 \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
@@ -495,8 +502,8 @@ x\_0 & $\mathbb{R}$ & - & -\\
 y\_0 & $\mathbb{R}$ & - & -\\
 x\_k & $\mathbb{R}$ & - & -\\
 h & h such that h $\in \mathbb{R}$ and h $> 0$ & - & -\\
-x & - & [1 x $n$] $\in \mathbb{R}$ & - \\
-y & - & [1 x $n$] $\in \mathbb{R}$ & - \\
+x & - & $\mathbb{R}^n$ & - \\
+y & - & $\mathbb{R}^n$ & - \\
 success & - & BOOL & - \\
 \hline
 \end{tabular}
@@ -542,7 +549,7 @@ output
 
 Hardware Hiding (Section \ref{modHWH})
 
-\subsection{Syntax}
+\subsection{output}
 
 \begin{center}
 \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
@@ -591,7 +598,7 @@ hardwarehiding
 
 none
 
-\subsection{Syntax}
+\subsection{hardwarehiding}
 
 \begin{center}
 \begin{tabular}{p{4cm} p{4cm} p{4cm} p{2cm}}
@@ -625,6 +632,12 @@ outputToScreen(x); \text{\%display array on screen}
   between your code and the file system and the screen.  I would expect the
   output related environment variables to be in your output module.  In this way
   you can hide the details of the hardware hiding module.}
+  
+ \wpa{The Hardware Hiding Module uses the same variables
+ as the Output Module. The intent of this module is to bridge the gap
+ between the OS and HW implementation with LODES.
+ I am not familiar with the environment variables for MATLAB and MacOS (i.e. pixels, registry addresses, etc.)
+ I will look into it further in the next revision of the MIS.}
 
 \newpage
 
