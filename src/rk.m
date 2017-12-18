@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Module: Runge-Kutta 4 ODE Module
+% Created by: Paul Aoanan
+% Properties: This module contains the logic for the ODE Solver using the Runge-Kutta 4 Method
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [xarr, yarr, success] = rk(f, x_0, y_0, x_k, h)
 success = false;
 syms x y;

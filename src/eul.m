@@ -1,3 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Module: Euler ODE Solver Module
+% Created by: Paul Aoanan
+% Properties: This module contains the logic for the ODE Solver using
+% Euler's Method.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [xarr, yarr, success] = eul(f, x_0, y_0, x_k, h)
 success = false;
 syms x y;

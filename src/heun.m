@@ -1,3 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Module: Heun ODE Solver Module
+% Created by: Paul Aoanan
+% Properties: This module contains the logic for the ODE Solver using
+% Heun's Method.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [xarr, yarr, success] = heun(f, x_0, y_0, x_k, h)
 success = false;
 syms x y;

@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Module: Trapezoidal ODE Module
+% Created by: Paul Aoanan
+% Properties: This module contains the logic for the ODE Solver using the Trapezoidal Method
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [xarr, yarr, success] = trap(f, x_0, y_0, x_k, h)
 yahead = 0.0;
 success = false;

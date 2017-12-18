@@ -1,3 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Module: Interface Module
+% Created by: Paul Aoanan
+% Properties: This module contains the interface module for LODES. This
+% module is exposed to the user.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [x, y, success] = lodes(ODE_method, ODE_eq, x_0, y_0, x_k, h, plot, displayResult)
 x = zeros;
 y = zeros;

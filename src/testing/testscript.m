@@ -1,4 +1,9 @@
-%Complete System and Functional Testing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Module: Automated Testing Script
+% Created by: Paul Aoanan
+% Properties: Complete System and Functional Testing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 clc;
 diary('automatedtestoutput.txt');    
 diary on ;

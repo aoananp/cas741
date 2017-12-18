@@ -1,3 +1,10 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Module: LODES Test Module
+% Created by: Paul Aoanan
+% Properties: This module contains the low level functional test logic for
+% LODES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [ylodes, yy, errornorm, splineerror] = lodestest(ODE_method, ODE_eq, x_0, y_0, x_k, h, toPlot, displayResult, toSave)
 %Herein lies the test interface code to be used for the LODES library.
 
