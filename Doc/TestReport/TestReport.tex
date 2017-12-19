@@ -659,8 +659,14 @@ None.
 
 \section{Automated Testing} \label{sec_at}
 
-Automated testing has been performed in Section \ref{sec_comp_exist_imp}.
-These were implemented in MATLAB's Unit Testing Framework.
+Automated testing has been performed in Section \ref{sec_comp_exist_imp} and 
+These were implemented in MATLAB's Unit Testing Framework.\\
+
+The $\varepsilon$ used is based on MATLAB's precision.
+Note that the tests were forced to produce a failure result for MATLAB to
+output the actual vs. expected results table. This provides the reader of this
+Test Report the ability to directly compare the outputs produced by MATLAB's ODE Solver, ODE45(),
+to that of LODES'.
 		
 \section{Trace to Requirements} \label{sec_trace_req}
 
